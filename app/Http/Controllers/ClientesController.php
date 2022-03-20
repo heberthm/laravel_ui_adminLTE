@@ -85,23 +85,23 @@ class ClientesController extends Controller
     {
          
         $validatedData = $request->validate([
-          'cedula' =>    'required|unique:clientes|max:18',
-          'nombre' =>    'required|max:35',
-          'celular' =>   'required|max:26',
-          'direccion' => 'required|max:50',
-          'barrio' =>    'required|max:25',
-          'email' =>     'required|max:50',
+          'cedula'    =>    'required|unique:clientes|max:18',
+          'nombre'    =>    'required|max:35',
+          'celular'   =>    'required|max:26',
+          'direccion' =>    'required|max:50',
+          'barrio'    =>    'required|max:25',
+          'email'     =>    'required|max:50',
         ]);
  
         $save = new Cliente;
  
-        $save -> user_id = $request->userId;
-        $save->cedula = $request->cedula;
-        $save->nombre = $request->nombre;
-        $save->celular = $request->celular;
-        $save->direccion = $request->direccion;
-        $save->barrio = $request->barrio;
-        $save->email = $request->email;
+        $save ->user_id   = $request->userId;
+        $save->cedula     = $request->cedula;
+        $save->nombre     = $request->nombre;
+        $save->celular    = $request->celular;
+        $save->direccion  = $request->direccion;
+        $save->barrio     = $request->barrio;
+        $save->email      = $request->email;
 
  
         $save->save();
