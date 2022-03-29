@@ -116,7 +116,11 @@ FORMULARIO RECEPCION DE PACIENTES
                
                 <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera</h3>
                   <span class="btn-group float-right" id="btn_historialIngresos">
-                                <a class="mr-3" href="javascript:btn_agregarpaciente();"><i class="fas fa-plus" style="color: #1566EB;"></i></a>
+
+                  <span class="btn-group float-right" id="btn_historialIngresos">
+                    <a href="#" class="mr-3" data-toggle="modal" data-target="#modalAgregarListaEspera"><i class="fas fa-plus" style="color: #1566EB;" 
+                    title="Agregar nuevo cliente" ></i></a>
+                  </span>   
 
                                 <a href="#" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
@@ -134,27 +138,18 @@ FORMULARIO RECEPCION DE PACIENTES
                 </div>
                 <div class="card-body">
                     <div class="form-group">
+
+<!--  ============================================
+
+FORMULARIO  CLIENTES PARA AGREGA A LISTA DE ESPERA
+
+================================================== -->
              
        <form id="form_clientes" name="form_clientes" method="POST">
           <!--  SELECT2 PARA LOS CLIENTES -->
-         <div class="row">
-             <div class="col-lg-7">
-                <div class="form-group">
-                   <label>Buscar cliente</label>
-                   <select class="form-control buscar_clientes" id="buscar_clientes" autofocus required tabindex="1"> </select>
-                </div>
-             </div>
-             <!-- SSELECT BUSCAR MÉDICOS  -->        
-             <div class="col-md-5">
-                <div class="form-group">
-                   <label for="CboMedico">Seleccionar responsable</label>
-                   <select class="form-control text-capitalize"  name="CboMedico" id="CboMedico" tabindex="2" onkeypress="return handleEnter(this, event)" required>
-                      <option value="" selected="selected" style='color: #cccccc'></option>
-                    
-                   </select>
-                </div>
-             </div>
-          </div>
+
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        
          <div class="container">
              <div class="row">
                 <input type="hidden" name="TxtPerfil" id="TxtPerfil"  value=" <?php echo ucwords(@$_SESSION["perfil"])?>">
@@ -205,35 +200,41 @@ FORMULARIO RECEPCION DE PACIENTES
                    </div>
                    <input type="hidden" name="TxtFecha" <?php $fecha = date( "Y-m-d")?> value="<?php echo $fecha?>">
                 </div>
-                <!-- BOTONES PARA AGREGAR CLIENTES A LISTA DE ESPERA Y CLIENTES NUEVOS -->
-                <button type="submit" name="agregar" id="agregar" class="btn btn-primary" style="text-align:left, disabled"><span class="fa fa-list fa-fw" tabindex="2"></span> Agregar a lista de espera</button>
-              
+               
               <!--  
                 <button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fa fa-user fa-fw" ></span> Agregar cliente nuevo</button>
               -->  
     </form>
 </div>
 
-       <br> <br> 
-       <!-- DATATABLE LISTA DE ESPERA-->
+       
+<!-- ==================================
+
+DATATABLE LISTA DE ESPERA
+
+====================================== -->
+
+
        <div class="row">
-           <div class="col-lg-8">
+           <div class="col-lg-12">
              <div class="form-group">
-               <table id="Table_listado_espera" class="display nowrap" style="width:100%">
+               <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
                    <thead>
                       <tr>
-                         <tr style="color:#FFFFFF" bgcolor="#719ca5" align="center" class="Titulo_tabla" >
-
-                        
-                         
+                                        
+                         <th>hora</th>
                          <th>Cliente</th>
-                         <th>Celular</th>
-                         <th>dirección</th>
-                         <th>Barrio</th>
+                         <th>mascota</th>
+                         <th>Responsable</th>
                          <th></th>
                       </tr>
-                    </tr>  
-                 </thead>
+                  </thead>
+
+                        <tbody>
+                          <td style="text-align:center;"> <span> No hay citas en lista de espera </span> </td>
+                        </tbody>    
+
+                   
               </table>
          
          
@@ -262,7 +263,7 @@ FORMULARIO RECEPCION DE PACIENTES
 
 <!-- =============================
 
-CALENDAR - AGENDAR CITAS MEDICAS
+CALENDAR - AGENDAR  AGENDA MEDICA
 
 ================================== -->
 
@@ -301,7 +302,9 @@ CALENDAR - AGENDAR CITAS MEDICAS
 
 
 <!-- =======================
-   MODAL FULLCALENDAR 
+
+   MODAL FULLCALENDAR CITAS 
+
  =========================== -->
 
 
@@ -1378,8 +1381,133 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
 
 
+ <!--=====================================
+
+    MODAL AGREGAR CLIENTE A LISTA DE ESPERA
+
+==========================================-->
+
+  
+<div class="modal fade" id="modalAgregarListaEspera" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+          <div class="modal-dialog">
+                
+                <div class="modal-content">
+                
+                    <div class="modal-header">
+                  
+                    <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-user mr-3"></span>Agregar a lista de espera</h5>
+                      <button
+                       type="button" class="close" data-dismiss="modal" aria-label="Close">  <span aria-hidden="true">&times;</span>
+                    
+                      </button>
+                  
+                  </div>
+              
+                    <div class="modal-body">
+                 
+                        
+                    <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
+                    
+              
+                <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
+          
+              
+              
+                <div class="row">
+
+                     <div class="col-6">
+
+                              <div class="form-group">
+              
+                                <label for="cliente" >Cliente</label>
+              
+              
+                                <select class="selectBuscarCliente"  name="selectBuscarCliente" id="selectBuscarCliente" style="width:100%;" required>   </select>
+                                       
+                     
+              
+                              </div>
+                        </div>
+              
+              
+              
+                        <div class="col-6">
+              
+                            
+                              <div class="form-group BuscMascota" style="display:none;">
+              
+                                <label for="mascota">Mascota</label>
+              
+                                <select class="form-control"  name="buscarMascota" id="buscarMascota" style="width:100%;"  required>
+                                            
+              
+                                </select>
+              
+                              </div>
+              
+                          </div>
+              
+                     
+                          <div class="col-12">
+                            <div class="form-group motivoConsulta" style="display:none;">
+                              <label class="control-label">Motivo de consulta</label>
+                              <input type="text" class="form-control motivo" name="motivo" required>
+                            </div>
+                          </div>
+                                  
+
+
+
+                          </div>
+                     
+                          
+              
+                                          
+                        </div>
+              
+                  
+              
+              
+              
+              
+                        <!-- 
+              <div class="form-group">
+              <label for="end" class="col-sm-2 control-label">Fecha final</label>
+              
+              -->
+              
+              
+                  <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
+              
+                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" readonly>  
+                    
+                    
+                <div class="modal-footer">
+        
+                <button type="submit" id="agregar_mascota" name="agregar_mascota" class="btn btn-primary">Guardar</button>
+                <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        
+                </div>
+
+            </div>
+          </div>
+        </div>
+        
+    </form>
+   </div>
+       
+ </div>
+        
+
+
+
+
+
 <!-- =======================================
+
 SELECT2 - BUSQUEDAD DE CLIENTES
+
 ============================================ -->
 
 <script type="text/javascript">
@@ -1460,9 +1588,101 @@ SELECT2 - BUSQUEDAD DE CLIENTES
 
 
 
-<!-- ================================= -->
-<!-- Calendar  -->
-<!-- ================================= -->
+
+<!-- =======================================
+
+SELECTBUSCARCLIENTE - LISTA DE ESPERA
+
+============================================ -->
+
+<script type="text/javascript">
+  $('.selectBuscarCliente').select2({
+    placeholder: 'Buscar cliente...',
+    language: "es",
+    allowClear: true,
+    minimumInputLength: 3,
+    ajax: {
+      // url: '/ajax-autocomplete-search',
+
+      url: '{{ url("/ajax-autocomplete-search") }}',
+
+      dataType: 'json',
+      delay: 250,
+      processResults: function(data) {
+
+
+        return {
+          results: $.map(data, function(item) {
+            return {
+              text: item.nombre,
+              id: item.id_cliente
+            }
+
+            // location.href = '/clientes/' + id
+            // window.location.href =('clientes/id');      
+
+            //  window.location.href =('/clientes'+ item['id']);  
+          })
+
+        };
+
+      },
+
+
+      cache: true,
+
+    }
+
+  });
+  
+  
+  //===================================================
+
+   // SELECT DEPENDIENTES buscarcliente - buscarmascota
+  
+   //===================================================
+
+   $('.selectBuscarCliente').on('change', function() {
+   
+    $.ajaxSetup({
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    
+         let id_cliente = this.value;
+
+         $("#buscarMascota").html('');
+         
+           $.ajax({
+               url: 'buscarmascota',
+               type: 'POST',
+               dataType: 'json',
+               data: {
+                   id_cliente: id_cliente
+               },
+               success: function (data) {
+                      //  $('#buscarMascota').html('<option value="">Seleccinar mascota</option>');
+                          $('.BuscMascota').css("display", "block");
+                          $('.motivoConsulta').css("display", "block");
+                          $('.motivo').focus();
+
+                          $.each(data.mascotas, function(key, value) {
+                            $('#buscarMascota').append('<option value="'+ key.id_cliente +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
+                        });
+                     
+                    }
+     });
+  });   
+</script>
+
+
+
+<!-- ================================= 
+
+  FullCalendar  
+
+ ================================= -->
 
 
 <script>
@@ -2125,7 +2345,6 @@ $(document).ready(function() {
 });
 
 </script>
-
 
 
 

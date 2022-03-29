@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Cliente;
 
-use App\Models\mascota;
-
 
 class Select2SearchController extends Controller
 {
@@ -36,11 +34,12 @@ class Select2SearchController extends Controller
         
     }
 
+
   
     public function mostrarCliente($id_clientes) 
    {
 
-    $id_clientes = cliente::leftJoin('mascotas', 'mascotas.id_cliente', '=', 'clientes.id_cliente')
+    $id_clientes = Cliente::leftJoin('mascotas', 'mascotas.id_cliente', '=', 'clientes.id_cliente')
     ->select('clientes.id_cliente', 'clientes.cedula', 'clientes.nombre', 'clientes.celular', 'clientes.direccion',
     'clientes.barrio', 'clientes.email', 'mascotas.id', 'mascotas.nombre as nombreMascota', 'mascotas.edad',
     'mascotas.sexo', 'mascotas.especie', 'mascotas.raza', 'mascotas.caracteristicas', 'mascotas.color',

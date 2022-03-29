@@ -49,6 +49,9 @@ Route::get('fullcalendareventmaster/update_event',[CalendarController::class,'up
 
 Route::get('cliente/{id}', [Select2SearchController::class,'mostrarCliente'])->name('cliente');
 
+Route::post('buscarmascota', [MascotasController::class,'buscarMascota'])->name('buscarmascota');
+
+
 Route::post('editarCliente/{id_cliente}',[App\Http\Controllers\ClientesController::class ,'update'])->name('editarCliente');
 
 Route::get('mostrarmascotas/{id_clientes}', [App\Http\Controllers\MascotasController::class, 'mostrarMascotas']);

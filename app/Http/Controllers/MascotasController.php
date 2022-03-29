@@ -38,6 +38,16 @@ class MascotasController extends Controller
       
     }
 
+
+
+    public function buscarMascota(Request $request)
+    {
+        $data['mascotas'] = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
+        return response()->json($data);
+    }
+
+
+
     public function mostrarMascotas($id_clientes )
     {
 

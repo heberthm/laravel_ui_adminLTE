@@ -1039,8 +1039,6 @@ EDITAR DATOS DEL CLIENTE
 
 
 
-
-
             $.ajax({
                
                 url: '/editarCliente/' +id_cliente,
