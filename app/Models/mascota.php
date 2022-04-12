@@ -12,8 +12,7 @@ class mascota extends Model
     
 
     protected $fillable = [
-       'user_id','id_cliente','nombre','edad','especie','raza','caracteristicas','color','peso', 'esterilizado','foto',
-     ];
+       'user_id','id_cliente','nombre','edad','especie','raza','caracteristicas','color','peso', 'esterilizado','foto'];
 
      public function cliente()
     {

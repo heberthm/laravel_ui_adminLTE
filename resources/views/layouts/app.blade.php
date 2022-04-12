@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
    
@@ -28,16 +27,13 @@
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
 
 
+
 <!-- Toastr css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
 <!-- x-editable-bs4 css -->
  <link rel="stylesheet"
         href="  https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.4/dist/bootstrap4-editable/css/bootstrap-editable.css">
-
-
-<!-- Jquery countdown -->        
- <link rel="stylesheet" href="http://hilios.github.io/jQuery.countdown/css/main.css">    
 
 
 
@@ -49,9 +45,6 @@
 
 
 
-
-
- 
 <!-- Jquery 3.5 js -->
 <script src='https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js'></script>
 
@@ -207,9 +200,7 @@
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2020 - <?php echo date("Y") ?> <a href="#">hemSoft</a>.</strong> All rights
-        reserved.
-    </footer>
+        <strong>Copyright &copy; 2020 - <?php echo date("Y") ?> <a href="#">hemSoft</a>.</strong> Todos los derechso reservados. </footer>
 </div>
 
 

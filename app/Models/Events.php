@@ -14,9 +14,7 @@ class Events extends Model
      *
      * @var array
      */
-    protected $fillable = [
-       'title','start','end','cliente','mascota','especie','telefono','email','descripcion','medico','color',
-    ];
+    protected $fillable = ['title','start','end','cliente','mascota','especie','telefono','email','descripcion','medico','color'];
 }
 
 

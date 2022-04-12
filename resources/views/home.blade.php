@@ -148,7 +148,7 @@ FORMULARIO  CLIENTES PARA AGREGA A LISTA DE ESPERA
        <form id="form_clientes" name="form_clientes" method="POST">
           <!--  SELECT2 PARA LOS CLIENTES -->
 
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               @csrf 
         
          <div class="container">
              <div class="row">
@@ -264,7 +264,6 @@ DATATABLE LISTA DE ESPERA
 <!-- =============================
 
 CALENDAR - AGENDAR  AGENDA MEDICA
-
 ================================== -->
 
             <div class="card">
@@ -1407,7 +1406,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                     <div class="modal-body">
                  
                         
-                    <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
+                    <form method="POST" id="form_lista_espera" action="{{ url('/mascotas') }}" >
                     
               
                 <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
@@ -1649,10 +1648,18 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
+
+         let $modal = $('#modalAgregarListaEspera');
+         let $form = $modal.find('#form_lista_espera');
     
          let id_cliente = this.value;
+        // let mascota = $('.buscarMascota').html('');
 
          $("#buscarMascota").html('');
+
+        
+              
          
            $.ajax({
                url: 'buscarmascota',
@@ -1662,17 +1669,41 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
                    id_cliente: id_cliente
                },
                success: function (data) {
+                
+
+               
+                  if (data.success) {
                       //  $('#buscarMascota').html('<option value="">Seleccinar mascota</option>');
                           $('.BuscMascota').css("display", "block");
                           $('.motivoConsulta').css("display", "block");
                           $('.motivo').focus();
-
-                          $.each(data.mascotas, function(key, value) {
+                                                            
+                            
+                            $.each(data.mascotas, function(key, value) {
                             $('#buscarMascota').append('<option value="'+ key.id_cliente +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
-                        });
-                     
-                    }
-     });
+                           
+                          }); 
+
+                             
+                        } else {
+
+                          $('.BuscMascota').css("display", "none");
+                          $('.motivoConsulta').css("display", "none");
+                         
+                          toastr["warning"]("El cliente no tiene mascota registrada.", "Información");
+
+                        }  
+
+                                         
+                       
+                      }
+         
+           });   
+
+         
+                
+
+   
   });   
 </script>
 
