@@ -16,12 +16,13 @@ class CreateListadoCitaMedicasTable extends Migration
         Schema::create('listado_cita_medicas', function (Blueprint $table) {
            
             $table->bigIncrements('id');
-            $table->unsignedInteger('id_cliente')->required();
+           
             $table->unsignedInteger('user_id')->required();
             $table->text('cliente',50)->required();
             $table->text('mascota',20)->required();
+            $table->text('especie',20)->required();
             $table->text('motivo_consulta',90)->required();
-            $table->text('especie',40)->required();
+          
             $table->timestamps();
         });
     }

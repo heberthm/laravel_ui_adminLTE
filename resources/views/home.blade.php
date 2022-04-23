@@ -139,73 +139,6 @@ FORMULARIO RECEPCION DE PACIENTES
                 <div class="card-body">
                     <div class="form-group">
 
-<!--  ============================================
-
-FORMULARIO  CLIENTES PARA AGREGA A LISTA DE ESPERA
-
-================================================== -->
-             
-       <form id="form_clientes" name="form_clientes" method="POST">
-          <!--  SELECT2 PARA LOS CLIENTES -->
-
-               @csrf 
-        
-         <div class="container">
-             <div class="row">
-                <input type="hidden" name="TxtPerfil" id="TxtPerfil"  value=" <?php echo ucwords(@$_SESSION["perfil"])?>">
-                <div id="example" class="mostrar_inputs"> 
-                   <input type="text" id="medico" name="medico">
-                   <input type="hidden" id="id_registro" name="id_medico">
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="Id_cliente">Id cliente</label>
-                         <input type="text" name="Id_cliente" id="Id_cliente" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="cedula">Cédula</label>
-                         <input type="text" name="cedula" id="cedula" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-4">
-                      <div class="form-group">
-                         <label for="nombre_cliente">cliente</label>
-                         <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="nombre_mascota">mascota</label>
-                         <input type="text" name="nombre_mascota" id="nombre_mascota" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="telefono">Teléfono</label>
-                         <input type="text" name="telefono" id="telefono" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="Celular">Celular</label>
-                         <input type="text" name="celular" id="celular" class="form-control text-capitalize" onkeypress="return handleEnter(this, event)" required autocomplete="off" readonly>
-                      </div>
-                   </div>
-                   <div class="col-md-2">
-                      <div class="form-group">
-                         <label for="Hora">Hora llegada</label>
-                         <input type="text" name="TxtHora" id="TxtHora" class="form-control" onfocus="window.document.form_reloj.reloj.blur()">
-                      </div>
-                   </div>
-                   <input type="hidden" name="TxtFecha" <?php $fecha = date( "Y-m-d")?> value="<?php echo $fecha?>">
-                </div>
-               
-              <!--  
-                <button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fa fa-user fa-fw" ></span> Agregar cliente nuevo</button>
-              -->  
-    </form>
-</div>
 
        
 <!-- ==================================
@@ -1406,7 +1339,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                     <div class="modal-body">
                  
                         
-                    <form method="POST" id="form_lista_espera" action="{{ url('/mascotas') }}" >
+                    <form method="POST" id="form_lista_espera" action="{{ url('/listado_citas') }}" >
                     
               
                 <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
@@ -1451,7 +1384,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                           <div class="col-12">
                             <div class="form-group motivoConsulta" style="display:none;">
                               <label class="control-label">Motivo de consulta</label>
-                              <input type="text" class="form-control motivo" name="motivo" required>
+                              <input type="text" class="form-control motivo" name="motivo_consulta" required>
                             </div>
                           </div>
                                   
@@ -1479,12 +1412,25 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
               
                   <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
               
-                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" readonly>  
+                   
+
+                  <input type="hidden" name="nombreCliente" class="form-control" id="nombreCliente" >  
+                 
+
+
+                  <div class="form-group especie" style="display:none;">
+                    <select class="form-control"  name="buscarEspecie" id="buscarEspecie" style="width:100%;"  required>
+                                        
+                
+                    </select>
+
+                </div>       
+
                     
                     
                 <div class="modal-footer">
         
-                <button type="submit" id="agregar_mascota" name="agregar_mascota" class="btn btn-primary">Guardar</button>
+                <button type="submit" id="agregar_lista_espera" name="agregar_lista_espera" class="btn btn-primary">Guardar</button>
                 <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         
                 </div>
@@ -1600,6 +1546,8 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
     language: "es",
     allowClear: true,
     minimumInputLength: 3,
+
+    
     ajax: {
       // url: '/ajax-autocomplete-search',
 
@@ -1607,30 +1555,42 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
       dataType: 'json',
       delay: 250,
+
+      
       processResults: function(data) {
 
-
-        return {
+         return {
           results: $.map(data, function(item) {
             return {
-              text: item.nombre,
-              id: item.id_cliente
+              id: item.id_cliente,
+              text: item.nombre
+             
             }
 
+        
+         
             // location.href = '/clientes/' + id
             // window.location.href =('clientes/id');      
 
             //  window.location.href =('/clientes'+ item['id']);  
           })
 
-        };
+          
 
+        };
+      
+        
+        
+       
       },
 
 
       cache: true,
 
     }
+
+
+    
 
   });
   
@@ -1649,18 +1609,18 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
       }
     });
 
+    $("#nombreCliente").val() == "";
+  
+      $('#nombreCliente').val($(".selectBuscarCliente").text());
 
-         let $modal = $('#modalAgregarListaEspera');
-         let $form = $modal.find('#form_lista_espera');
-    
+            //  console.log(selectedtext);
+        
          let id_cliente = this.value;
         // let mascota = $('.buscarMascota').html('');
 
          $("#buscarMascota").html('');
 
-        
-              
-         
+       
            $.ajax({
                url: 'buscarmascota',
                type: 'POST',
@@ -1669,39 +1629,31 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
                    id_cliente: id_cliente
                },
                success: function (data) {
-                
 
+                      
                
-                  if (data.success) {
                       //  $('#buscarMascota').html('<option value="">Seleccinar mascota</option>');
                           $('.BuscMascota').css("display", "block");
                           $('.motivoConsulta').css("display", "block");
                           $('.motivo').focus();
-                                                            
+                                                                           
                             
-                            $.each(data.mascotas, function(key, value) {
-                            $('#buscarMascota').append('<option value="'+ key.id_cliente +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
+                           $.each(data, function(key, value) {
+                           $('#buscarMascota').append('<option value="'+ value.nombre +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
                            
                           }); 
 
-                             
-                        } else {
-
-                          $('.BuscMascota').css("display", "none");
-                          $('.motivoConsulta').css("display", "none");
-                         
-                          toastr["warning"]("El cliente no tiene mascota registrada.", "Información");
-
-                        }  
-
-                                         
+                          $.each(data, function(key, value) {
+                           $('#buscarEspecie').append('<option value="'+ value.especie +'">'+ value.especie+ ' - ' +value.especie +'</option>');
+                           
+                          }); 
+                               
+                               
                        
                       }
          
            });   
-
-         
-                
+ 
 
    
   });   
@@ -2311,6 +2263,89 @@ INSERTAR CLIENTE NUEVO
 
 
 
+ <!-- =========================================
+
+INSERTAR CLIENTE A LISTA DE ESPERA
+
+==============================================  -->
+
+<script type="text/javascript">
+   
+   $(document).ready(function() {
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+
+        $('#form_lista_espera').off('submit').on('submit', function (event) {
+
+      
+  
+      
+
+/* Configurar botón submit con spinner */
+
+        let btn = $('#agregar_lista_espera') 
+        let existingHTML =btn.html() //store exiting button HTML
+        //Add loading message and spinner
+        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
+
+        setTimeout(function() {
+          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
+        },5000) //5 seconds
+
+
+      
+
+            $.ajax({
+              url: "/listado_citas",
+              method: "POST",
+              data: $(this).serialize(),
+              dataType: "json",
+              success: function(data) {
+                
+                
+                   
+                        $('#form_crear_cliente')[0].reset();
+                        $('#modalAgregarCliente').modal('hide');
+                        $('#modalAgregarMascotas').modal('show');
+                   
+                     //   $('#agregar_cliente').attr('disabled', true);
+                        toastr["success"]("los datos se han guardado correctamente", "Información");
+      
+
+                  },
+
+
+                  error: function(response) {
+                    $('#cedulaError').text(response.responseJSON.errors.cedula);
+                    $('#nombreError').text(response.responseJSON.errors.nombre);
+                    $('#celularError').text(response.responseJSON.errors.celular);
+                    $('#direccionError').text(response.responseJSON.errors.direccion);
+                    $('#barrioError').text(response.responseJSON.errors.barrio);
+                    $('#emailError').text(response.responseJSON.errors.email);
+                }
+
+                   
+              });
+
+          });
+
+                  
+
+      });    
+
+  </script>
+
+
+
+
+
+
+
 
 <!-- =========================================
 
@@ -2480,31 +2515,67 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
 // AGREGAR CLIENTE A LISTA DE ESPERA
 //============================================
 
-     
-          $('#form_clientes').off('submit').on('submit', function (event) {
+
+  $('#form_lista_espera').off('submit').on('submit', function (event) {
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+
+/* Configurar botón submit con spinner */
+
+let btn = $('#agregar_lista_espera') 
+        let existingHTML =btn.html() //store exiting button HTML
+        //Add loading message and spinner
+        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
+
+        setTimeout(function() {
+          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
+        },5000) //5 seconds
+
+
+
 
             $('#agregar').attr('disabled', true);
 
             event.preventDefault();
 
+            try {
+
             $.ajax({
-                url: "insertar_datos_tabla.php",
+                url: "/listado_citas",
                 method: "POST",
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(data) {
 
                     $('#agregar').prop("required", true);
-                    $('#CboMedico').val("");
-                    $('#buscar_clientes').empty();
-                    $('#form_clientes')[0].reset();
+                    $('#selectBuscarCliente').val("");
+                    $('#buscarMascotas').empty();
+                    $('.BuscMascota').css("display", "block");
+                    $('.motivoConsulta').css("display", "block");
+                    $('#nombreMascota').val("");
+                    $('#form_lista_espera')[0].reset();
+                    $('#modalAgregarListaEspera').modal('hide');
+                                      
+                   
+
+                    toastr["success"]("Cita registrada correctamente.", "Información");
+
 
                     table.ajax.reload();
 
 
                 }
 
-            });
+             });
+
+            } catch(e) {
+              toastr["danger"]("Se ha presentado un error.", "Información");
+              }
 
         });
 

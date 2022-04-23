@@ -28,7 +28,7 @@ class Select2SearchController extends Controller
                     ->where('user_id', Auth::user()->id)
             		->where('nombre',  'LIKE', "%${search}%" )
                    // ->orWhere('cedula', 'LIKE', "%{$search}%") 
-            		->get();
+            		->get("id_cliente", "cedula", "nombre");
         }
         return response()->json($cliente);
         

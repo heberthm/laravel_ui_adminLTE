@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\listado_cita_medica;
 use Illuminate\Http\Request;
 
+
 class ListadoCitaMedicaController extends Controller
 {
     /**
@@ -35,7 +36,20 @@ class ListadoCitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+          $save = new Listado_cita_medica;
+   
+          $save->user_id     = $request->userId;
+        //  $save->id_cliente  = $request->id_cliente;
+          $save->cliente      = $request->nombreCliente;
+          $save->mascota      = $request->buscarMascota;
+          $save->especie      = $request->buscarEspecie;
+          $save->motivo_consulta    = $request->motivo_consulta;
+        //  $save->especie       = $request->especie;
+         
+   
+          $save->save();
+          return response()->json(['success'=>'Successfully']);
     }
 
     /**

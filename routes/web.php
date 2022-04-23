@@ -60,6 +60,7 @@ Route::post('/mascotas',[App\Http\Controllers\MascotasController::class, 'store'
 
 Route::post('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::class, 'destroy']);
 
+Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::class, 'store'])->name('listado_citas');
 
 
 //Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
