@@ -21,7 +21,7 @@ class CreateClientesTable extends Migration
             $table->string('direccion',90)->required();
             $table->string('barrio',60)->nullable();
             $table->string('celular',30)->required();
-            $table->string('email',20)->required();
+            $table->string('email',50)->required();
             $table->softDeletes();
             $table->timestamps();
         });

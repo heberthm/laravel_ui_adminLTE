@@ -212,7 +212,7 @@
 
  <script type="text/javascript">
 
-$('#clock').countdown('2022/03/16 12:34:56')
+$('#clock').countdown('2022/05/16 12:34:56')
 .on('update.countdown', function(event) {
 // var format = '%H:%M:%S';
  if(event.offset.totalDays > 0) {

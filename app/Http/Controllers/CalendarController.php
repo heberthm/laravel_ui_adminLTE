@@ -26,7 +26,7 @@ class CalendarController extends Controller
  
          return Response::json($data);
           }
-        return view('home');
+        return view('inicio');
     }
     
       

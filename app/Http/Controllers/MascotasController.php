@@ -42,9 +42,15 @@ class MascotasController extends Controller
 
     public function buscarMascota(Request $request)
     {
-      
-        $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
-        return response()->json($data);
+     
+        try{
+            $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
+       
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
+
+          return response()->json($data);
      
 
     }
@@ -54,11 +60,17 @@ class MascotasController extends Controller
     public function mostrarMascotas($id_clientes )
     {
 
-       // $id_clientes = Mascota::where('id_cliente',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
+       
+      try{ 
+        // $id_clientes = Mascota::where('id_cliente',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
  
         $id_clientes = Mascota::select('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo')->where('id_cliente', $id_clientes)->get(); 
 
-         return view('cliente', compact('id_clientes'));
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
+
+        return view('cliente', compact('id_clientes'));
 
      /*
         if($request->ajax()){
@@ -92,7 +104,8 @@ class MascotasController extends Controller
      */
     public function store(Request $request)
     {
-       
+      
+      try{  
         $validatedData = $request->validate([
             
             'nombre'           =>    'required|max:20',
@@ -123,9 +136,13 @@ class MascotasController extends Controller
           $save->caracteristicas = $request->caracteristicas;
           $save->foto = $request->foto;
           
-  
-   
+            
           $save->save();
+
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
+
           return response()->json(['success'=>'Successfully']);
            
           
@@ -173,8 +190,13 @@ class MascotasController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $id = Mascota::where('id',$request->id)->delete();
+     try{  
+         $id = Mascota::where('id',$request->id)->delete();
    
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
+
         return response()->json(['success' => true]);
     }
   

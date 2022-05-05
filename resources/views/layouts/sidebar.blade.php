@@ -19,7 +19,7 @@
                with font-awesome or any other icon font library -->
          
                <li class="nav-item has-treeview">
-            <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'nav-link' : 'nav-link' }}">
+            <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? 'nav-link' : 'nav-link' }}">
 
                 <i class="nav-icon fas fa-tachometer-alt green"></i>
                 <p>
@@ -30,7 +30,7 @@
 
 
         <li class="nav-item">
-        <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link' : 'nav-link' }}">
+        <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'nav-link' : 'nav-link' }}">
             <i class="nav-icon fas fa-money-check-alt green"></i>
             <p>
               venta
@@ -40,7 +40,7 @@
 
 
       <li class="nav-item has-treeview">
-        <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+        <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
           <i class="nav-icon fas fa-comment green"></i>
           <p>
@@ -53,7 +53,7 @@
 
       
       <li class="nav-item has-treeview">
-        <a href="{{ route('home', 'home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+        <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
           <i class="nav-icon fas fa-medkit green"></i>
           <p>
@@ -68,7 +68,7 @@
     
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-home green"></i>
+          <i class="nav-icon fas fa-inicio green"></i>
           <p>
            Administración
             <i class="right fas fa-angle-left"></i>
@@ -77,7 +77,7 @@
         <ul class="nav nav-treeview">
 
          <li class="nav-item">
-          <a href="{{ route('home', 'home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+          <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
               <i class="nav-icon fas fa-list-ol green"></i>
               <p>
@@ -88,7 +88,7 @@
 
 
           <li class="nav-item">
-          <a href="{{ route('home', 'home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+          <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
               <i class="nav-icon fas fa-tags green"></i>
               <p>
@@ -99,7 +99,7 @@
           </li>
           
             <li class="nav-item">
-            <a href="{{ route('home', 'home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+            <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
                   <i class="nav-icon fas fa-cogs white"></i>
                   <p>
@@ -113,7 +113,7 @@
         
        
       <li class="nav-item has-treeview">
-        <a href="{{ route('home', 'home') }}" class="nav-link {{ request()->is('home') ? '' : '' }}">
+        <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? '' : '' }}">
 
           <i class="nav-icon fas fa-gift green"></i>
           <p>
@@ -125,16 +125,16 @@
 
 
         <li class="nav-item"> 
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link' : 'nav-link' }}">
-                <i class="{{ request()->routeIs('home') ? 'nav-icon fas fa-building' : 'nav-icon fas fa-building' }}"></i>
+            <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'nav-link' : 'nav-link' }}">
+                <i class="{{ request()->routeIs('inicio') ? 'nav-icon fas fa-building' : 'nav-icon fas fa-building' }}"></i>
                 <p>Empresa</p>
             </a>
        </li>
 
 
        <li class="nav-item"> 
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link' : 'nav-link' }}">
-                <i class="{{ request()->routeIs('home') ? 'nav-icon fas fa-chart-bar green' : 'nav-icon fas fa-chart-bar green' }}"></i>
+            <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'nav-link' : 'nav-link' }}">
+                <i class="{{ request()->routeIs('inicio') ? 'nav-icon fas fa-chart-bar green' : 'nav-icon fas fa-chart-bar green' }}"></i>
                 <p>Estadistica</p>
             </a>
        </li>
@@ -142,8 +142,8 @@
    
        
        <li class="nav-item"> 
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link' : 'nav-link' }}">
-                <i class="{{ request()->routeIs('home') ? 'nav-icon fas fa-graduation-cap orange' : 'nav-icon fas fa-graduation-cap orange' }}"></i>
+            <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'nav-link' : 'nav-link' }}">
+                <i class="{{ request()->routeIs('inicio') ? 'nav-icon fas fa-graduation-cap orange' : 'nav-icon fas fa-graduation-cap orange' }}"></i>
                 <p>Aprender</p>
             </a>
        </li>
@@ -151,8 +151,8 @@
 
        
        <li class="nav-item"> 
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link' : 'nav-link' }}">
-                <i class="{{ request()->routeIs('home') ? 'nav-icon fas fa-credit-card' : 'nav-icon fas fa-credit-card' }}"></i>
+            <a href="{{ route('inicio') }}" class="{{ request()->routeIs('inicio') ? 'nav-link' : 'nav-link' }}">
+                <i class="{{ request()->routeIs('inicio') ? 'nav-icon fas fa-credit-card' : 'nav-icon fas fa-credit-card' }}"></i>
                 <p>Pagar</p>
             </a>
        </li>

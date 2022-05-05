@@ -1009,21 +1009,20 @@ EDITAR DATOS DEL CLIENTE
 
 <script>
     $(document).ready(function() {
-    // Update Data
+      
+      $('#form_editar_cliente').off('submit').on('submit', function (e) {
+           
+          e.preventDefault();
+
+          //  let id_cliente = $('#id_cliente').val();
+
+           // Update Data
 
         $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
-
-        $('#form_editar_cliente').off('submit').on('submit', function (e) {
-           
-            e.preventDefault();
-
-          //  let id_cliente = $('#id_cliente').val();
 
                       
 /* Configurar botón submit con spinner */
@@ -1037,7 +1036,7 @@ EDITAR DATOS DEL CLIENTE
           $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
         },5000) //5 seconds
 
-
+       
 
             $.ajax({
                
@@ -1199,7 +1198,7 @@ $(document).ready(function() {
 
 
 function estado_prueba() {
-    let fecha_termino = '2022-03-19';
+    let fecha_termino = '2022-05-19';
     let prueba = '0';
     let estado = '1';
 

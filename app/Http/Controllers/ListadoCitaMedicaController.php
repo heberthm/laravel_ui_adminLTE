@@ -36,20 +36,23 @@ class ListadoCitaMedicaController extends Controller
      */
     public function store(Request $request)
     {
-       
-          $save = new Listado_cita_medica;
-   
-          $save->user_id     = $request->userId;
-        //  $save->id_cliente  = $request->id_cliente;
-          $save->cliente      = $request->nombreCliente;
-          $save->mascota      = $request->buscarMascota;
-          $save->especie      = $request->buscarEspecie;
-          $save->motivo_consulta    = $request->motivo_consulta;
-        //  $save->especie       = $request->especie;
+      try {
+            $save = new Listado_cita_medica;
+    
+            $save->user_id     = $request->userId;
+            //  $save->id_cliente  = $request->id_cliente;
+            $save->cliente      = $request->selectBuscarCliente;
+            $save->mascota      = $request->buscarMascota;
+            $save->especie      = $request->buscarEspecie;
+            $save->motivo_consulta    = $request->motivo_consulta;
+            //  $save->especie       = $request->especie;
          
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
    
-          $save->save();
-          return response()->json(['success'=>'Successfully']);
+            $save->save();
+            return response()->json(['success'=>'Successfully']);
     }
 
     /**

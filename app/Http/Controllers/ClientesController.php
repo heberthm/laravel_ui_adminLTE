@@ -23,7 +23,7 @@ class ClientesController extends Controller
      */
     public function showTable()
     {
-        return view('home');
+        return view('inicio');
     }
 
 
@@ -44,7 +44,7 @@ class ClientesController extends Controller
 
             ->make(true);
         }
-        return view('home');
+        return view('inicio');
 
       /** 
         if ($request->ajax()) {
@@ -93,6 +93,7 @@ class ClientesController extends Controller
           'email'     =>    'required|max:50',
         ]);
  
+        try {
         $save = new Cliente;
  
         $save ->user_id   = $request->userId;
@@ -103,10 +104,13 @@ class ClientesController extends Controller
         $save->barrio     = $request->barrio;
         $save->email      = $request->email;
 
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
  
         $save->save();
         return response()->json(['success'=>'Successfully']);
-       // return redirect('home');
+       // return redirect('inicio');
 
     }
 
@@ -143,6 +147,8 @@ class ClientesController extends Controller
      
     public function update(Request $request, $id_cliente)
     { 
+      
+      try{
         $id = array('id_cliente' => $request->id_cliente);
         $updateArray = [
                         'cedula' => $request->cedula,
@@ -156,6 +162,10 @@ class ClientesController extends Controller
           
           $id_cliente  = Cliente::where($id)->update($updateArray);
  
+        } catch (\Exception  $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
+
           return response()->json(['success'=>'Successfully']);
      
          /*
