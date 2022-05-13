@@ -1442,7 +1442,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                 <div class="modal-footer">
         
                 <button type="submit" id="agregar_lista_espera" name="agregar_lista_espera" class="btn btn-primary">Guardar</button>
-                <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="salir" class="btn btn-secondary salir" data-dismiss="modal">Cerrar</button>
         
                 </div>
 
@@ -1508,7 +1508,7 @@ SELECT2 - BUSQUEDAD DE CLIENTES
   
   
   //================================================
-   // SELECT2 - PASAR VALORES A VIEW BLADE - CLIENTE
+   // SELECT2 - PASAR VAlORES A VIEW BLADE - CLIENTE
   //================================================
 
   $('#livesearch').off('change').on('change', function() {
@@ -1519,7 +1519,7 @@ SELECT2 - BUSQUEDAD DE CLIENTES
       }
     });
 
-    let id = $(this).val();
+    let id = $(this).html();
 
     $.ajax({
      
@@ -1544,7 +1544,6 @@ SELECT2 - BUSQUEDAD DE CLIENTES
 
 
 
-
 <!-- =======================================
 
 SELECTBUSCARCLIENTE - LISTA DE ESPERA
@@ -1553,22 +1552,23 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
 <script type="text/javascript">
   $('.selectBuscarCliente').select2({
+  //  allowClear: true,
     placeholder: 'Buscar cliente...',
     language: "es",
-    allowClear: true,
     minimumInputLength: 3,
 
     
     ajax: {
-      // url: '/ajax-autocomplete-search',
-
-      url: '{{ url("/ajax-autocomplete-search") }}',
+      
+      url: '/ajax-autocomplete-search',
 
       dataType: 'json',
       delay: 250,
 
       
       processResults: function(data) {
+     
+        
 
          return {
           results: $.map(data, function(item) {
@@ -1576,8 +1576,15 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
               text: item.nombre,
               id: item.id_cliente
             
+              
              
             }
+
+            //  $('.selectBuscarCliente').select2('data');
+
+           
+
+          //  $(".selectBuscarCliente").val('').trigger('change');
 
           //  $('.selectBuscarCliente').find(':selected').text();
          
@@ -1591,16 +1598,21 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
         };
       
-        $('.selectBuscarCliente').find(':selected').text();
-        
        
+        $('.selectBuscarCliente').val(null).trigger('change');
+
+       
+       // $('.selectBuscarCliente').find(':selected').text();
+
+      // $('#selectBuscarCliente :selected').text();
+
+             
       },
 
 
       cache: true,
 
     }
-
 
     
 
@@ -1613,7 +1625,8 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
   
    //===================================================
 
-   $('.selectBuscarCliente').on('change', function() {
+   $('.selectBuscarCliente').off('change').on('change', function () {
+
    
     $.ajaxSetup({
       headers: {
@@ -1621,22 +1634,16 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
       }
     });
 
-     $("#nombreCliente").val('');
-
-     let cliente = $(".selectBuscarCliente").text();
-  
-      $('#nombreCliente').val(cliente);
-
-            //  console.log(selectedtext);
-        
+       
+         $(".nombreCliente").val('');
+    
+           
          let id_cliente = this.value;
         // let mascota = $('.buscarMascota').html('');
 
          $("#buscarMascota").html('');
          $("#buscarEspecie").html('');
 
-       
-          
        
        
            $.ajax({
@@ -1646,39 +1653,63 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
                data: {
                    id_cliente: id_cliente
                },
+             
+              
                success: function (data) {
 
+                $("#nombreCliente").val('');
+
+                if (data.length > 0) {
+
+                 
+                    
+   
                       
-               
+              
                       //  $('#buscarMascota').html('<option value="">Seleccinar mascota</option>');
                           $('.BuscMascota').css("display", "block");
                           $('.motivoConsulta').css("display", "block");
                           $('.motivo').focus();
 
-                         
-                          
-                                                                           
+                                                                                             
                             
                            $.each(data, function(key, value) {
-                           $('#buscarMascota').append('<option value="'+ value.nombre +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
+                            $('#buscarMascota').append('<option value="'+ value.nombre +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
                            
                           }); 
 
                           $.each(data, function(key, value) {
-                           $('#buscarEspecie').append('<option value="'+ value.especie +'">'+ value.especie+ '</option>');
+                            $('#buscarEspecie').append('<option value="'+ value.especie +'">'+ value.especie+ '</option>');
                            
                           }); 
-                             
-                        
-                               
-                       
-                      }
+                  
 
-                     
-         
-           });   
+                          
+     let cliente = $(".selectBuscarCliente").text();
+  
+  $('#nombreCliente').val(cliente);
  
+  $('.selectBuscarCliente').trigger('change');
+
+
+                                        
+                    }else {
+                           
+                    toastr["warning"]("El cliente no tiene mascotas registradas.", "Información");
+
+                    
+
+                      } 
+                     
+                    }
+                                    
+           });   
+           
+ 
+           //$(".selectBuscarCliente").select2("val", $("#selectBuscarCliente option:contains('Text')").val() );
+   
           
+
    
   });   
 </script>
@@ -1800,12 +1831,12 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
         $('#ModalEdit #mascota').val(event.mascota);
         $('#ModalEdit #especie').val(event.especie);
         $('#ModalEdit #telefono').val(event.telefono);
-       // $('#ModalEdit #email').val(event.email);
+       // $('#ModalEdit #email').html(event.email);
 
         $('#ModalEdit #medico').val(event.medico);
         $('#ModalEdit #descripcion').val(event.descripcion);
           
-      //  $('#ModalEdit #servicios').val(event.title);
+      //  $('#ModalEdit #servicios').html(event.title);
         $('#ModalEdit #titulo').val(event.title);
        
         $('#ModalEdit #color2').val(event.color);
@@ -2150,7 +2181,7 @@ EDITAR DATOS DE FULLCALENDAR
 
         $('#cliente').val(data.cliente);
         $('#mascota').val(data.mascota);
-        $('#especie').val(data.especie);
+        $('#especie').html(data.especie);
         $('#telefono').val(data.telefono);
         $('#descripcion').val(data.descripcion);
        
@@ -2286,91 +2317,6 @@ INSERTAR CLIENTE NUEVO
 
 
 
-
- <!-- =========================================
-
-INSERTAR CLIENTE A LISTA DE ESPERA
-
-==============================================  -->
-
-<script type="text/javascript">
-   
-   $(document).ready(function() {
-
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-
-        $('#form_lista_espera').off('submit').on('submit', function (event) {
-
-      
-  
-      
-
-/* Configurar botón submit con spinner */
-
-        let btn = $('#agregar_lista_espera') 
-        let existingHTML =btn.html() //store exiting button HTML
-        //Add loading message and spinner
-        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
-
-        setTimeout(function() {
-          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
-        },5000) //5 seconds
-
-
-      
-
-            $.ajax({
-              url: "/listado_citas",
-              method: "POST",
-              data: $(this).serialize(),
-              dataType: "json",
-              success: function(data) {
-                
-                
-                   
-                        $('#form_crear_cliente')[0].reset();
-                        $('#modalAgregarCliente').modal('hide');
-                        $('#modalAgregarMascotas').modal('show');
-                   
-                     //   $('#agregar_cliente').attr('disabled', true);
-                        toastr["success"]("los datos se han guardado correctamente", "Información");
-      
-
-                  },
-
-
-                  error: function(response) {
-                    $('#cedulaError').text(response.responseJSON.errors.cedula);
-                    $('#nombreError').text(response.responseJSON.errors.nombre);
-                    $('#celularError').text(response.responseJSON.errors.celular);
-                    $('#direccionError').text(response.responseJSON.errors.direccion);
-                    $('#barrioError').text(response.responseJSON.errors.barrio);
-                    $('#emailError').text(response.responseJSON.errors.email);
-                }
-
-                   
-              });
-
-          });
-
-                  
-
-      });    
-
-  </script>
-
-
-
-
-
-
-
-
 <!-- =========================================
 
 VINCULAR SELECT COLOR CON SERVICIOS - AGREGAR
@@ -2440,21 +2386,6 @@ $(document).ready(function() {
 
 
 
-<script>
-
-
- // document.getElementByName("selectBuscarCliente").addEventListener('keyup', function (event) {
-  $('#selectBuscarCliente').on("select:option", function(e) { 
-
-    var lastText = $("#selectBuscarCliente option:last-child").text();
-    
-    $('#nombreCliente').val(lastText);
-});
- 
-</script>
-
-
-
 
 
 <!-- =====================================================
@@ -2469,10 +2400,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#modalAgregarListaEspera').on('hidden.bs.modal', function () {
    
-      $('#selectBuscarCliente').val('');
-      $('#buscarMascota').val('');
-      $('#buscarEspecie').val('');
-      $('#motivoConsulta').val('');
+      $('#selectBuscarCliente').html('');
+      $('#buscarMascota').html('');
+      $('#buscarEspecie').html('');
+      $('#motivoConsulta').html('');
     
     //  $('.BuscMascota').css("display", "none");
     //  $('.motivoConsulta').hide();
@@ -2480,7 +2411,7 @@ $(document).ready(function() {
       $('#nombreMascota').html('');
       $('#form_lista_espera')[0].reset();
       $('#modalAgregarListaEspera').modal('hide');
-      $("#nombreCliente").val('');
+      $("#nombreCliente").html('');
      // $("#nombreCliente").hide();
   
   
@@ -2489,6 +2420,11 @@ $(document).ready(function() {
 });
 
 </script>
+
+
+
+
+
 
 
 
@@ -2501,8 +2437,8 @@ $(document).ready(function() {
 <script>
 
 $("#buscarMascota").change(function() {
-  let val2 = $("#buscarMascota").data("buscarEspecie").text();
-    $("#buscarEspecie").val(val2);
+  let html2 = $("#buscarMascota").data("buscarEspecie").text();
+    $("#buscarEspecie").html(html2);
   });
 
 
@@ -2531,10 +2467,23 @@ $(document).ready(function() {
   });
 });
 
+
+
+
 </script>
 
 
+<script>
 
+$(document).ready(function() {
+  $('.selectBuscarCliente').on("select2:close", function(e){
+         $('.nombreCliente').val('');
+    
+
+  });
+});
+
+</script>
 
 
 
@@ -2653,17 +2602,17 @@ let btn = $('#agregar_lista_espera')
                 success: function(data) {
 
                     $('#agregar').prop("required", true);
-                    $('#selectBuscarCliente').val("");
+                   // $('#selectBuscarCliente').html("");
                     $('#buscarMascotas').empty();
                     $('.BuscMascota').css("display", "block");
                     $('.motivoConsulta').css("display", "block");
-                    $('#nombreMascota').val("");
+                    $('#nombreMascota').html("");
                     $('#form_lista_espera')[0].reset();
                     $('#modalAgregarListaEspera').modal('hide');
-                    $("#nombreCliente").val('');
+                    $("#nombreCliente").html('');
   
-                                      
-                   
+                    $('.selectBuscarCliente').val('').trigger('change');
+                                       
 
                     toastr["success"]("Cita registrada correctamente.", "Información");
 
