@@ -41,7 +41,7 @@ class ListadoCitaMedicaController extends Controller
     
             $save->user_id     = $request->userId;
             //  $save->id_cliente  = $request->id_cliente;
-            $save->cliente      = $request->selectBuscarCliente;
+            $save->cliente      = $request->nombreCliente;
             $save->mascota      = $request->buscarMascota;
             $save->especie      = $request->buscarEspecie;
             $save->motivo_consulta    = $request->motivo_consulta;
