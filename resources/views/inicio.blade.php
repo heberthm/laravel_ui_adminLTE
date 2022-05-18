@@ -68,6 +68,14 @@ BUSCADOR DE CLIENTES - SELECT2
                     
                     <h3 class="card-title"><span style="color: #28a745;" class="fas fa-search mr-3"></span>Buscador</h3>
 
+                     <button type="button" class="btn btn-sm btn-primary mt-3 mr-2" style="position: absolute; top: 0; left: 260px">
+                     Ver hospitalizados
+                    </button>
+
+                    <button type="button" class="btn btn-sm btn-primary mt-3 mr-2" style="position: absolute; top: 0; left: 400px">
+                     Ver en seguimiento
+                    </button>
+
                     <span class="btn-group float-right" id="btn-group-buscar">
                         <a href="#" class="btn dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
@@ -1575,7 +1583,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
             return {
               text: item.nombre,
               id: item.id_cliente
-            
+             
               
              
             }
@@ -1599,8 +1607,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
         };
       
        
-        $('.selectBuscarCliente').val(null).trigger('change');
-
+        
        
        // $('.selectBuscarCliente').find(':selected').text();
 
@@ -1628,6 +1635,8 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
    $('.selectBuscarCliente').off('change').on('change', function () {
 
    
+   
+
     $.ajaxSetup({
       headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1635,17 +1644,17 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
     });
 
        
-         $(".nombreCliente").val('');
+        
     
            
          let id_cliente = this.value;
         // let mascota = $('.buscarMascota').html('');
 
+       
          $("#buscarMascota").html('');
          $("#buscarEspecie").html('');
-
-       
-       
+         
+             
            $.ajax({
                url: 'buscarmascota',
                type: 'POST',
@@ -1657,20 +1666,16 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
               
                success: function (data) {
 
-                $("#nombreCliente").val('');
+
+              
 
                 if (data.length > 0) {
-
-                 
-                    
-   
-                      
-              
+      
                       //  $('#buscarMascota').html('<option value="">Seleccinar mascota</option>');
                           $('.BuscMascota').css("display", "block");
                           $('.motivoConsulta').css("display", "block");
                           $('.motivo').focus();
-
+      
                                                                                              
                             
                            $.each(data, function(key, value) {
@@ -1684,21 +1689,28 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
                           }); 
                   
 
+                          $('#nombreCliente').val('');
+                         
+                          let cliente = '';
+                         
+
+                                                   
+                           cliente = $(".selectBuscarCliente").text();
+
+                           $('#nombreCliente').val(cliente);
+                              
+                           
+                                            
+                         
+                           
                           
-     let cliente = $(".selectBuscarCliente").text();
-  
-  $('#nombreCliente').val(cliente);
- 
-  $('.selectBuscarCliente').trigger('change');
-
-
+                          
                                         
                     }else {
                            
-                    toastr["warning"]("El cliente no tiene mascotas registradas.", "Información");
+                    toastr["warning"]("El cliente no tiene mascotas registradas.");
 
                     
-
                       } 
                      
                     }
@@ -1706,13 +1718,33 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
            });   
            
  
-           //$(".selectBuscarCliente").select2("val", $("#selectBuscarCliente option:contains('Text')").val() );
-   
-          
+                //  $(".selectBuscarCliente").select2("val", $("#selectBuscarCliente option:contains('Text')").val() );
+
 
    
   });   
 </script>
+
+
+
+
+<!-- ================================= 
+
+RESET SELECT2: selectBuscarCliente
+
+ ================================= -->
+
+
+<script>
+
+$('.selectBuscarCliente').on('select2:opening', function (e) { 
+  $('.selectBuscarCliente').html('');
+
+});
+
+
+</script>
+
 
 
 
@@ -1858,7 +1890,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
   
 
   function displayMessage(message) {
-    toastr.success(message, 'Mensaje');
+    toastr.success(message);
   }
 </script>
 
@@ -2059,7 +2091,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
 
   function displayMessage(message) {
-    toastr.success(message, 'Mensaje');
+    toastr.success(message);
   }
 </script>
 
@@ -2070,7 +2102,6 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 INSERTAR DATOS A FULLCALENDAR
 
 ==============================================  -->
-
 
 
 <script type="text/javascript">
@@ -2115,7 +2146,7 @@ INSERTAR DATOS A FULLCALENDAR
 
         //  $("#calendar").fullCalendar("unselect");
 
-          toastr["success"]("Evento guardado correctamente.", "Información");
+          toastr["success"]("Evento guardado correctamente.");
 
 
 
@@ -2196,7 +2227,7 @@ EDITAR DATOS DE FULLCALENDAR
           $('#editar_calendario')[0].reset();
           $('#ModalEdit').modal('hide');
           $('#agenda_modal').modal('hide');
-          toastr["success"]("los datos se han guardado correctamente", "Mensaje");
+          toastr["success"]("los datos se han guardado correctamente");
 
 
 
@@ -2287,7 +2318,7 @@ INSERTAR CLIENTE NUEVO
                         $('#modalAgregarMascotas').modal('show');
                    
                      //   $('#agregar_cliente').attr('disabled', true);
-                        toastr["success"]("los datos se han guardado correctamente", "Información");
+                        toastr["success"]("los datos se han guardado correctamente");
       
 
                   },
@@ -2382,6 +2413,28 @@ $(document).ready(function() {
 
 </script>
 
+
+
+
+<script>
+
+$('.buscarMascota').on('change', function(){
+        var stateID = $(this).val();
+        if(stateID){
+            $.ajax({
+                type:'POST',
+                url:'buscarmascota',
+                data:'state_id='+stateID,
+                success:function(html){
+                    $('#buscarEspecie').html(html);
+                }
+            }); 
+        }else{
+            $('#buscarEspecie').html('<option value="">Seleccione mascota</option>'); 
+        }
+    });
+
+</script>
 
 
 
@@ -2614,7 +2667,7 @@ let btn = $('#agregar_lista_espera')
                     $('.selectBuscarCliente').val('').trigger('change');
                                        
 
-                    toastr["success"]("Cita registrada correctamente.", "Información");
+                    toastr["success"]("Cita registrada correctamente.");
 
 
                     table.ajax.reload();
