@@ -166,13 +166,13 @@ DATATABLE LISTA DE ESPERA
                          <th>hora</th>
                          <th>Cliente</th>
                          <th>mascota</th>
-                         <th>Responsable</th>
+                         <th>Motivo</th>
                          <th></th>
                       </tr>
                   </thead>
 
                         <tbody>
-                          <td style="text-align:center;"> <span> No hay citas en lista de espera </span> </td>
+                        
                         </tbody>    
 
                    
@@ -1467,6 +1467,25 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
 
 
+<!-- =======================================
+
+DESHABILITAR CLICK DERECHO
+
+============================================ -->
+
+<script>
+
+$(document).ready(function () {
+   $("body").on("contextmenu",function(e){
+     return false;
+   });
+});
+
+</script>
+
+
+
+
 
 <!-- =======================================
 
@@ -1516,7 +1535,7 @@ SELECT2 - BUSQUEDAD DE CLIENTES
   
   
   //================================================
-   // SELECT2 - PASAR VAlORES A VIEW BLADE - CLIENTE
+   // SELECT2 - PASAR VALORES A VIEW BLADE - CLIENTE
   //================================================
 
   $('#livesearch').off('change').on('change', function() {
@@ -1527,7 +1546,7 @@ SELECT2 - BUSQUEDAD DE CLIENTES
       }
     });
 
-    let id = $(this).html();
+    let id = $(this).val();
 
     $.ajax({
      
@@ -1548,6 +1567,9 @@ SELECT2 - BUSQUEDAD DE CLIENTES
 
   });
 </script>
+
+
+
 
 
 
@@ -1588,13 +1610,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
              
             }
 
-            //  $('.selectBuscarCliente').select2('data');
-
-           
-
-          //  $(".selectBuscarCliente").val('').trigger('change');
-
-          //  $('.selectBuscarCliente').find(':selected').text();
+          
          
             // location.href = '/clientes/' + id
             // window.location.href =('clientes/id');      
@@ -1634,23 +1650,18 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
    $('.selectBuscarCliente').off('change').on('change', function () {
 
-   
-   
+     
 
     $.ajaxSetup({
       headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-
-       
+   
         
-    
-           
+             
          let id_cliente = this.value;
-        // let mascota = $('.buscarMascota').html('');
-
-       
+              
          $("#buscarMascota").html('');
          $("#buscarEspecie").html('');
          
@@ -1665,9 +1676,6 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
              
               
                success: function (data) {
-
-
-              
 
                 if (data.length > 0) {
       
@@ -1688,6 +1696,7 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
                            
                           }); 
                   
+                        
 
                           $('#nombreCliente').val('');
                          
@@ -1699,11 +1708,6 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
 
                            $('#nombreCliente').val(cliente);
                               
-                           
-                                            
-                         
-                           
-                          
                           
                                         
                     }else {
@@ -1718,8 +1722,6 @@ SELECTBUSCARCLIENTE - LISTA DE ESPERA
            });   
            
  
-                //  $(".selectBuscarCliente").select2("val", $("#selectBuscarCliente option:contains('Text')").val() );
-
 
    
   });   
@@ -1738,6 +1740,7 @@ RESET SELECT2: selectBuscarCliente
 <script>
 
 $('.selectBuscarCliente').on('select2:opening', function (e) { 
+ 
   $('.selectBuscarCliente').html('');
 
 });
@@ -2418,22 +2421,34 @@ $(document).ready(function() {
 
 <script>
 
-$('.buscarMascota').on('change', function(){
-        var stateID = $(this).val();
-        if(stateID){
-            $.ajax({
-                type:'POST',
-                url:'buscarmascota',
-                data:'state_id='+stateID,
-                success:function(html){
-                    $('#buscarEspecie').html(html);
-                }
-            }); 
-        }else{
-            $('#buscarEspecie').html('<option value="">Seleccione mascota</option>'); 
-        }
-    });
+   $(document).ready(function () {
 
+    $('#buscarMascota').off('change').on('change', function () {
+
+     
+      let id_cliente = this.value;
+
+            if(data.length > 0){
+              $.ajax({
+               url: 'buscarmascota',
+               type: 'POST',
+               dataType: 'json',
+               data: {
+                   id_cliente: id_cliente
+               },
+                    success:function(data){
+                       
+                       
+                      $.each(data, function(key, value) {
+                            $('#buscarEspecie').append('<option value="'+ value.especie +'">'+ value.especie+ '</option>');
+                           
+                          }); 
+                    }
+                }); 
+            }
+        });
+      });
+      
 </script>
 
 
@@ -2481,28 +2496,6 @@ $(document).ready(function() {
 
 
 
-<!-- =====================================================
-
- FUNCIÓN PARA ENLAZAR DOS SELECT
- 
- ======================================================== -->
-
-<script>
-
-$("#buscarMascota").change(function() {
-  let html2 = $("#buscarMascota").data("buscarEspecie").text();
-    $("#buscarEspecie").html(html2);
-  });
-
-
-
-</script>
-
-
-
-
-
-
 <!-- ================================================
 
  FUNCIÓN FOCUS PARA PRIMER INPUT modalAgregarCliente
@@ -2522,19 +2515,6 @@ $(document).ready(function() {
 
 
 
-
-</script>
-
-
-<script>
-
-$(document).ready(function() {
-  $('.selectBuscarCliente').on("select2:close", function(e){
-         $('.nombreCliente').val('');
-    
-
-  });
-});
 
 </script>
 
@@ -2572,16 +2552,19 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
           
            type: "GET",
            ajax: "{{ url('listado_cliente') }}",
-        
+
+          
            columns: [
-                      
-                    { data: 'nombre', name: 'nombre' },
-                    { data: 'celular', name: 'celular' },
-                    { data: 'direccion', name: 'direccion' },
-                    { data: 'barrio', name: 'barrio' },
+                   
+                    { data: 'created_at', name: 'created_at' },         
+                    { data: 'cliente', name: 'cliente' },     
+                    { data: 'mascota', name: 'mascota' },
+                    { data: 'motivo_consulta', name: 'motivo_consulta' },
+                   
                     {data: 'action', orderable: false},
                  ],
           order: [[0, 'desc']],
+          
 
           "language": {
               "decimal": ",",

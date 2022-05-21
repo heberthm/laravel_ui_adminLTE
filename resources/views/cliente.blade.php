@@ -745,6 +745,27 @@ th, td {
                 
 
 
+
+
+<!-- =======================================
+
+DESHABILITAR CLICK DERECHO
+
+============================================ -->
+
+<script>
+
+$(document).ready(function () {
+   $("body").on("contextmenu",function(e){
+     return false;
+   });
+});
+
+</script>
+
+
+
+
 <script type="text/javascript">
 
 let today = new Date();

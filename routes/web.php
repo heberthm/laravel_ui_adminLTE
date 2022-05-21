@@ -66,4 +66,4 @@ Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::
 //Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
 
 
-//Route::get('listado_cliente', [ClientesController::class, 'index']);
+Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
