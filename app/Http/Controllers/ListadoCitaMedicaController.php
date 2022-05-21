@@ -22,7 +22,11 @@ class ListadoCitaMedicaController extends Controller
                  
           if(request()->ajax()) {
             return datatables()->of(listado_cita_medica::select("user_id", "cliente", "mascota", "motivo_consulta", "created_at")->where('user_id', Auth::user()->id)) 
-          //  ->selectRaw('DateTime(created_at, "HH:mm") as created_at')
+          
+            ->addColumn('created_at', function($row)  {  
+                $date = date("h:i", strtotime($row->created_at));
+                    return $date;
+              })
             ->addColumn('action', 'atencion')
             ->rawColumns(['action'])
             ->addColumn('action', function($atencion) {
