@@ -18,23 +18,28 @@ class ListadoCitaMedicaController extends Controller
     public function index(Request $request)
     {
 
-        if(request()->ajax()) {
-
-          //  $data = listado_cita_medica::where('user_id', Auth::user()->id)->latest()->get();
-         
+       
+                 
           if(request()->ajax()) {
-            return datatables()->of(listado_cita_medica::select('user_id, cliente, mascota, motivo_consulta, created_at')->where('user_id', Auth::user()->id)) 
+            return datatables()->of(listado_cita_medica::select("user_id", "cliente", "mascota", "motivo_consulta", "created_at")->where('user_id', Auth::user()->id)) 
           //  ->selectRaw('DateTime(created_at, "HH:mm") as created_at')
-            ->addColumn('action', 'Editar')
+            ->addColumn('action', 'atencion')
             ->rawColumns(['action'])
-            ->addColumn('action', function($clientes) {
+            ->addColumn('action', function($atencion) {
+               
+                return "<a href='route-for-delete' class='fa fa-stethoscope' style='color:gray' title='Ir a consulta'></a>";
+            })
+
+            ->addColumn('action', 'Eliminar')
+            ->rawColumns(['action'])
+            ->addColumn('action', function($eliminar) {
+               
                 return "<a href='route-for-delete' class='fa fa-trash' style='color:gray' title='eliminar'></a>";
             })
             ->make(true);
         } 
         return view('inicio');
-    }
-
+    
 
 
 
