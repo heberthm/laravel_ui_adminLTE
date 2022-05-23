@@ -31,15 +31,11 @@ class ListadoCitaMedicaController extends Controller
             ->rawColumns(['action'])
             ->addColumn('action', function($atencion) {
                
-                return "<a href='route-for-delete' class='fa fa-stethoscope' style='color:gray' title='Ir a consulta'></a>";
+                return "<a href='route-for-delete' class='fa fa-stethoscope' style='color:gray' title='Ir a consulta'></a>
+                       <a href='route-for-delete' class='fa fa-trash' aria-hidden='true'   title='Eliminar de lista de espera'></a>";
             })
 
-            ->addColumn('action', 'Eliminar')
-            ->rawColumns(['action'])
-            ->addColumn('action', function($eliminar) {
-               
-                return "<a href='route-for-delete' class='fa fa-trash' style='color:gray' title='eliminar'></a>";
-            })
+           
             ->make(true);
         } 
         return view('inicio');

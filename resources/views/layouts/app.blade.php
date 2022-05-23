@@ -169,7 +169,7 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                        <a href="{{ route('perfil_usuario') }}"  class="btn btn-default btn-flat">Perfil</a>
                         <a href="#" class="btn btn-default btn-flat float-right"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Salir

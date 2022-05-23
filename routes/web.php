@@ -39,6 +39,7 @@ Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectS
 //Route::post('fullcalenderAjax', [CalendarController::class, 'ajax']);
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
+Route::get('perfil_usuario',[App\Http\Controllers\UserController::class,'index'])->name('perfil_usuario');
 
  
 Route::get('fullcalendareventmaster',[CalendarController::class,'index']);

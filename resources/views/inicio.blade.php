@@ -116,7 +116,7 @@ FORMULARIO RECEPCION DE PACIENTES
 =========================================  -->
 
  
-<div class="card card-light">
+<div class="card direct-chat direct-chat-primary card-light">
                 <div class="card-header">
                    
                 
@@ -204,7 +204,8 @@ DATATABLE LISTA DE ESPERA
 
 <!-- =============================
 
-CALENDAR - AGENDAR  AGENDA MEDICA
+CALENDAR - AGENDAR   MEDICA
+
 ================================== -->
 
             <div class="card">
