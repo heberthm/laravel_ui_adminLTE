@@ -10,12 +10,11 @@
    
 <!-- DataTable css -->
     <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-
+    <link href="    https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
+   
 
 <!-- SweetAlert2 -->
     <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" />
-
     
 
 
@@ -59,9 +58,11 @@
 
 <!-- DataTable js -->
 <script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script></script>
-<script src='https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js' defer></script>
+<script src='https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap.min.js' defer></script>
 <script src='https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js' defer></script>
-<script src='https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js' defer></script>
+<script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js' defer></script>
+
+<script src='https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap.min.js' defer></script>
 
 
 <!-- x-editable-bs4 -->

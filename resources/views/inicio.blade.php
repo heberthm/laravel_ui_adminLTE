@@ -42,6 +42,19 @@
     left: 40%;
     z-index: 1100;
   }
+
+  .lista-consultas{
+ 
+  height: 270px;
+  margin: 5px auto;
+}
+.scrollable{
+  width:100%;
+  height:250px;
+  overflow-y: scroll;
+  overflow-x: hidden;  
+}
+
 </style>
 
 
@@ -92,6 +105,9 @@ BUSCADOR DE CLIENTES - SELECT2
 
 
                 </div>
+
+                
+
                 <div class="card-body">
                     <div class="form-group">
                         <!-- <label>Buscar:</label>  -->
@@ -115,14 +131,13 @@ FORMULARIO RECEPCION DE PACIENTES
 
 =========================================  -->
 
- 
-<div class="card direct-chat direct-chat-primary card-light">
-                <div class="card-header">
+
+<div class="card card-light">
+             
+    <div class="card-header">
                    
-                
-              
-               
-                <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera</h3>
+                   <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera</h3>
+                  
                   <span class="btn-group float-right" id="btn_historialIngresos">
 
                   <span class="btn-group float-right" id="btn_historialIngresos">
@@ -144,21 +159,23 @@ FORMULARIO RECEPCION DE PACIENTES
                     
 
                 </div>
+              
+              
                 <div class="card-body">
-                    <div class="form-group">
+                   
 
 
        
 <!-- ==================================
-
 DATATABLE LISTA DE ESPERA
-
 ====================================== -->
 
 
        <div class="row">
-           <div class="col-lg-12">
-             <div class="form-group">
+         <div class="col-lg-12">
+         <div class="scrollable">
+
+          
                <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
                    <thead>
                       <tr>
@@ -177,31 +194,26 @@ DATATABLE LISTA DE ESPERA
 
                    
               </table>
-         
-         
-         
-         
-            </div>
+           
+
+              
+            
          </div>
        </div>
       </div>
-   
- 
-        </div>
+
+     </div>
         <!-- /.box -->
-      </div>
+  </div>
       <!-- /.col -->
 
    <!-- /.card -->
-          </section>
+ </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
 
        
-          
-
-
 <!-- =============================
 
 CALENDAR - AGENDAR   MEDICA
