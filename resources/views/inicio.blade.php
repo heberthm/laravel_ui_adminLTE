@@ -2536,30 +2536,17 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $('#Table_listado_espera').DataTable({
 
-    
-      "language": {
-           
-           "loadingRecords": '&nbsp;',
-          
-           "processing": '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> ',
-          
-           "emptyTable": "Ningún dato disponible en esta tabla",
-           
-       },
 
-      rowReorder: {
-            selector: 'td:nth-child'
-        },
-       
-      
+    let table =  $('#Table_listado_espera').DataTable({
+
+  
            processing: true,
            serverSide: true,
-           "paging": false,
-           "info": false,
-           "filter": false,
-            responsive: true,
+           paging: false,
+           info: false,
+           filter: false,
+           responsive: true,
           
            type: "GET",
            ajax: "{{ url('listado_cliente') }}",
@@ -2574,10 +2561,19 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
                    
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                  ],
-          order: [[0, 'desc']],
+        
+                   order: [[0, 'desc']],
           
-
+          
+            "language": {
+                
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
+                           
+                    "emptyTable": "No hay pacientes en lista de espera."
+                    
+                },
        
+     
       
     });
    
@@ -2607,9 +2603,6 @@ let btn = $('#agregar_lista_espera')
           $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
         },5000) //5 seconds
 
-
-
-
             $('#agregar').attr('disabled', true);
 
             event.preventDefault();
@@ -2622,6 +2615,8 @@ let btn = $('#agregar_lista_espera')
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(data) {
+
+                  table.ajax.reload();
 
                     $('#agregar').prop("required", true);
                    // $('#selectBuscarCliente').html("");
@@ -2639,7 +2634,7 @@ let btn = $('#agregar_lista_espera')
                     toastr["success"]("Cita registrada correctamente.");
 
 
-                    table.ajax.reload();
+                   
 
 
                 }
