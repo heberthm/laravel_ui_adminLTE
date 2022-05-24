@@ -697,4 +697,40 @@ body{
     </div>
 </div>
 
+
+
+
+<!-- =======================================
+
+DESHABILITAR CLICK DERECHO
+
+============================================ -->
+
+<script>
+
+$(document).ready(function () {
+   $("body").on("contextmenu",function(e){
+     return false;
+   });
+});
+
+</script>
+
+
+
+<!-- ==========================================
+
+DESHABILITAR TECLAS CRTL, U, F12
+
+===============================================  -->
+
+<script type="text/javascript">
+   $(document).keydown(function (event) {
+    if (event.keyCode == 123) { 
+        return false;
+    }
+});
+</script>
+
+
 @endsection

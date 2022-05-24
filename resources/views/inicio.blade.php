@@ -1486,6 +1486,20 @@ $(document).ready(function () {
 
 
 
+<!-- ==========================================
+
+DESHABILITAR TECLAS CRTL, U, F12
+
+===============================================  -->
+
+<script type="text/javascript">
+   $(document).keydown(function (event) {
+    if (event.keyCode == 123) { 
+        return false;
+    }
+});
+</script>
+
 
 
 <!-- =======================================

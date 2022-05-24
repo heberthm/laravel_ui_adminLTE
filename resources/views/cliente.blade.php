@@ -747,6 +747,7 @@ th, td {
 
 
 
+
 <!-- =======================================
 
 DESHABILITAR CLICK DERECHO
@@ -762,6 +763,23 @@ $(document).ready(function () {
 });
 
 </script>
+
+
+
+<!-- ==========================================
+
+DESHABILITAR TECLAS CRTL, U, F12
+
+===============================================  -->
+
+<script type="text/javascript">
+   $(document).keydown(function (event) {
+    if (event.keyCode == 123) { 
+        return false;
+    }
+});
+</script>
+
 
 
 

@@ -21,7 +21,8 @@ class ListadoCitaMedicaController extends Controller
        
                  
           if(request()->ajax()) {
-            return datatables()->of(listado_cita_medica::select("user_id", "cliente", "mascota", "motivo_consulta", "created_at")->where('user_id', Auth::user()->id)) 
+            return datatables()->of(listado_cita_medica::select("id", "user_id", "cliente", "mascota", "motivo_consulta", "created_at")
+            ->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')) 
           
             ->addColumn('created_at', function($row)  {  
                 $date = date("h:i", strtotime($row->created_at));
