@@ -43,18 +43,6 @@
     z-index: 1100;
   }
 
-  .lista-consultas{
- 
-  height: 270px;
-  margin: 5px auto;
-}
-.scrollable{
-  width:100%;
-  height:250px;
-  overflow-y: scroll;
-  overflow-x: hidden;  
-}
-
 </style>
 
 
@@ -65,7 +53,7 @@
   
 <!-- =============================
 
-BUSCADOR DE CLIENTES - SELECT2
+REGISTRO DE INGRESOS O EGRSOS 
 
 ================================== -->
 
@@ -73,57 +61,29 @@ BUSCADOR DE CLIENTES - SELECT2
 <div class="container-fluid">
 <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7">
+          <section class="col-lg-12">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card card-light">
                 <div class="card-header">
+                   
+                    <h3 class="card-title"><span style="color: #28a745;" class="fas fa-database mr-3"></span>Registros contables</h3>
+               </div>
 
-                    
-                    <h3 class="card-title"><span style="color: #28a745;" class="fas fa-search mr-3"></span>Buscador</h3>
-
-                     <button type="button" class="btn btn-sm btn-primary mt-3 mr-2" style="position: absolute; top: 0; left: 260px">
-                     Ver hospitalizados
-                    </button>
-
-                    <button type="button" class="btn btn-sm btn-primary mt-3 mr-2" style="position: absolute; top: 0; left: 400px">
-                     Ver en seguimiento
-                    </button>
-
-                    <span class="btn-group float-right" id="btn-group-buscar">
-                        <a href="#" class="btn dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                        <span class="fa fa-list"></span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="javascript:btn_buscadorMedico();">Buscador de paciente por médico</a>
-                          <a class="dropdown-item" href="javascript:btn_buscadorMascota();">Buscador de mascota</a>
-                            <a class="dropdown-item" href="javascript:listado_mascotas();">Listado de pacientes</a>
-                          <a class="dropdown-item" href="javascript:listadoClientes();">Listado de clientes</a>
-                          <a class="dropdown-item" href="javascript:historial_registros();">Historial de registros realizados</a>
-                        </div>
-                    </span>
-
-
-                </div>
-
-                
+             
 
                 <div class="card-body">
                     <div class="form-group">
-                        <!-- <label>Buscar:</label>  -->
-                        <select class="livesearch form-control" id="livesearch" name="livesearch"></select>
-                    </div>
-
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fa fa-user fa-fw" tabindex="3"></span> Agregar cliente nuevo</button>
-                </div>
+                    <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fas fa-tags mr-2" tabindex="3"></span> Saldo inicial</button>
+                    <button class="btn btn-outline-info ml-2" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fas fa-plus mr-2" tabindex="3"></span> Ingresos</button>
+                    <button class="btn btn-outline-danger ml-2" data-toggle="modal" data-target="#modalAgregar" style="text-align:left"><span class="fas fa-minus mr-2" tabindex="3"></span> Egresos</button>
+                       
+                  </div>
+                  
+               </div>
             </div>
             <!-- /.card-body -->
        
-           
-
-
-
-
+  
 
 <!-- ====================================
 
@@ -136,15 +96,11 @@ FORMULARIO RECEPCION DE PACIENTES
              
     <div class="card-header">
                    
-                   <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera</h3>
+                   <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Listado de transacciones contables</h3>
                   
                   <span class="btn-group float-right" id="btn_historialIngresos">
 
-                  <span class="btn-group float-right" id="btn_historialIngresos">
-                    <a href="#" class="mr-3" data-toggle="modal" data-target="#modalAgregarListaEspera"><i class="fas fa-plus" style="color: #1566EB;" 
-                    title="Agregar nuevo cliente" ></i></a>
-                  </span>   
-
+                
                                 <a href="#" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                 <span class="fa fa-list"></span><span
@@ -173,9 +129,8 @@ DATATABLE LISTA DE ESPERA
 
        <div class="row">
          <div class="col-lg-12">
-         <div class="scrollable">
-
-          
+                  
+                           
                <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
                    <thead>
                       <tr>
@@ -191,14 +146,10 @@ DATATABLE LISTA DE ESPERA
                         <tbody>
                         
                         </tbody>    
-
                    
-              </table>
-           
-
-              
+               </table>
+                    
             
-         </div>
        </div>
       </div>
 
@@ -213,674 +164,7 @@ DATATABLE LISTA DE ESPERA
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
 
-       
-<!-- =============================
-
-CALENDAR - AGENDAR   MEDICA
-
-================================== -->
-
-            <div class="card">
-            <div class="card card-light">
-                <div class="card-header">
-                    <h3 class="card-title"><span style="color: #28a745;" class="fas fa-calendar mr-3"></span>Agenda de citas</h3>
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#ModalCalendar">
-                        Agregar cita
-                    </button>
-                </div>
-                <div class="card-body">
-                    <div class="container">
-                        <div id="calendar"></div>
-                        <div id="loading" style="display: none;">
-                            <img id="loading-image" src="../img/loader.gif" alt="Cargando..." />
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-
-       
-       
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-
-
-
-
-
-
-<!-- =======================
-
-   MODAL FULLCALENDAR CITAS 
-
- =========================== -->
-
-
- <div class="modal" tabindex="-1" role="dialog" id="ModalCalendar">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-calendar mr-3"></span>Calendario citas</h5>
-
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <div class="container2">
-          <div id='calendar2'></div>
-          <div id="loading2" style="display:none;">
-            <img id="loading-image" src="../img/loader.gif" alt="Cargando..." />
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary">Guardar</button>  -->
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- ===========================================
-
- VENTAMA MODAL FULLCALENDAR - GUARDAR 
-
-================================================ -->
-
-
-
-<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-
-
-
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-edit mr-3"></span>Agendar citas</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-
-
-        <form method="POST" id="users_form" action="{{ url('fullcalendareventmaster/create') }}">
-
-
-
-
-          <div class="row">
-
-            <div class="col-md-6">
-
-              <div class="form-group">
-
-                <label for="title" class="control-label">Cliente &nbsp; 
-
-                  <span class="btn-group float-right" id="btn_historialIngresos">
-                    <a href="#" class="mr-3" data-toggle="modal" data-target="#modalAgregarCliente"><i class="fas fa-plus" style="color: #1566EB;" 
-                    title="Agregar nuevo cliente" ></i></a>
-                  </span>   
-
-                </label>
-
-                <input type="text" name="cliente" class="typeahead form-control text-capitalize" id="cliente"   required autocomplete="off">
-
-              <!--
-                @if ($errors->has('cliente'))
-                    <small class="form-text text-danger"> {{ $errors->first('cliente') }} </small>
-                @endif
-   
-              -->
-
-              </div>
-
-            </div>
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="Mascota" class="control-label">mascota</label>
-
-                <input type="text" name="mascota" class="typeahead form-control text-capitalize" id="mascota" required autocomplete="off">
-
-              </div>
-            </div>
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-              <label for="Especie" class="control-label">Especie</label>
-
-
-        <select class="form-control text-capitalize" name="especie" id="especie" onkeypress="return handleEnter(this, event)" required>
-          
-            <option value="Canino" selected="selected">Canino</option>
-
-            <option value="Felino">Felino</option>
-            <option value="Hamster">Hamster</option>
-            <option value="Ave">Ave</option>
-            <option value="Otro">Otro</option>
-
-        </select> 
-              </div>
-            </div>
-
-
-            <div class="col-md-5">
-
-              <div class="form-group">
-
-                <label for="Telefono" class="control-label">Tel / Cel</label>
-
-                <input type="tel" name="telefono" class="form-control text-capitalize" id="telefono" required onkeypress="return isNumber(event)">
-
-              </div>
-
-            </div>
-
-
-
-
-            <div class="col-md-7">
-
-              <div class="form-group">
-
-                <label for="CboMedico" class="control-label">Médico</label>
-
-
-                <select class="form-control text-capitalize" name="medico" id="medico" onkeypress="return handleEnter(this, event)" required>
-                  <option value="" selected="selected" style='color: #cccccc'>Seleccionar médico</option>
-
-                  <option value="Eduardo Correa medina">Eduardo Correa medina</option>
-                  <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
-
-
-
-                </select>
-
-              </div>
-            </div>
-
-            </div>
-
-
-
-
-         
-
-          <div class="row">
-
-            <div class="col-md-5">
-
-
-              <div class="form-group">
-
-                <label for="Servicios" class="control-label">Servicios</label>
-
-                <select name="servicio" id="servicio" class="form-control text-capitalize" required  onChange="update()">
-
-                  <option value="" style='color: #cccccc'>Seleccionar servicio </option>
-
-                  <option style="color:#1560F6;" value="#1560F6" >Consulta médica</option>
-
-                  <option style="color:#0CA46A;" value="#0CA46A">Procedimiento</option>
-
-                  <option style="color:#840CA4;" value="#840CA4" >Control médico</option>
-
-                  <option style="color: #D51051;" value="#D51051" >Cirugía</option>
-
-                  <option style="color:#FF8C00;" value="#FF8C00">Todo el día </option>
-
-                </select>
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-2">
-
-              <div class="form-group">
-
-                <label for="color" class="control-label">Col</label>
-
-                <input type="color" id="color" name="color" value="#1560F6" class="form-control text-capitalize" required autocomplete="off">
-
-              </div>
-            </div>
-
-
-
-            <div class="col-md-5">
-
-              <div class="form-group">
-
-                <label for="descripcion" class="control-label">Comentario</label>
-
-                <input type="text" name="descripcion" class="form-control" id="descripcion" autocomplete="off">
-              </div>
-            </div>
-
-          </div>
-
-
-
-          <div class="row">
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="hora_ini" class="control-label">Hora ini</label>
-
-                <input type="text" name="hora_ini" class="form-control" id="hora_ini" readonly>
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="hora_fin" class="control-label">Hora fin</label>
-
-                <input type="text" name="end" class="form-control" id="hora_fin" readonly>
-
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="fecha_actual" class=" control-label">Fecha</label>
-
-                <input type="text" name="fecha_actual" class="form-control" id="fecha_actual" readonly>
-
-              </div>
-            </div>
-
-          </div>
-
-
-
-          <!--    <div class="form-group">
-        <label for="start" class="col-sm-2 control-label">Fecha inicial</label>
-  
-      -->
-        <div class="col-sm-10">
-         
-          <input type="hidden" name="start" class="form-control" id="start" readonly>
-         
-        </div>
-
-        
-      		<input type="hidden" id="title" name="title" >
-        
-          <input type="hidden" id="color" >
-
-          <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>
-
-          
-
-          <!-- 
-          <div class="form-group">
-        <label for="end" class="col-sm-2 control-label">Fecha final</label>
-
-  -->
-          <div class="col-sm-10">
-        
-          <input type="hidden" name="end" class="form-control" id="end" readonly>
-        
-        </div>
-    
-      </div>
-
-    
-
-      <!--     
-            
-       <div id="enlace_listado">  
-                          
-            <p><a href="crearClientes.php"><i class="fa fa-user fa-2x"></i>&nbsp; Crear cliente nuevo</a>   </p> 
-                          
-       </div>
-  
-   -->
-
-      <div class="modal-footer">
-
-        <button type="submit" id="agregar_cita" name="agregar_cita" class="btn btn-primary">Guardar</button>
-      
-        <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-</form>
-</div>
-
-</div>
-
-
-
-
-<!-- ===============================================
-
-VENTANA MODAL EDITAR DATOS DEL CALENDARIO
-
-==================================================== -->
-
-
-
-
-<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-
-  <div class="modal-dialog modal-lg">
-  
-  <div class="modal-content">
-  
-  <div class="modal-header">
-   
-      <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-edit mr-3"></span>Editar citas</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-     
-           <span aria-hidden="true">&times;</span>
-     
-        </button>
-    
-      </div>
-
-      <div class="modal-body">
-
-
-        <form method="GET" id="editar_calendario" action="{{ url('fullcalendareventmaster/Update_event/id') }}">
-
-
-
-
-          <div class="row">
-
-            <div class="col-md-6">
-
-              <div class="form-group">
-
-                <label for="title" class="control-label">Cliente</label>
-
-
-                <input type="text" name="cliente" class="form-control text-capitalize" id="cliente"   maxlength="35"  autofocus required autocomplete="off">
-
-              </div>
-
-            </div>
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="Mascota" class="control-label">mascota</label>
-
-                <input type="text" name="mascota" class="typeahead form-control text-capitalize" id="mascota"  maxlength="14"  required autocomplete="off">
-
-              </div>
-            </div>
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="Especie" class="control-label">Especie</label>
-
-                <input type="text" name="especie" class="typeahead form-control text-capitalize" id="especie" required autocomplete="off">
-
-              </div>
-            </div>
-
-
-            <div class="col-md-5">
-
-                <div class="form-group">
-
-                  <label for="Telefono" class="control-label">Tel / Cel</label>
-
-                  <input type="text" name="telefono" class="form-control text-capitalize" id="telefono" required onkeypress="return isNumber(event)">
-
-                </div>
-
-            </div>
-
-
-
-
-
-            <div class="col-md-7">
-
-              <div class="form-group">
-
-                <label for="CboMedico" class="control-label">Médico</label>
-
-
-                <select class="form-control text-capitalize" name="medico" id="medico" onkeypress="return handleEnter(this, event)" required>
-                  <option value="" selected="selected" style='color: #cccccc'>Seleccionar médico</option>
-
-                  <option value="Eduardo Correa medina">Eduardo Correa medina</option>
-                  <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
-
-
-
-                </select>
-
-              </div>
-            </div>
-
-            </div>
-
-
-
-
-         
-
-          <div class="row">
-
-            <div class="col-md-5">
-
-
-              <div class="form-group">
-
-                <label for="Servicios" class="control-label">Servicios</label>
-
-                <select name="servicios" id="servicios" class="form-control text-capitalize" required  onChange="editColor()">
-
-               
-                  <option value="">Seleccione un servicio </option>
-
-                  <option style="color:#1560F6;" value="#1560F6" >Consulta médica</option>
-
-                  <option style="color:#0CA46A;" value="#0CA46A">Procedimiento</option>
-
-                  <option style="color:#840CA4;" value="#840CA4" >Control médico</option>
-
-                  <option style="color: #D51051;" value="#D51051" >Cirugía</option>
-
-                  <option style="color:#FF8C00;" value="#FF8C00">Todo el día </option>
-
-
-
-                </select>
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-2">
-
-              <div class="form-group">
-
-                <label for="color" class="control-label">Color</label>
-
-                <input type="color"  id="color2" name="color"  value="#1560F6" class="form-control text-capitalize" required autocomplete="off">
-
-              </div>
-            </div>
-
-
-
-            <div class="col-md-5">
-
-              <div class="form-group">
-
-                <label for="descripcion" class="control-label">Comentario</label>
-
-                <input type="text" name="descripcion" class="form-control" id="descripcion" autocomplete="off">
-              </div>
-            </div>
-
-          </div>
-
-
-
-          <div class="row">
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="hora_ini" class="control-label">Hora ini</label>
-
-                <input type="text" name="hora_ini" class="form-control" id="hora_ini" readonly>
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="hora_fin" class="control-label">Hora fin</label>
-
-                <input type="text" name="end" class="form-control" id="hora_fin" readonly>
-
-              </div>
-            </div>
-
-
-
-
-
-            <div class="col-md-3">
-
-              <div class="form-group">
-
-                <label for="fecha_actual" class=" control-label">Fecha</label>
-
-                <input type="text" name="fecha_actual" class="form-control" id="fecha_actual" readonly>
-
-              </div>
-            </div>
-
-          </div>
-
-
-
-          <!--    <div class="form-group">
-<label for="start" class="col-sm-2 control-label">Fecha inicial</label>
-
--->
-          <div class="col-sm-10">
-            <input type="hidden" name="start" class="form-control" id="start" readonly>
-          </div>
-
-
-          <input type="hidden" name="titulo" id="titulo" >
-
-
-          <!-- 
-<div class="form-group">
-<label for="end" class="col-sm-2 control-label">Fecha final</label>
-
--->
-          <div class="col-sm-10">
-            <input type="hidden" name="end" class="form-control" id="end" readonly>
-          </div>
-      </div>
-
-
-      <input type="hidden" name="id" class="form-control" id="id" readonly>
-
-     
-
-    <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
-      
-
-      <!--     
-
-<div id="enlace_listado">  
-         
-<p><a href="crearClientes.php"><i class="fa fa-user fa-2x"></i>&nbsp; Crear cliente nuevo</a>   </p> 
-         
-</div>
-
--->
-
-      <div class="modal-footer">
-
-        <button type="submit" id="Editar_cita" name="Editar_cita" class="btn btn-primary">Guardar</button>
-        <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-</form>
-</div>
-
-</div>
-
-
+ 
 
 
 
@@ -900,7 +184,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
   
   <div class="modal-header">
    
-      <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-user mr-3"></span>Agregar cliente</h5>
+      <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-cubes mr-3"></span>Agregar saldo inicial</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
      
            <span aria-hidden="true">&times;</span>
@@ -926,13 +210,13 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
               <div class="form-group"  >
 
-                <label for="Cedula" class="control-label">Cédula</label>
+                <label for="Cedula" class="control-label">saldo inicial</label>
 
 
-                <input type="number" name="cedula" class="form-control" id="cedula" autofocus required autocomplete="off">
+                <input type="number" name="saldo" class="form-control" id="saldo" autofocus required autocomplete="off">
 
              
-                <div class="alert-message" id="cedulaError"></div>
+                <div class="alert-message" id="saldoError"></div>
                  
               </div>
 
@@ -940,15 +224,15 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
 
 
-            <div class="col-md-5">
+            <div class="col-md-4">
 
               <div class="form-group">
 
-                <label for="Nombre" class="control-label">Nombre</label>
+                <label for="Nombre" class="control-label">Responsable</label>
 
-                <input type="text" name="nombre" class="typeahead form-control text-capitalize" id="nombre" required autocomplete="off">
+                <input type="text" name="responsable" class="typeahead form-control text-capitalize" id="responsable" required autocomplete="off">
 
-                 <div class="alert-message" id="nombreError"></div>
+                 <div class="alert-message" id="responsableError"></div>
                 
               </div>
             </div>
@@ -956,93 +240,20 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
 
 
-            <div class="col-md-4">
+            <div class="col-md-5">
               <div class="form-group">
 
-                <label for="telefono" class="control-label">Tel/Cel.</label>
+                <label for="telefono" class="control-label">Descripción</label>
 
-                <input type="text" name="celular" class="form-control" id="celular" required autocomplete="off">
+                <input type="text" name="descripcion" class="form-control" id="descripcion" required autocomplete="off">
                 
-                  <div class="alert-message" id="celularError"></div>
+                  <div class="alert-message" id="descripcionError"></div>
                            
                </div>
             </div>
-
-
-            <div class="col-md-8">
-
-                <div class="form-group">
-
-                  <label for="direccion" class="control-label">Dirección</label>
-
-                  <input type="text" name="direccion" class="form-control text-capitalize" id="direccion" required onkeypress="return isNumber(event)">
-
-                    <div class="alert-message" id="direccionError"></div>
-
-                </div>
-
-            </div>
-
-
-
-
-
-
-
-         
-
-            <div class="col-md-4">
-
-              <div class="form-group">
-
-                <label for="barrio" class="control-label">Barrio</label>
-
-                <input type="text"  id="barrio" name="barrio"  class="form-control text-capitalize" required autocomplete="off">
-
-                <div class="alert-message" id="barrioError"></div>
-
-              </div>
-            </div>
-
-
-
-            <div class="col-md-12">
-
-              <div class="form-group">
-
-                <label for="email" class="control-label">Email</label>
-
-                <input type="email" name="email" class="form-control" id="email" autocomplete="off">
  
-                 <div class="alert-message" id="emailError"></div>
-
-              </div>
             </div>
 
-          </div>
-
-
-
-
-          <!-- 
-<div class="form-group">
-<label for="end" class="col-sm-2 control-label">Fecha final</label>
-
--->
-     
-
-    <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
-      
-
-      <!--     
-
-<div id="enlace_listado">  
-         
-<p><a href="crearClientes.php"><i class="fa fa-user fa-2x"></i>&nbsp; Crear cliente nuevo</a>   </p> 
-         
-</div>
-
--->
 
       <div class="modal-footer">
 
@@ -1303,7 +514,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
               -->
               
               
-                  <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
+                  <input type="hidden" name="userId" class="form-control" id="userId" value="" readonly>  
               
                   <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" readonly>  
                     
@@ -1442,7 +653,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
               -->
               
               
-                  <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
+                  <input type="hidden" name="userId" class="form-control" id="userId" value="  " readonly>  
               
                    
 
@@ -1478,7 +689,31 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
         
 
 
+ 
+<!-- =======================================
 
+MODAL ELIMINAR CITA MEDICA
+
+============================================ -->
+
+ <div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <div class="modal-title">Eliminar</div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 align="center" style="margin:0;">Esta seguro de eliminar la cita?</h4>
+            </div>
+            <div class="modal-footer">
+             <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- =======================================
 
@@ -2593,7 +1828,10 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
           
             "language": {
                 
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
+                processing: 'Procesando...',
+
+                //processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
+                           
                            
                     "emptyTable": "No hay pacientes en lista de espera."
                     
@@ -2658,12 +1896,7 @@ let btn = $('#agregar_lista_espera')
                                        
 
                     toastr["success"]("Cita registrada correctamente.");
-
-
-                   
-
-
-                }
+                 }
 
              });
 
@@ -2673,9 +1906,40 @@ let btn = $('#agregar_lista_espera')
 
         });
 
-    });
+      // Delete article Ajax request.
+
+    
+ let id;
+
+$(document).on('click', '.delete', function(){
+  
+  if(!confirm('seguro de borrar?')) return;
+
+             let id = $(this).data('id');
+          
+
+            $.ajax({
+              url:'eliminar_cita/'+id,
+              method:"delete",
+              data: { id: id},
+              dataType: 'json',
+              success: function (data) {
+                  
+                table.ajax.reload();
+                toastr["success"]("Se ha eliminado la cita correctamente.");
+                
+              }
+
+            });
+          });
+        });
+
+ 
 
 </script>
+
+
+
 
 
 @endsection

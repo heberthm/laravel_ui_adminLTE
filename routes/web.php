@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 
 
-use App\Http\Controllers\Select2SearchController;
-use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\MascotasController;
+
+
+use App\Http\Controllers\Registros_contableController;
 use App\Http\Controllers\Controller;
 
 
@@ -23,10 +23,10 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('inicio');
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
@@ -68,3 +68,6 @@ Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::
 
 
 Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
+
+Route::delete('eliminar_cita/{id}', [App\Http\Controllers\ListadoCitaMedicaController::class, 'destroy'])->name('eliminar_cita');
+

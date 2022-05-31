@@ -155,7 +155,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="../img/avatar4.png"
                          class="user-image img-circle elevation-2" alt="User Image">
-                    <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                    <span class="d-none d-md-inline"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
@@ -164,8 +164,8 @@
                              class="img-circle elevation-2"
                              alt="User Image">
                         <p>
-                            {{ Auth::user()->name }}
-                            <small>Registrado desde:  {{ Auth::user()->created_at->format('M. Y') }}</small>
+                            
+                            <small>Registrado desde:  </small>
                         </p>
                     </li>
                     <!-- Menu Footer-->
@@ -175,7 +175,7 @@
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Salir
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('inicio') }}" " method="POST" class="d-none">
                             @csrf
                         </form>
                     </li>
