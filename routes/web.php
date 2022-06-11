@@ -64,9 +64,9 @@ Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::
 
 Route::get('/registros_contable',[App\Http\Controllers\Registros_contableController::class,'index']);
 
-Route::post('/guardar_registro',[App\Http\Controllers\Registros_contableController::class,'store']);
+Route::post('/guardar_saldo',[App\Http\Controllers\Registros_contableController::class,'store']);
 
-//Route::get('/show_registro',[App\Http\Controllers\Registros_contableController::class,'show_registro'])->name('show_registro');
+Route::post('/agregar_ingreso',[App\Http\Controllers\Registros_contableController::class,'agregar_ingreso'])->name('agregar_ingreso');
 
 
 

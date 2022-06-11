@@ -82,7 +82,7 @@ REGISTRO DE INGRESOS O EGRSOS
                       
                      
                           <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#modalAgregarSaldoInicial" style="text-align:left"><span class="fas fa-tags mr-2" tabindex="3"></span> Saldo inicial</button>
-                          <button class="btn btn-outline-info ml-2" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fas fa-plus mr-2" tabindex="3"></span> Ingresos</button>
+                          <button class="btn btn-outline-info ml-2" data-toggle="modal" data-target="#modalAgregarIngreso" style="text-align:left"><span class="fas fa-plus mr-2" tabindex="3"></span> Ingresos</button>
                           <button class="btn btn-outline-danger ml-2" data-toggle="modal" data-target="#modalAgregar" style="text-align:left"><span class="fas fa-minus mr-2" tabindex="3"></span> Egresos</button>
                           
                      </div>  
@@ -213,7 +213,7 @@ DATATABLE LISTA DE ESPERA
           <div class="alert alert-danger">{{ session('error') }}</div>
           @endif
 
-        <form method="POST" id="form_agregar_saldo" action="{{ url('/guardar_registro') }}" >
+        <form method="POST" id="form_agregar_saldo" action="{{ url('/guardar_saldo') }}" >
 
      <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
 
@@ -320,7 +320,7 @@ DATATABLE LISTA DE ESPERA
           <div class="alert alert-danger">{{ session('error') }}</div>
           @endif
 
-        <form method="POST" id="form_agregar_saldo" action="{{ url('/agregar_ingreso') }}" >
+        <form method="POST" id="form_agregar_ingreso" action="{{ url('/agregar_ingreso') }}" >
 
      <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
 
@@ -378,7 +378,7 @@ DATATABLE LISTA DE ESPERA
 
       <div class="modal-footer">
 
-        <button type="submit" id="agregar_registro" name="agregar_registro" class="btn btn-primary loader">Guardar</button>
+        <button type="submit" id="agregar_ingreso" name="agregar_ingreso" class="btn btn-primary loader">Guardar</button>
         <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
       </div>
@@ -874,7 +874,9 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
    
 
 //============================================
-// AGREGAR CLIENTE A LISTA DE ESPERA
+
+// AGREGAR SALDO INICIAL
+
 //============================================
 
 
@@ -905,7 +907,7 @@ let btn = $('#agregar_registro')
             try {
 
             $.ajax({
-                url: "/guardar_registro",
+                url: "/guardar_saldo",
                 method: "POST",
                 data: $(this).serialize(),
                 dataType: "json",
@@ -961,6 +963,74 @@ $(document).on('click', '.delete', function(){
         });
 
  
+
+          
+
+//============================================
+
+// AGREGAR INGRESO
+//============================================
+
+
+  $('#form_agregar_ingreso').off('submit').on('submit', function (event) {
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+
+/* Configurar botón submit con spinner */
+
+let btn = $('#agregar_ingreso') 
+    let existingHTML =btn.html() //store exiting button HTML
+    //Add loading message and spinner
+    $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
+
+    setTimeout(function() {
+      $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
+    },5000) //5 seconds
+
+        $('#agregar_registro').attr('disabled', true);
+
+        event.preventDefault();
+
+        try {
+
+        $.ajax({
+            url: "/guardar_ingreso",
+            method: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(data) {
+
+              table.ajax.reload();
+
+                $('#agregar_registro').prop("required", true);
+               // $('#selectBuscarCliente').html("");
+               
+                $('#form_agregar_saldo')[0].reset();
+                $('#modalAgregarListaEspera').modal('hide');
+              
+                                   
+
+                toastr["success"]("Datos guardados correctamente.");
+             }
+
+         });
+
+        } catch(e) {
+          toastr["danger"]("Se ha presentado un error.", "Información");
+          }
+
+    });
+
+
+
+
+
+
 
 </script>
 
