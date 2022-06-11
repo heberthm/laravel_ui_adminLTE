@@ -67,19 +67,34 @@ REGISTRO DE INGRESOS O EGRSOS
                 <div class="card-header">
                    
                     <h3 class="card-title"><span style="color: #28a745;" class="fas fa-database mr-3"></span>Registros contables</h3>
+                   
                </div>
 
              
 
                 <div class="card-body">
-                    <div class="form-group">
-                    <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#modalAgregarSaldoInicial" style="text-align:left"><span class="fas fa-tags mr-2" tabindex="3"></span> Saldo inicial</button>
-                    <button class="btn btn-outline-info ml-2" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fas fa-plus mr-2" tabindex="3"></span> Ingresos</button>
-                    <button class="btn btn-outline-danger ml-2" data-toggle="modal" data-target="#modalAgregar" style="text-align:left"><span class="fas fa-minus mr-2" tabindex="3"></span> Egresos</button>
-                       
+
+                  <div class="row">
+                
+                      <div class="col-lg-6">
+                     
+                    
+                      
+                     
+                          <button class="btn btn-outline-success ml-2" data-toggle="modal" data-target="#modalAgregarSaldoInicial" style="text-align:left"><span class="fas fa-tags mr-2" tabindex="3"></span> Saldo inicial</button>
+                          <button class="btn btn-outline-info ml-2" data-toggle="modal" data-target="#modalAgregarCliente" style="text-align:left"><span class="fas fa-plus mr-2" tabindex="3"></span> Ingresos</button>
+                          <button class="btn btn-outline-danger ml-2" data-toggle="modal" data-target="#modalAgregar" style="text-align:left"><span class="fas fa-minus mr-2" tabindex="3"></span> Egresos</button>
+                          
+                     </div>  
+                    
+                    
+                       <!--   <span><h5 style="text-align:right">  Saldo inicial:   </h5></span>  -->
+                      
+                     </div>     
+                                  
                   </div>
-                  
                </div>
+              
             </div>
             <!-- /.card-body -->
        
@@ -131,22 +146,21 @@ DATATABLE LISTA DE ESPERA
          <div class="col-lg-12">
                   
                            
-               <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
+               <table id="table_registros_contables" class="display" style="width:100%">
                    <thead>
                       <tr>
                                         
-                         <th>hora</th>
-                         <th>Cliente</th>
-                         <th>mascota</th>
-                         <th>Motivo</th>
-                         <th></th>
-                      </tr>
+                         <th width="auto">Responsable</th>
+                         <th  width="auto">Descripción</th>
+                         <th>Saldo</th>
+                         <th>Ingresos</th>
+                         <th>Egresos</th>
+                         <th>fecha</th>
+                         <th  width="auto"></th
+                     
+                     </tr>
                   </thead>
-
-                        <tbody>
-                        
-                        </tbody>    
-                   
+                                     
                </table>
                     
             
@@ -170,7 +184,7 @@ DATATABLE LISTA DE ESPERA
 
  <!--=====================================
 
-    MODAL AGREGAR REGISTRO
+    MODAL AGREGAR SALDO
 
 ======================================-->
 
@@ -199,7 +213,7 @@ DATATABLE LISTA DE ESPERA
           <div class="alert alert-danger">{{ session('error') }}</div>
           @endif
 
-        <form method="POST" id="form_crear_cliente" action="{{ url('clientes') }}" >
+        <form method="POST" id="form_agregar_saldo" action="{{ url('/guardar_registro') }}" >
 
      <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
 
@@ -257,7 +271,7 @@ DATATABLE LISTA DE ESPERA
 
       <div class="modal-footer">
 
-        <button type="submit" id="agregar_cliente" name="agregar_cliente" class="btn btn-primary loader">Guardar</button>
+        <button type="submit" id="agregar_registro" name="agregar_registro" class="btn btn-primary loader">Guardar</button>
         <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 
       </div>
@@ -271,6 +285,118 @@ DATATABLE LISTA DE ESPERA
 
 
 </div>
+
+
+
+
+ <!--=====================================
+
+    MODAL AGREGAR INGRESO
+
+======================================-->
+
+<div class="modal fade" id="modalAgregarIngreso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    
+
+
+<div class="modal-dialog modal-lg">
+  
+  <div class="modal-content">
+  
+  <div class="modal-header">
+   
+      <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-cubes mr-3"></span>Agregar ingreso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     
+           <span aria-hidden="true">&times;</span>
+     
+        </button>
+    
+      </div>
+
+      <div class="modal-body">
+
+          @if (session('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+          @endif
+
+        <form method="POST" id="form_agregar_saldo" action="{{ url('/agregar_ingreso') }}" >
+
+     <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
+
+
+          <div class="row">
+
+            <div class="col-md-3">
+
+              <div class="form-group"  >
+
+                <label for="Ingreso" class="control-label">saldo inicial</label>
+
+
+                <input type="number" name="ingreso" class="form-control" id="ingreso" autofocus required autocomplete="off">
+
+             
+                <div class="alert-message" id="saldoError"></div>
+                 
+              </div>
+
+            </div>
+
+
+
+            <div class="col-md-4">
+
+              <div class="form-group">
+
+                <label for="Nombre" class="control-label">Responsable</label>
+
+                <input type="text" name="responsable" class="typeahead form-control text-capitalize" id="responsable" required autocomplete="off">
+
+                 <div class="alert-message" id="responsableError"></div>
+                
+              </div>
+            </div>
+
+
+
+
+            <div class="col-md-5">
+              <div class="form-group">
+
+                <label for="telefono" class="control-label">Descripción</label>
+
+                <input type="text" name="descripcion" class="form-control" id="descripcion" required autocomplete="off">
+                
+                  <div class="alert-message" id="descripcionError"></div>
+                           
+               </div>
+            </div>
+ 
+            </div>
+
+
+      <div class="modal-footer">
+
+        <button type="submit" id="agregar_registro" name="agregar_registro" class="btn btn-primary loader">Guardar</button>
+        <button type="button" id="salir" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</form>
+</div>
+
+
+</div>
+
+
+
+
+
 
 
 
@@ -679,26 +805,31 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
     });
 
 
-    let table =  $('#Table_listado_espera').DataTable({
+    let table =  $('#table_registros_contables').DataTable({
 
   
            processing: true,
            serverSide: true,
-           paging: false,
-           info: false,
-           filter: false,
+           pageLength: 5,
+           paging: true,
+           info: true,
+           filter: true,
            responsive: true,
           
            type: "GET",
-           ajax: "{{ url('listado_cliente') }}",
+           ajax: "{{ url('registros_contable') }}",
 
           
            columns: [
                    
-                    { data: 'created_at', name: 'created_at' },         
-                    { data: 'cliente', name: 'cliente' },     
-                    { data: 'mascota', name: 'mascota' },
-                    { data: 'motivo_consulta', name: 'motivo_consulta' },
+                         
+                    { data: 'responsable', name: 'responsable' },   
+                    { data: 'descripcion', name: 'descripcion' },     
+                    { data: 'saldo', name: 'saldo' },
+                    { data: 'ingreso', name: 'ingreso' },
+                    { data: 'egreso', name: 'egreso' },
+                    { data: 'created_at', name: 'created_at' },   
+                 
                    
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                  ],
@@ -707,15 +838,35 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
           
           
             "language": {
+                       
                 
-                processing: 'Procesando...',
+               
 
                 //processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
-                           
-                           
-                    "emptyTable": "No hay pacientes en lista de espera."
-                    
-                },
+                                      
+               
+
+                   "decimal": ",",
+                  "emptyTable": "No hay pacientes en lista de espera.",
+                  "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                  "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                  "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                  "infoPostFix": "",
+                  "thousands": ".",
+                  "lengthMenu": "Mostrar _MENU_ Entradas",
+                  "loadingRecords": "Cargando...",
+                  "processing": "Procesando...",
+                  "search": "Buscar:",
+                  "zeroRecords": "Sin resultados encontrados",
+                  "paginate": {
+                  "first": "Primero",
+                  "last": "Ultimo",
+                  "next": "Siguiente",
+                  "previous": "Anterior"
+                                      
+               },
+
+              },   
        
      
       
@@ -727,7 +878,7 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
 //============================================
 
 
-  $('#form_lista_espera').off('submit').on('submit', function (event) {
+  $('#form_agregar_saldo').off('submit').on('submit', function (event) {
 
     $.ajaxSetup({
       headers: {
@@ -738,7 +889,7 @@ GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
 
 /* Configurar botón submit con spinner */
 
-let btn = $('#agregar_lista_espera') 
+let btn = $('#agregar_registro') 
         let existingHTML =btn.html() //store exiting button HTML
         //Add loading message and spinner
         $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
@@ -747,14 +898,14 @@ let btn = $('#agregar_lista_espera')
           $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
         },5000) //5 seconds
 
-            $('#agregar').attr('disabled', true);
+            $('#agregar_registro').attr('disabled', true);
 
             event.preventDefault();
 
             try {
 
             $.ajax({
-                url: "/listado_citas",
+                url: "/guardar_registro",
                 method: "POST",
                 data: $(this).serialize(),
                 dataType: "json",
@@ -762,20 +913,15 @@ let btn = $('#agregar_lista_espera')
 
                   table.ajax.reload();
 
-                    $('#agregar').prop("required", true);
+                    $('#agregar_registro').prop("required", true);
                    // $('#selectBuscarCliente').html("");
-                    $('#buscarMascotas').empty();
-                    $('.BuscMascota').css("display", "block");
-                    $('.motivoConsulta').css("display", "block");
-                    $('#nombreMascota').html("");
-                    $('#form_lista_espera')[0].reset();
+                   
+                    $('#form_agregar_saldo')[0].reset();
                     $('#modalAgregarListaEspera').modal('hide');
-                    $("#nombreCliente").html('');
-  
-                    $('.selectBuscarCliente').val('').trigger('change');
+                  
                                        
 
-                    toastr["success"]("Cita registrada correctamente.");
+                    toastr["success"]("Datos guardados correctamente.");
                  }
 
              });

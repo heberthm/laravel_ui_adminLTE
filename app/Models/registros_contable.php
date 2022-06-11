@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class registros_contable extends Model
 {
-    use HasFactory;
+   
 
     protected $fillable = ['saldo','ingreso','egreso','responsable','descripcion'];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegistrosContableTable extends Migration
+class CreateRegistrosContablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateRegistrosContableTable extends Migration
      */
     public function up()
     {
-        Schema::create('registros_contable', function (Blueprint $table) {
+        Schema::create('registros_contables', function (Blueprint $table) {
             $table->id();
-            $table->text('saldo',12)->required();
-            $table->text('ingreso',12)->required();
-            $table->text('egreso',12)->required();
-            $table->text('responsable',100)->required();
-            $table->text('descripcion',250)->required();
+            $table->text('saldo',12)->nullable();
+            $table->text('ingreso',12)->nullable();
+            $table->text('egreso',12)->nullable();
+            $table->text('responsable',100)->nullable();
+            $table->text('descripcion',250)->nullable();
             $table->timestamps();
         });
     }

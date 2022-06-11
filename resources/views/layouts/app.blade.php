@@ -9,9 +9,11 @@
 
    
 <!-- DataTable css -->
-    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="    https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
-   
+  <!--  <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" /> 
+    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 <!-- SweetAlert2 -->
     <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" />
@@ -30,10 +32,12 @@
 <!-- Toastr css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
+
 <!-- x-editable-bs4 css -->
+<!--
  <link rel="stylesheet"
         href="  https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.4/dist/bootstrap4-editable/css/bootstrap-editable.css">
-
+-->
 
 
 <!-- Font-awesome css -->
@@ -59,14 +63,8 @@
 <!-- DataTable js -->
 <script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script></script>
 <script src='https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap.min.js' defer></script>
-<script src='https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js' defer></script>
-<script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js' defer></script>
-
-<script src='https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap.min.js' defer></script>
 
 
-<!-- x-editable-bs4 -->
-<script src="https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.4/dist/bootstrap4-editable/js/bootstrap-editable.min.js" ></script>
 
 <!-- Fullcalendar 3.10 js -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js' defer></script>
@@ -170,7 +168,7 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="{{ route('perfil_usuario') }}"  class="btn btn-default btn-flat">Perfil</a>
+                        <a href=""  class="btn btn-default btn-flat">Perfil</a>
                         <a href="#" class="btn btn-default btn-flat float-right"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Salir
