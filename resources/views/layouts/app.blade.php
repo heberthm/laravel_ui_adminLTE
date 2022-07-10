@@ -9,11 +9,11 @@
 
    
 <!-- DataTable css -->
-  <!--  <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-  <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" /> 
-    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+   <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet"> 
 
+
+    <link href="    https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
+   
 
 <!-- SweetAlert2 -->
     <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" />
@@ -46,6 +46,12 @@
           crossorigin="anonymous"/>  
 
 
+          
+<!-- =============================
+
+ARCHIVOS JS
+
+================================== -->
 
 
 <!-- Jquery 3.5 js -->
@@ -59,6 +65,10 @@
 
 <!-- SweetAlert2 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+<!-- Font-awesome css -->
+<script src="https://kit.fontawesome.com/d57c775029.js" crossorigin="anonymous"></script>
+
 
 <!-- DataTable js -->
 <script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script></script>

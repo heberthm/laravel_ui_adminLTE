@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +30,7 @@
 
            <p></p>
 
-            <form method="post"  action="{{ url('/login') }}">
+            <form method="post" action="{{ url('/login') }}">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -75,7 +74,7 @@
                     </div>
                     -->
                     <div class="col-4">
-                        <button type="submit" id="btn_ingresar" name="btn_ingresar" class="btn btn-primary btn-block">Entrar</button>
+                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                     </div>
 
                 </div>
@@ -97,45 +96,7 @@
 </div>
 <!-- /.login-box -->
 
-
-
-
-<script src="{{ mix('js/app.js') }}" defer ></script>
-
-
-
-<script type="text/javascript">
-
-/* Configurar botón submit con spinner */
-
-/*
-
-  $(document).ready(function() {
-
-    $('#btn_ingresars').on('click', function(e) {
-      e.preventDefault();
-
-
-let btn = $('#btn_ingresar') 
-        let existingHTML =btn.html() //store exiting button HTML
-        //Add loading message and spinner
-        $(btn).html('<span class="spinner-border spinner-border-sm mr-4" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
-
-        setTimeout(function() {
-          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
-        },7000) //7 seconds
-
-    });
-
-   
-});   
-
-*/
-
-</script>
-
-
-
+<script src="{{ mix('js/app.js') }}" defer></script>
 
 </body>
 </html>

@@ -1,13 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 
-
-
-use App\Http\Controllers\Registros_contableController;
+use App\Http\Controllers\Select2SearchController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\Controller;
+
+
+
 
 
 
@@ -22,16 +25,16 @@ use App\Http\Controllers\Controller;
 |
 */
 
+
 Route::get('/', function () {
-    return view('inicio');
+    return view('auth.login');
 });
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
-/*
- 
+
 Route::get('search', [Select2SearchController::class,'index']);
 Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectSearch']);
 
@@ -43,7 +46,11 @@ Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store']
 Route::get('perfil_usuario',[App\Http\Controllers\UserController::class,'index'])->name('perfil_usuario');
 
  
-
+Route::get('fullcalendareventmaster',[CalendarController::class,'index']);
+Route::post('fullcalendareventmaster/create',[CalendarController::class,'create']);
+Route::post('fullcalendareventmaster/update',[CalendarController::class,'update']);
+Route::post('fullcalendareventmaster/delete',[CalendarController::class,'destroy']);
+Route::get('fullcalendareventmaster/update_event',[CalendarController::class,'update_event']);
 
 Route::get('cliente/{id}', [Select2SearchController::class,'mostrarCliente'])->name('cliente');
 
@@ -60,19 +67,11 @@ Route::post('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::
 
 Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::class, 'store'])->name('listado_citas');
 
-*/
 
-Route::get('/registros_contable',[App\Http\Controllers\Registros_contableController::class,'index']);
+//Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
 
-Route::post('/guardar_saldo',[App\Http\Controllers\Registros_contableController::class,'store']);
-
-Route::post('/agregar_ingreso',[App\Http\Controllers\Registros_contableController::class,'agregar_ingreso'])->name('agregar_ingreso');
-
-
-
-/*
 
 Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
 
 Route::delete('eliminar_cita/{id}', [App\Http\Controllers\ListadoCitaMedicaController::class, 'destroy'])->name('eliminar_cita');
-*/
+
