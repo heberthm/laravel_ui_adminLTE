@@ -27,9 +27,7 @@ class MascotasController extends Controller
     public function index($id, $id_cliente)
     {
       
-        $id = Mascota::get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
-        return view('cliente',compact('id', 'id_cliente'));
-
+      
 
     //   $id_clientes = Mascota::where('id',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
  
@@ -43,6 +41,9 @@ class MascotasController extends Controller
     public function buscarMascota(Request $request)
     {
      
+
+        
+
         try{
             $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
        

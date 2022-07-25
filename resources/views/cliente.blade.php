@@ -322,7 +322,7 @@ th, td {
                     <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
                     
               
-                <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
+                 <input type="hidden" name="_token" value="{{csrf_token()}}"> 
           
               
               
@@ -789,7 +789,7 @@ DESHABILITAR TECLAS CRTL, U, F12
 let today = new Date();
 
 
- $('#clock').countdown('2022/04/01')
+ $('#clock').countdown('2022/07/21')
 .on('update.countdown', function(event) {
  // var format = '%H:%M:%S';
   if(event.offset.totalDays > 0) {
@@ -804,7 +804,7 @@ let today = new Date();
   $(this).html(event.strftime(format));
 })
 .on('finish.countdown', function(event) {
-  $(this).html('El periodo de prueba a terminado!')
+  $(this).html('El periodo de prueba ha terminado!')
     .parent().addClass('disabled');
 
 });
@@ -956,8 +956,7 @@ INSERTAR NUEVA MASCOTA
         },5000) //5 seconds
 
 
-     
-        
+             
         $('#mascotaError').text('');
         $('#especieError').text('');
         $('#razaError').text('');

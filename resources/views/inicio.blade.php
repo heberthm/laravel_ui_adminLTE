@@ -42,6 +42,18 @@
     left: 40%;
     z-index: 1100;
   }
+
+  .listado_citas {
+  height: 300px; 
+  overflow-y: scroll; 
+  overflow-x: hidden;
+}
+
+
+.popover{
+  pointer-events:none;
+}
+
 </style>
 
 
@@ -158,6 +170,7 @@ DATATABLE LISTA DE ESPERA
 
        <div class="row">
            <div class="col-lg-12">
+            <div class="listado_citas">
              <div class="form-group">
                <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
                    <thead>
@@ -183,6 +196,7 @@ DATATABLE LISTA DE ESPERA
          
             </div>
          </div>
+        </div> 
        </div>
       </div>
    
@@ -221,6 +235,7 @@ CALENDAR - AGENDAR   MEDICA
                 <div class="card-body">
                     <div class="container">
                         <div id="calendar"></div>
+                        
                         <div id="loading" style="display: none;">
                             <img id="loading-image" src="../img/loader.gif" alt="Cargando..." />
                         </div>
@@ -262,14 +277,41 @@ CALENDAR - AGENDAR   MEDICA
       </div>
       <div class="modal-body">
 
-        <div class="container2">
-          <div id='calendar2'></div>
-          <div id="loading2" style="display:none;">
-            <img id="loading-image" src="../img/loader.gif" alt="Cargando..." />
+        <div class="row">
+          <div class="col-md-5">
+          
+          
+                <select id="selector" class="form-control" >
+                  <option value="" selected="selected" style='color: #F5F7FA'>Filtrar veterinario</option>
+                  <option value="1">Mostrar todos</option>
+                  <option value="Eduardo Correa medina">Eduardo Correa medina</option>
+                  <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
+                  <option value="4">David Restrepo</option>
+              </select>
           </div>
-        </div>
+            
+            <div class="col-md-5">
 
-      </div>
+              <select id="selector2" class="form-control" >
+                  <option value="" selected="selected" style='color: #F5F7FA'>Filtrar evento</option>
+                  <option value="1">Consulta</option>
+                  <option value="2">Control</option>
+                  <option value="3">Procedimiento</option>
+                  <option value="4">Cirugía</option>
+              </select>
+              
+            </div>
+      
+
+          <div id='calendar2'></div>
+            
+            <div id="loading2" style="display:none;">
+              <img id="loading-image" src="../img/loader.gif" alt="Cargando..." />
+            </div>
+          </div>
+   
+     
+    </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-primary">Guardar</button>  -->
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -277,7 +319,7 @@ CALENDAR - AGENDAR   MEDICA
     </div>
   </div>
 </div>
-
+</div>
 
 
 <!-- ===========================================
@@ -903,7 +945,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
           <div class="alert alert-danger">{{ session('error') }}</div>
           @endif
 
-        <form method="POST" id="form_crear_cliente" action="{{ url('clientes') }}" >
+        <form method="POST" id="form_crear_cliente" action="{{ url('cliente/{id}') }}" >
 
      <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
 
@@ -1020,6 +1062,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
      
 
     <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
+    
       
 
       <!--     
@@ -1081,7 +1124,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                     @endif
 
                                          
-                  <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
+               <!--   <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >  -->
                     
               
                 <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
@@ -1289,14 +1332,16 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
               <label for="end" class="col-sm-2 control-label">Fecha final</label>
               
               -->
-              
+            
               
                   <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
               
-                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" readonly>  
-                    
+                  <input type="text" name="id_cliente" class="form-control" id="id_cliente"  readonly>  
+             
+                  
+           
               
-                    <!--     
+            <!--     
               
               <div id="enlace_listado">  
                         
@@ -1900,7 +1945,9 @@ $('.selectBuscarCliente').html('');
 
 
 <!-- ==========================
+
  Calendar2  
+
  ========================== -->
 
 
@@ -1938,10 +1985,33 @@ $('.selectBuscarCliente').html('');
       maxTime: "20:00",
       nowIndicator: true,
       timeFormat: "h:mm a",
+      slotDuration: '00:15:00',
 
+      
       slotLabelFormat: [
         'h: (mm)a',
       ],
+
+      header: {
+                  left: 'prev,next today',
+                  center: 'print',
+                  right: 'agendaDay, agendaThreeDay, agendaWeek, month'
+              },
+
+      views: {
+                  agendaThreeDay: {
+                      type: 'agenda',
+                      duration: {days: 3},
+                      buttonText: 'Tres días'
+                  },
+                  agendaDay: {
+                      type: 'agenda',
+                      duration: {days: 1},
+                      buttonText: 'Día'
+                  },
+                  defaultView: 'agendaThreeDay'
+              },
+
 
       // navLinks: true, 
 
@@ -1950,12 +2020,41 @@ $('.selectBuscarCliente').html('');
       events: SITEURL + "/fullcalendareventmaster",
     
       eventRender: function(event, element, view) {
+
+        $('.popover').remove();
+
         if (event.allDay === 'true') {
           event.allDay = true;
         } else {
           event.allDay = false;
         }
-      },
+
+
+        element.popover({
+           
+           placement: 'left',
+           trigger:   'hover',
+           container: 'body',
+           trigger: "hover",
+           html:true,
+
+           title: event.cliente,
+
+           content: '<p>' + 'Mascota: ' + event.mascota +  '<p>' + 'Especie: ' + event.especie +  '<p>' + 'Teléfono: ' + 
+
+                      event.telefono + '<p>' + 'Asignado a: ' + event.medico + '<p>' + 'Descripción: ' + event.descripcion,
+                      
+                
+                     
+       });
+      
+   },
+        
+      
+
+      
+
+
       selectable: true,
       selectHelper: true,
 
@@ -2027,6 +2126,9 @@ $('.selectBuscarCliente').html('');
 
 
       eventDrop: function(event, delta) {
+
+        $('.popover.fade.top').remove();
+
         let start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
         let end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
         $.ajax({
@@ -2042,6 +2144,7 @@ $('.selectBuscarCliente').html('');
 
       eventResize: function(event) {
 
+        $('.popover.fade.top').remove();
 
         var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
         var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
@@ -2063,6 +2166,8 @@ $('.selectBuscarCliente').html('');
 
 
       eventClick: function(event) {
+
+        $('.popover').popover('hide');
         let deleteMsg = confirm("Desea eliminar este evento?");
         if (deleteMsg) {
           $.ajax({
@@ -2279,12 +2384,10 @@ INSERTAR CLIENTE NUEVO
 
 
         $('#form_crear_cliente').off('submit').on('submit', function (event) {
-
-       
-       
+     
                   
 
-        event.preventDefault();
+      //  event.preventDefault();
 
         $('#cedulaError').text('');
         $('#nombreError').text('');
@@ -2305,11 +2408,11 @@ INSERTAR CLIENTE NUEVO
           $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
         },5000) //5 seconds
 
-
-      
+        let id_cliente = $(this).val();
+     
 
             $.ajax({
-              url: "clientes",
+              url: '/clientes',
               method: "POST",
               data: $(this).serialize(),
               dataType: "json",
@@ -2319,11 +2422,13 @@ INSERTAR CLIENTE NUEVO
                    
                         $('#form_crear_cliente')[0].reset();
                         $('#modalAgregarCliente').modal('hide');
-                        $('#modalAgregarMascotas').modal('show');
+                       // $('#modalAgregarMascotas').modal('show');
                    
                      //   $('#agregar_cliente').attr('disabled', true);
-                        toastr["success"]("los datos se han guardado correctamente");
+                     //   toastr["success"]("los datos se han guardado correctamente");
       
+                     //   window.location.href = 'cliente/' +id_cliente;
+
 
                   },
 
@@ -2655,9 +2760,9 @@ let btn = $('#agregar_lista_espera')
 
 // ======================================= 
 
-//  ELIMINAR REGISTRO CONTABLE
+//  ELIMINAR CITA DE LISTA DE ESPERAS
 
-// ============================================= 
+// ========================================= 
 
 
 $('body').on('click', '.deletePost', function (e) {
@@ -2667,19 +2772,18 @@ let id = $(this).data("id");
 
 e.preventDefault();
 
-            $.ajax({
-                type: 'delete',
-                url: '/eliminar_cita/'+id,
-               
-               
-                success: function (data) {
+      $.ajax({
+          type: 'delete',
+          url: '/eliminar_cita/'+id,
+                  
+          success: function (data) {
 
-                  table.ajax.reload();
-                  toastr["success"]("Cita eliminada correctamente.");
-                 
-                }
-            });
-     
+            table.ajax.reload();
+            toastr["success"]("Cita eliminada correctamente.");
+            
+          }
+      });
+
     
 
   });

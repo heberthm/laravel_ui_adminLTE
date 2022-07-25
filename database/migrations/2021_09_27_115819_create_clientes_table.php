@@ -22,6 +22,9 @@ class CreateClientesTable extends Migration
             $table->string('barrio',60)->nullable();
             $table->string('celular',30)->nullable();
             $table->string('email',90)->unique()->required();
+            $table->foreignId('id_cliente')->constrained()->onDelete('cascade');
+            //$table->foreign('id_cliente')->references('id')->on('kegiatan')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });

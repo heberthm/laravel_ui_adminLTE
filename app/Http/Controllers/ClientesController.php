@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Redirect,Response;
 
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Cliente;
 
@@ -21,31 +22,16 @@ class ClientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showTable()
-    {
-        return view('inicio');
-    }
+   
 
+        function index(Request $request)
+        {
 
-    public function index(Request $request)
-    {
-
-        if(request()->ajax()) {
-
-          //  $data = Cliente::where('user_id', Auth::user()->id)->latest()->get();
-          $data = Cliente::where('user_id', Auth::user()->id)->get()->latest();
-         // ->select('*');
-            return datatables()->of($data)
-            ->addColumn('action', 'Editar')
-            ->rawColumns(['action'])
-            ->addColumn('action', function($article) {
-                return "<a href='route-for-delete' class='btn btn-primary btn-sm'>Editar</a>";
-            })
-
-            ->make(true);
-        }
-        return view('inicio');
-
+        /* 
+            $id_clientes = cliente::orderBy('id_cliente', 'desc')->get();
+             return view('inicio',compact('id_clientes'));
+        */
+         
       /** 
         if ($request->ajax()) {
             $data = Cliente::latest()->get();
@@ -93,26 +79,40 @@ class ClientesController extends Controller
           'email'     =>    'required|max:50',
         ]);
  
-        try {
-        $save = new Cliente;
+      //  try {
+        $data = new Cliente;
  
-        $save ->user_id   = $request->userId;
-        $save->cedula     = $request->cedula;
-        $save->nombre     = $request->nombre;
-        $save->celular    = $request->celular;
-        $save->direccion  = $request->direccion;
-        $save->barrio     = $request->barrio;
-        $save->email      = $request->email;
+        $data ->user_id   = $request->userId;
+        
+        $data->cedula     = $request->cedula;
+        $data->nombre     = $request->nombre;
+        $data->celular    = $request->celular;
+        $data->direccion  = $request->direccion;
+        $data->barrio     = $request->barrio;
+        $data->email      = $request->email;
 
+        /*    
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
+        */
  
-        $save->save();
-        return response()->json(['success'=>'Successfully']);
-       // return redirect('inicio');
+        $data->save();
+
+        $id  = $data->id_cliente;
+
+        return redirect()->route('cliente.show', $id->id_cliente);
+
+       // $id_cliente  = $data->id_cliente;
+
+       
+      // return Redirect()->Route('cliente',$id_cliente );
+          
+      //  return response()->json(['success'=>'Successfully']);
+       // return redirect('cliente');
 
     }
+
 
     /**
      * Display the specified resource.
@@ -122,7 +122,7 @@ class ClientesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('cliente', compact('id'));
     }
 
     /**
@@ -173,7 +173,7 @@ class ClientesController extends Controller
         $name = $request->get('name');
         $value = $request->get('value');
         $cliente->$name = $value;
-        return $cliente->save();
+        return $cliente->data();
        */
 
     } 

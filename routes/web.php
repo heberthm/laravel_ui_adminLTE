@@ -32,7 +32,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
+
 
 
 Route::get('search', [Select2SearchController::class,'index']);
@@ -43,6 +46,8 @@ Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectS
 //Route::post('fullcalenderAjax', [CalendarController::class, 'ajax']);
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
+Route::post('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show'])->name('cliente');
+
 Route::get('perfil_usuario',[App\Http\Controllers\UserController::class,'index'])->name('perfil_usuario');
 
  
@@ -74,4 +79,3 @@ Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::
 Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
 
 Route::delete('eliminar_cita/{id}', [App\Http\Controllers\ListadoCitaMedicaController::class, 'destroy'])->name('eliminar_cita');
-

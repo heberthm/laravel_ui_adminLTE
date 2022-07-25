@@ -50,19 +50,22 @@
                 <div class="input-group mb-3">
                     <input type="password"
                            name="password"
+                           id="password"
                            placeholder="clave"
                            class="form-control @error('password') is-invalid @enderror">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                            <span class="fas fa-lock"></span> 
                         </div>
-                    </div>
+                   </div>
+                  
                     @error('password')
                     <span class="error invalid-feedback">{{ $message }}</span>
                     @enderror
 
+                   <!-- <i onclick="show('password')" class="fas fa-eye-slash" id="display"></i> -->
                 </div>
-
+                  
                
                 <div class="row">
                    
@@ -97,6 +100,27 @@
 <!-- /.login-box -->
 
 <script src="{{ mix('js/app.js') }}" defer></script>
+
+
+<script>
+
+function show(a) {
+  var x=document.getElementById(a);
+  var c=x.nextElementSibling
+  if (x.getAttribute('type') == "password") {
+  c.removeAttribute("class");
+  c.setAttribute("class","fas fa-eye");
+  x.removeAttribute("type");
+    x.setAttribute("type","text");
+  } else {
+  x.removeAttribute("type");
+    x.setAttribute('type','password');
+ c.removeAttribute("class");
+  c.setAttribute("class","fas fa-eye-slash");
+  }
+}
+
+  </script>
 
 </body>
 </html>

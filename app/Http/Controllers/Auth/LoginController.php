@@ -18,8 +18,13 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+    
 
     use AuthenticatesUsers;
+
+    protected $maxAttempts = 1; // Default is 5
+    protected $decayMinutes = 1; // Default is 1
+    
 
     /**
      * Where to redirect users after login.
@@ -27,6 +32,8 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+   
 
     /**
      * Create a new controller instance.
