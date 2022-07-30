@@ -280,25 +280,45 @@ CALENDAR - AGENDAR   MEDICA
         <div class="row">
           <div class="col-md-5">
           
-          
+          <input id="filtrar_calendario" name="filtrar_calendario" type="text" class="form-control form-control" placeholder="Filtrar eventos">
+
+               <!--
                 <select id="selector" class="form-control" >
-                  <option value="" selected="selected" style='color: #F5F7FA'>Filtrar veterinario</option>
-                  <option value="1">Mostrar todos</option>
+                  <option value="" selected="selected" >Filtrar veterinario</option>
+                  <option value="todos">Mostrar todos</option>
                   <option value="Eduardo Correa medina">Eduardo Correa medina</option>
                   <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
-                  <option value="4">David Restrepo</option>
-              </select>
+                  <option value="David Restrepo">David Restrepo</option>
+                </select>
+
+               -->
+
           </div>
             
             <div class="col-md-5">
 
+               <select id="selector" class="form-control"  placeholder="Filtrar eventos" >
+                 
+                  <option value="todos">Mostrar todos</option>
+                  <option value="Eduardo Correa medina">Eduardo Correa medina</option>
+                  <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
+                  <option value="David Restrepo">David Restrepo</option>
+               </select>
+
+
+
+
+
+               <!--
               <select id="selector2" class="form-control" >
-                  <option value="" selected="selected" style='color: #F5F7FA'>Filtrar evento</option>
-                  <option value="1">Consulta</option>
-                  <option value="2">Control</option>
-                  <option value="3">Procedimiento</option>
-                  <option value="4">Cirugía</option>
+                  <option value="" selected="selected" >Filtrar evento</option>
+                  <option value="todos">Mostrar todos</option>
+                  <option value="Consulta médica">Consulta</option>
+                  <option value="Control médico">Control</option>
+                  <option value="Procedimiento">Procedimiento</option>
+                  <option value="Cirugía">Cirugía</option>
               </select>
+               -->
               
             </div>
       
@@ -1857,6 +1877,7 @@ $('.selectBuscarCliente').html('');
       eventRender: function(Event) {
 
 
+        $('.popover').remove();
       
         if (Event.allDay === 'true') {
           Event.allDay = true;
@@ -1870,6 +1891,9 @@ $('.selectBuscarCliente').html('');
 
      
      eventAfterRender: function(event, element) {
+
+      $('.popover').remove();
+
       element.popover({
            
             placement: 'left',
@@ -2017,10 +2041,13 @@ $('.selectBuscarCliente').html('');
 
 
 
+
       events: SITEURL + "/fullcalendareventmaster",
     
       eventRender: function(event, element, view) {
 
+        
+                  
         $('.popover').remove();
 
         if (event.allDay === 'true') {
@@ -2030,12 +2057,14 @@ $('.selectBuscarCliente').html('');
         }
 
 
+
+       
         element.popover({
            
            placement: 'left',
            trigger:   'hover',
            container: 'body',
-           trigger: "hover",
+           trigger:   'hover',
            html:true,
 
            title: event.cliente,
@@ -2045,14 +2074,17 @@ $('.selectBuscarCliente').html('');
                       event.telefono + '<p>' + 'Asignado a: ' + event.medico + '<p>' + 'Descripción: ' + event.descripcion,
                       
                 
-                     
+                          
        });
       
-   },
-        
-      
+        // return $('#selector2').val() === 'todos' || event.title.indexOf($('#selector2').val()) >= 0;
+       // return $('#selector').val() === 'todos' || event.medico.indexOf($('#selector').val()) >= 0;
+
+       return ['todos', event.medico].indexOf($('#selector').val()) >= 0 && ['', event.title].indexOf($('#filtrar_calendario').val()) >= 0;
 
       
+   },
+         
 
 
       selectable: true,
@@ -2187,21 +2219,81 @@ $('.selectBuscarCliente').html('');
     });
 
 
-    $('#ModalCalendar').on('shown.bs.modal', function() {
-      $("#calendar2").fullCalendar('render');
-
-      $("#calendar2").fullCalendar('refetchEvents');
-
-    });
 
 
+// ========================================   
 
+// SELECCIONAR EVENTO DESDE SELECT2 EVENTOS
+
+// ========================================
+    
+ $('#selector').on('change',function(){
+   
+   $('#calendar2').fullCalendar('rerenderEvents');
+
+});
+
+
+
+
+// ========================================   
+
+// SELECCIONAR EVENTO DESDE SELECT2 EVENTOS
+
+// ========================================
+ 
+
+/*
+$('#filtrar_calendario').on('keyup', function() {
+
+  var value = $(this).val();
+ 
+    $('#calendar2').fullCalendar('rerenderEvents');
+    
+    // return $(this).text().search(new RegExp(value, "i")) < 0;
+
+     return  $(this).toLowerCase().indexOf(search.toLowerCase()) !== -1;
+     
   });
+*/
 
+
+  
+  $("#filtrar_calendario").on("keyup", function() {
+    
+    var value = $(this).val().toLowerCase();
+    $("#filtrar_calendario").filter(function() {
+      $(this).text().toLowerCase().indexOf(value) > -1
+    });
+    
+  
+      $('#calendar2').fullCalendar('rerenderEvents');
+});
+
+
+
+
+
+$('#ModalCalendar').on('shown.bs.modal', function() {
+  $("#calendar2").fullCalendar('render');
+
+  $("#calendar2").fullCalendar('refetchEvents');
+
+});
+
+
+   
+
+ });
+
+
+ 
 
   function displayMessage(message) {
     toastr.success(message);
   }
+
+
 </script>
 
 
@@ -2336,7 +2428,7 @@ EDITAR DATOS DE FULLCALENDAR
           $('#editar_calendario')[0].reset();
           $('#ModalEdit').modal('hide');
           $('#agenda_modal').modal('hide');
-          toastr["success"]("los datos se han guardado correctamente");
+          toastr["success"]("los datos se han actulizado correctamente");
 
 
 
