@@ -580,7 +580,7 @@ th, td {
               
               <div class="modal-header">
                 
-                  <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-edit mr-3"></span>Editar datos del cliente</h5>
+                  <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-edit mr-3"></span>Cambiar datos del cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   
                         <span aria-hidden="true">&times;</span>

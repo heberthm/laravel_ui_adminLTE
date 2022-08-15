@@ -222,14 +222,14 @@ CALENDAR - AGENDAR   MEDICA
 
 ================================== -->
 
-            <div class="card">
+            <div class="card" style="height:100%">
             <div class="card card-light">
                 <div class="card-header">
                     <h3 class="card-title"><span style="color: #28a745;" class="fas fa-calendar mr-3"></span>Agenda de citas</h3>
 
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#ModalCalendar">
-                        Agregar cita
+                    <span class="fa fa-calendar fa-fw" tabindex="3"></span>  Agregar cita
                     </button>
                 </div>
                 <div class="card-body">
@@ -304,22 +304,7 @@ CALENDAR - AGENDAR   MEDICA
                   <option value="Eliana Buitrago Rosales">Eliana Buitrago Rosales</option>
                   <option value="David Restrepo">David Restrepo</option>
                </select>
-
-
-
-
-
-               <!--
-              <select id="selector2" class="form-control" >
-                  <option value="" selected="selected" >Filtrar evento</option>
-                  <option value="todos">Mostrar todos</option>
-                  <option value="Consulta médica">Consulta</option>
-                  <option value="Control médico">Control</option>
-                  <option value="Procedimiento">Procedimiento</option>
-                  <option value="Cirugía">Cirugía</option>
-              </select>
-               -->
-              
+           
             </div>
       
 
@@ -965,10 +950,11 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
           <div class="alert alert-danger">{{ session('error') }}</div>
           @endif
 
-        <form method="POST" id="form_crear_cliente" action="{{ url('cliente/{id}') }}" >
+        <form method="POST" id="form_crear_cliente" action="{{'clientes'}}" >
 
-     <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
-
+       <input type="hidden" name="_token" value="{{csrf_token()}}">  
+ 
+   
 
           <div class="row">
 
@@ -1884,8 +1870,7 @@ $('.selectBuscarCliente').html('');
         } else {
           Event.allDay = false;
         }    
-          
-        
+               
         
       },
 
@@ -2475,7 +2460,7 @@ INSERTAR CLIENTE NUEVO
     });
 
 
-        $('#form_crear_cliente').off('submit').on('submit', function (event) {
+        $('#form_crear_cliente111111111111111').off('submit').on('submit', function (event) {
      
                   
 
@@ -2504,7 +2489,7 @@ INSERTAR CLIENTE NUEVO
      
 
             $.ajax({
-              url: '/clientes',
+              url: 'clientes',
               method: "POST",
               data: $(this).serialize(),
               dataType: "json",
@@ -2519,7 +2504,7 @@ INSERTAR CLIENTE NUEVO
                      //   $('#agregar_cliente').attr('disabled', true);
                      //   toastr["success"]("los datos se han guardado correctamente");
       
-                     //   window.location.href = 'cliente/' +id_cliente;
+                     //   window.location.href = 'cliente/' +id;
 
 
                   },

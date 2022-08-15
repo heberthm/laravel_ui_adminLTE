@@ -12,6 +12,7 @@ class Cliente extends Model
 
     protected $fillable = ['cedula','user_id','nombre','direccion','barrio', 'celular', 'email'];
 
+    protected $id = 'id_cliente';
   
     public function mascota(){
         return $this->hasMany(mascota::class);

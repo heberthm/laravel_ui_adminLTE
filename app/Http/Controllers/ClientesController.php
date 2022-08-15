@@ -69,7 +69,7 @@ class ClientesController extends Controller
     
     public function store(Request $request)
     {
-         
+       
         $validatedData = $request->validate([
           'cedula'    =>    'required|unique:clientes|max:18',
           'nombre'    =>    'required|max:35',
@@ -90,27 +90,21 @@ class ClientesController extends Controller
         $data->direccion  = $request->direccion;
         $data->barrio     = $request->barrio;
         $data->email      = $request->email;
-
+        
+     
         /*    
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
         */
+      
  
         $data->save();
 
-        $id  = $data->id_cliente;
-
-        return redirect()->route('cliente.show', $id->id_cliente);
-
-       // $id_cliente  = $data->id_cliente;
-
-       
-      // return Redirect()->Route('cliente',$id_cliente );
+        $id =$data->id;
+     
+        return redirect()->route('cliente', $id);
           
-      //  return response()->json(['success'=>'Successfully']);
-       // return redirect('cliente');
-
     }
 
 
@@ -120,9 +114,10 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cliente $id)
     {
-        return view('cliente', compact('id'));
+        // $cliente = cliente::select('id_cliente')->get();
+       //   return view('cliente', compact('id'));
     }
 
     /**
@@ -190,4 +185,3 @@ class ClientesController extends Controller
         //
     }
 }
-

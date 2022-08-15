@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-
 use App\Http\Controllers\Select2SearchController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\MascotasController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\Controller;
 
 
@@ -46,9 +47,7 @@ Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectS
 //Route::post('fullcalenderAjax', [CalendarController::class, 'ajax']);
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
-Route::post('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show'])->name('cliente');
-
-Route::get('perfil_usuario',[App\Http\Controllers\UserController::class,'index'])->name('perfil_usuario');
+Route::get('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show']);
 
  
 Route::get('fullcalendareventmaster',[CalendarController::class,'index']);
@@ -61,7 +60,6 @@ Route::get('cliente/{id}', [Select2SearchController::class,'mostrarCliente'])->n
 
 Route::post('buscarmascota', [MascotasController::class,'buscarMascota'])->name('buscarmascota');
 
-
 Route::post('editarCliente/{id_cliente}',[App\Http\Controllers\ClientesController::class ,'update'])->name('editarCliente');
 
 Route::get('mostrarmascotas/{id_clientes}', [App\Http\Controllers\MascotasController::class, 'mostrarMascotas']);
@@ -72,9 +70,7 @@ Route::post('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::
 
 Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::class, 'store'])->name('listado_citas');
 
-
 //Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
-
 
 Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
 
