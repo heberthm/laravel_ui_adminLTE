@@ -222,7 +222,7 @@ CALENDAR - AGENDAR   MEDICA
 
 ================================== -->
 
-            <div class="card" style="height:100%">
+            <div class="card" style="height:97%">
             <div class="card card-light">
                 <div class="card-header">
                     <h3 class="card-title"><span style="color: #28a745;" class="fas fa-calendar mr-3"></span>Agenda de citas</h3>
@@ -1019,13 +1019,7 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
             </div>
 
-
-
-
-
-
-
-         
+        
 
             <div class="col-md-4">
 
@@ -2437,100 +2431,6 @@ EDITAR DATOS DE FULLCALENDAR
 
   });
 </script>
-
-
-
-
-
-
- <!-- =========================================
-
-INSERTAR CLIENTE NUEVO
-
-==============================================  -->
-
-<script type="text/javascript">
-   
-   $(document).ready(function() {
-
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-
-        $('#form_crear_cliente111111111111111').off('submit').on('submit', function (event) {
-     
-                  
-
-      //  event.preventDefault();
-
-        $('#cedulaError').text('');
-        $('#nombreError').text('');
-        $('#celularError').text('');
-        $('#direccionError').text('');
-        $('#barrioError').text('');
-        $('#emailError').text('');
-
-
-/* Configurar botón submit con spinner */
-
-        let btn = $('#agregar_cliente') 
-        let existingHTML =btn.html() //store exiting button HTML
-        //Add loading message and spinner
-        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
-
-        setTimeout(function() {
-          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
-        },5000) //5 seconds
-
-        let id_cliente = $(this).val();
-     
-
-            $.ajax({
-              url: 'clientes',
-              method: "POST",
-              data: $(this).serialize(),
-              dataType: "json",
-              success: function(data) {
-                
-                
-                   
-                        $('#form_crear_cliente')[0].reset();
-                        $('#modalAgregarCliente').modal('hide');
-                       // $('#modalAgregarMascotas').modal('show');
-                   
-                     //   $('#agregar_cliente').attr('disabled', true);
-                     //   toastr["success"]("los datos se han guardado correctamente");
-      
-                     //   window.location.href = 'cliente/' +id;
-
-
-                  },
-
-
-                  error: function(response) {
-                    $('#cedulaError').text(response.responseJSON.errors.cedula);
-                    $('#nombreError').text(response.responseJSON.errors.nombre);
-                    $('#celularError').text(response.responseJSON.errors.celular);
-                    $('#direccionError').text(response.responseJSON.errors.direccion);
-                    $('#barrioError').text(response.responseJSON.errors.barrio);
-                    $('#emailError').text(response.responseJSON.errors.email);
-                }
-
-                   
-              });
-
-          });
-
-                  
-
-      });    
-
-  </script>
-
-
 
 
 

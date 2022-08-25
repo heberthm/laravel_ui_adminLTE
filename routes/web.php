@@ -64,6 +64,9 @@ Route::post('editarCliente/{id_cliente}',[App\Http\Controllers\ClientesControlle
 
 Route::get('mostrarmascotas/{id_clientes}', [App\Http\Controllers\MascotasController::class, 'mostrarMascotas']);
 
+Route::get('/listado_mascotas/{id_cliente}',[App\Http\Controllers\MascotasController::class, 'show']);
+
+
 Route::post('/mascotas',[App\Http\Controllers\MascotasController::class, 'store'])->name('mascotas');
 
 Route::post('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::class, 'destroy']);

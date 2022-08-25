@@ -24,15 +24,10 @@ class MascotasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id, $id_cliente)
+    public function index(Request $request)
     {
       
-      
-
-    //   $id_clientes = Mascota::where('id',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
- 
-    //   return view('cliente', compact('id_clientes'));
-
+        //
       
     }
 
@@ -155,9 +150,39 @@ class MascotasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_cliente)
     {
-        //
+         
+                
+        if(request()->ajax()) {
+            return datatables()->of(Mascota::select("user_id", "id_cliente", "nombre", "especie", "raza", "edad")
+          //  ->where('id_cliente',  $id_cliente =2)
+
+            ->where('id_cliente','=', $id_cliente)
+
+            ->where('user_id', Auth::user()->id)) 
+                                                            
+            ->addColumn('action', 'atencion')
+            ->rawColumns(['action'])
+            ->addColumn('action', function($data) {
+
+
+                $actionBtn = '<a href="#" data-toggle="tooltip"  data-id="'.$data->id.'" title="editar registro" class=" fa fa-stethoscope cita"></a> 
+               
+                <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Eliminar registro" class="fa fa-trash deletePost"></a>';
+                
+                 
+                return $actionBtn;
+               
+            })
+           
+           
+            ->make(true);
+        } 
+
+       
+        return view('cliente');
+       // dd($id_cliente);
     }
 
     /**

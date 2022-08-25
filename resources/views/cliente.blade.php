@@ -26,6 +26,9 @@ Table_mascotas {
  /* border: 1px solid #ddd; */
 }
 
+thead {
+  display:none;
+}
 
 th, td {
   text-align: left;
@@ -79,72 +82,85 @@ th, td {
                     class="fas fa-paw mr-3"></span>Mascotas registradas</h3>
               </div>
               
-              <div class="card-body">
-                <!-- Color select2 -->
+
+
+ <div class="card-body">
               
+<!-- ==========================
 
+DATATABLE MASCOTAS
+
+============================== -->
+                
+        <div class="table-responsive"> 
+        <table id="Table_mascotas" class="table dt-responsive" style="width:100%">
+            
+      
+          @foreach ($id_clientes as $id_cliente)
+
+               
+
+
+              @if(empty($id_cliente->nombreMascota))
+          
                         
-                <div class="table-responsive"> 
-                  <table id="Table_mascotas" class="display nowrap" style="width:100%" >
-                   
-             
-                  @foreach ($id_clientes as $id_cliente)
-  
+          
+              <tr> 
+                           
+              
+                      
+                    <td>
+                          <th colspan="5" class="text-center"></th>    
+                          
+                          <td>
+                          <td></td> <td></td> <td></td> <td></td> 
+                          </td> 
+                          
+                    </td>  
+                
+                           
+              
+            @else
 
-                      @if(empty($id_cliente->nombreMascota))
-                 
-                                                  
-                      <tr> 
-                                                                      
-                              
-                            <td>
-                                  <th colspan="5" class="text-center"></th>         
-                            </td>  
-                       
-                                                 
-                     
-                   @else
 
-                           <td>
-                             
-                             <a href='route-for-open' class='btn btn-outline-secondary  btn-sm' title="Ver historial clínico"><span class="fa fa-stethoscope fa-fw" ></span> Ver</a>
-                             <a href='route-for-list' class='btn btn-outline-secondary  btn-sm' title="Agregar a lista de espera"><span class="fa fa-list fa-fw" ></span></a>
-                             <input name="_method" type="hidden" value="DELETE">
-                          </td>
-                  
+            <input type="hidden" id="id_cliente1" name="id_cliente1" value="{{$id_cliente->id_cliente}}">   
+                    <td>
+                      
+                      <a href='route-for-open' class='btn btn-outline-secondary  btn-sm' title="Ver historial clínico"><span class="fa fa-stethoscope fa-fw" ></span> Ver</a>
+                      <a href='route-for-list' class='btn btn-outline-secondary  btn-sm' title="Agregar a lista de espera"><span class="fa fa-list fa-fw" ></span></a>
+                      <input name="_method" type="hidden" value="DELETE">
+                    </td>
+          
 
-                                <td width="auto" id="especie">   <a href='#'> {{ $id_cliente->nombreMascota }} </a>
-                                
-                                <br> {{ $id_cliente->especie }}   {{ $id_cliente->raza }}  <br>
-                               
-                                    {{ $id_cliente->edad }}   </td>
-                             
-                               <td>
-                              
-                                      <div class="dropdown ">
-                                              <button button class="btn btn-light btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                ☰
-                                              </button>
-                                              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                                
-                                                  <button class="dropdown-item" type="button"
-                                                          id="btn_eliminarCliente">Establecer como fallecido
-                                                  </button>
+                        <td width="auto" id="especie">   
+                      
+                        <td>
+                      
+                              <div class="dropdown ">
+                                      <button button class="btn btn-light btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ☰
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        
+                                          <button class="dropdown-item" type="button"
+                                                  id="btn_eliminarCliente">Establecer como fallecido
+                                          </button>
 
-                                                  <button class="dropdown-item eliminar_mascota"  data-id="{{$id_cliente->id}}">Eliminar mascota</button>
+                                          <button class="dropdown-item eliminar_mascota"  data-id="{{$id_cliente->id}}">Eliminar mascota</button>
 
-                                                
-                                                
-                                              </div>
+                                        
+                                        
                                       </div>
-                              
-                              </td>
-                                                     
-                     
-                                         
-                      </tr> 
+                              </div>
+                      
+                      </td>
+                                              
+              
+                                  
+              </tr> 
 
-
+         
+                 
 
 
                     @endif      
@@ -923,9 +939,196 @@ INSERTAR NUEVA MASCOTA
 
  <!-- =========================================
 
-INSERTAR NUEVA MASCOTA
+ MOSTRAR MASCOTAS
 
 ==============================================  -->
+
+
+
+<script type = "text/javascript" >
+    $(document).ready(function() {
+
+
+     
+
+
+      $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+    let id_cliente = $("#id_cliente1").val();
+
+    let table =  $('#Table_mascotas').DataTable({
+  
+  
+           processing: true,
+           serverSide: true,
+           paging: false,
+           info: false,
+           filter: false,
+           responsive: true,
+  
+               
+           type: "GET",
+           
+           ajax: '/listado_mascotas/'+id_cliente,
+          
+        //  url: 'buscarmascota',
+
+          // ajax:'/listado_mascotas/'+parseInt(window.location.href.split('/')[6].replace('#!', '')),
+                      
+           data: {
+                "id_cliente": id_cliente
+            },
+          
+           columns: [
+                   
+                    { data: 'id_cliente', name: 'id_cliente', visible: false },  
+                    { data: 'nombre', name: 'nombre' },         
+                    { data: 'especie', name: 'especie' },     
+                    { data: 'raza', name: 'raza' },
+                    { data: 'edad', name: 'edad' },
+                   
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                 ],
+        
+                   order: [[0, 'desc']],
+          
+         
+
+            "language": {
+                
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
+                           
+                "emptyTable": "El cliente no tiene mascotas registradas."
+                    
+                },
+       
+     
+      
+    });
+   
+
+//============================================
+
+// AGREGAR CLIENTE A LISTA DE ESPERA
+
+//============================================
+
+
+  $('#form_lista_espera').off('submit').on('submit', function (event) {
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+
+/* Configurar botón submit con spinner */
+
+let btn = $('#agregar_lista_espera') 
+        let existingHTML =btn.html() //store exiting button HTML
+        //Add loading message and spinner
+        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
+
+        setTimeout(function() {
+          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
+        },5000) //5 seconds
+
+            $('#agregar').attr('disabled', true);
+
+            event.preventDefault();
+
+            try {
+
+            $.ajax({
+                url: "/listado_citas",
+                method: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(data) {
+
+                  table.ajax.reload();
+
+                    $('#agregar').prop("required", true);
+                   // $('#selectBuscarCliente').html("");
+                    $('#buscarMascotas').empty();
+                    $('.BuscMascota').css("display", "block");
+                    $('.motivoConsulta').css("display", "block");
+                    $('#nombreMascota').html("");
+                    $('#form_lista_espera')[0].reset();
+                    $('#modalAgregarListaEspera').modal('hide');
+                    $("#nombreCliente").html('');
+  
+                    $('.selectBuscarCliente').val('').trigger('change');
+                                       
+
+                    toastr["success"]("Cita registrada correctamente.");
+
+
+                   
+
+
+                }
+
+             });
+
+            } catch(e) {
+              toastr["danger"]("Se ha presentado un error.", "Información");
+              }
+
+        });
+
+
+
+
+
+// ======================================= 
+
+//  ELIMINAR CITA DE LISTA DE ESPERAS
+
+// ========================================= 
+
+
+$('body').on('click', '.deletePost', function (e) {
+
+
+let id = $(this).data("id");
+
+e.preventDefault();
+
+      $.ajax({
+          type: 'delete',
+          url: '/eliminar_cita/'+id,
+                  
+          success: function (data) {
+
+            table.ajax.reload();
+            toastr["success"]("Cita eliminada correctamente.");
+            
+          }
+      });
+
+    
+
+  });
+
+
+});
+
+</script>
+
+
+
+
+
+
+
+<!--
 
 <script type="text/javascript">
    
@@ -1005,7 +1208,7 @@ INSERTAR NUEVA MASCOTA
 
                     // $('#table-body').html(data);
                        
-                        toastr["success"]("los datos se han guardado correctamente", "Información");
+                        toastr["success"]("los datos se han guardado correctamente");
 
             
                         
@@ -1037,7 +1240,7 @@ INSERTAR NUEVA MASCOTA
 
   </script>
 
-
+    -->
 
 
 <!-- =========================================
@@ -1088,7 +1291,7 @@ EDITAR DATOS DEL CLIENTE
                   $('#modalEditarCliente').modal('hide');
                   $("#editar_cliente"). attr("disabled", true);
                      //   $('#agregar_cliente').attr('disabled', true);
-                        toastr["success"]("los datos se han editado correctamente", "Información");
+                        toastr["success"]("los datos se han editado correctamente");
                      
                         location.reload(true);
                 },
