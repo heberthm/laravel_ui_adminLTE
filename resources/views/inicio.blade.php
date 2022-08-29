@@ -2520,7 +2520,7 @@ $(document).ready(function(){
      if(result == 'unique')
      {
      
-      $('#error_cedula').html('<label class="text-danger">Cliente ya existe.</label>');
+      $('#error_cedula').html('<label class="text-danger">El cliente ya existe.</label>');
       $('#cedula').addClass('has-error');
       $('#agregar_cliente').attr('disabled', 'disabled');
 
@@ -2528,7 +2528,7 @@ $(document).ready(function(){
      else
      {
 
-      $('#error_cedula').html('<label class="text-success">Disponible</label>');
+      $('#error_cedula').html('<label class="text-success">Disponible.</label>');
       $('#cedula').removeClass('has-error');
       $('#agregar_cliente').attr('disabled', false);
 
