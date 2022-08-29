@@ -4,7 +4,8 @@
 @section('content')
 
 <style>
-  .calendar {
+ 
+ .calendar {
 
     max-width: auto;
     margin: 0, 0;
@@ -16,6 +17,12 @@
   .calendar {
     cursor: pointer;
 }
+
+.has-error
+   {
+    border-color:#cc0000;
+    background-color:#ffff99;
+   }
 
 
 .alert-message {
@@ -134,7 +141,7 @@ FORMULARIO RECEPCION DE PACIENTES
                 
               
                
-                <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera</h3>
+                <h3 class="card-title"><span style="color: #28a745;" class="fas fa-list mr-3"></span>Pacientes en espera hoy</h3>
                   <span class="btn-group float-right" id="btn_historialIngresos">
 
                   <span class="btn-group float-right" id="btn_historialIngresos">
@@ -965,15 +972,14 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
                 <label for="Cedula" class="control-label">Cédula</label>
 
 
-                <input type="number" name="cedula" class="form-control" id="cedula" autofocus required autocomplete="off">
+                <input type="number" name="cedula" class="form-control"  id="cedula" autofocus required autocomplete="off">
 
-             
-                <div class="alert-message" id="cedulaError"></div>
-                 
+                <span id="error_cedula"></span>
+
+                              
               </div>
 
-            </div>
-
+           </div>
 
 
             <div class="col-md-5">
@@ -2478,6 +2484,64 @@ VINCULAR SELECT COLOR CON SERVICIOS - EDITAR
 			}
 
 		</script>
+
+
+
+
+<!-- ==============================
+
+// VERIFICAR SI EXISTE CLIENTE
+
+===================================  -->
+
+<script>    
+
+$(document).ready(function(){
+
+ $('#cedula').blur(function(){
+  var error_cedula = '';
+  var cedula = $('#cedula').val();
+  var _token = $('input[name="_token"]').val();
+  var filter = /([0-9])/;
+  if(!filter.test(cedula))
+  {    
+   $('#error_cedula').html('<label class="text-danger">Debe escribir número de cédula.</label>');
+   $('#cedula').addClass('has-error');
+   $('#agregar_cliente').attr('disabled', 'disabled');
+  }
+  else
+  {
+   $.ajax({
+    url:'cliente',
+    method:"POST",
+    data:{cedula:cedula},
+    success:function(result)
+    {
+     if(result == 'unique')
+     {
+     
+      $('#error_cedula').html('<label class="text-danger">Cliente ya existe.</label>');
+      $('#cedula').addClass('has-error');
+      $('#agregar_cliente').attr('disabled', 'disabled');
+
+     }
+     else
+     {
+
+      $('#error_cedula').html('<label class="text-success">Disponible</label>');
+      $('#cedula').removeClass('has-error');
+      $('#agregar_cliente').attr('disabled', false);
+
+     
+     }
+    }
+   })
+  }
+ });
+ 
+});
+
+</script>
 
 
 

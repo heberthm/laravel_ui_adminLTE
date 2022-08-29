@@ -10,21 +10,7 @@ a {
   text-decoration: none;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
- /* border: 1px solid #ddd; */
-}
 
-
-
-Table_mascotas {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
- /* border: 1px solid #ddd; */
-}
 
 thead {
   display:none;
@@ -76,9 +62,7 @@ th, td {
 <div class="col-md-8">
         <div class="card card-light" id="card_mascotas">
               <div class="card-header" >
-                <h3 class="card-title"><span
-                    
-                    style="color:#28a745;"
+                <h3 class="card-title"><span  style="color:#28a745;"
                     class="fas fa-paw mr-3"></span>Mascotas registradas</h3>
               </div>
               
@@ -91,9 +75,12 @@ th, td {
 DATATABLE MASCOTAS
 
 ============================== -->
-                
+      
+    <div class="row">
+      <div class="col-lg-12">
+
         <div class="table-responsive"> 
-        <table id="Table_mascotas" class="table dt-responsive" style="width:100%">
+        <table id="Table_mascotas" class="table dt-responsive" style="width: 100%;">
             
       
           @foreach ($id_clientes as $id_cliente)
@@ -124,6 +111,7 @@ DATATABLE MASCOTAS
 
 
             <input type="hidden" id="id_cliente1" name="id_cliente1" value="{{$id_cliente->id_cliente}}">   
+                  
                     <td>
                       
                       <a href='route-for-open' class='btn btn-outline-secondary  btn-sm' title="Ver historial clínico"><span class="fa fa-stethoscope fa-fw" ></span> Ver</a>
@@ -172,7 +160,9 @@ DATATABLE MASCOTAS
                     </tbody>
                 </table>
                </div>
-              
+              </div>
+            </div>       
+
 
                  <br>
                  <br>
@@ -338,7 +328,7 @@ DATATABLE MASCOTAS
                     <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
                     
               
-                 <input type="hidden" name="_token" value="{{csrf_token()}}"> 
+              <!--   <input type="hidden" name="_token" value="{{csrf_token()}}">  -->
           
               
               
@@ -836,6 +826,8 @@ INSERTAR NUEVA MASCOTA
 
 ==============================================  -->
 
+
+
 <!--
 
 <script>
@@ -1010,6 +1002,75 @@ INSERTAR NUEVA MASCOTA
      
       
     });
+
+
+//==================================================
+
+// AGREGAR MASCOTA
+
+// ==================================================
+
+
+
+
+$('#form_crear_mascotas').off('submit').on('submit', function (event) {
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+
+/* Configurar botón submit con spinner */
+
+let btn = $('#agregar_mascota') 
+    let existingHTML =btn.html() //store exiting button HTML
+    //Add loading message and spinner
+    $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
+
+    setTimeout(function() {
+      $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
+    },5000) //5 seconds
+
+        $('#agregar_mascota').attr('disabled', true);
+
+        event.preventDefault();
+
+        try {
+
+        $.ajax({
+            url: "/mascotas",
+            method: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function(data) {
+
+              table.ajax.reload();
+               
+               
+                $('#form_crear_mascotas')[0].reset();
+                $('#modalAgregarMascotas').modal('hide');
+                                                      
+
+                toastr["success"]("Mascota creada correctamente.");
+              
+
+
+            }
+
+         });
+
+        } catch(e) {
+          toastr["danger"]("Se ha presentado un error.");
+          }
+
+    });
+
+
+
+
+
    
 
 //============================================
@@ -1121,10 +1182,6 @@ e.preventDefault();
 });
 
 </script>
-
-
-
-
 
 
 

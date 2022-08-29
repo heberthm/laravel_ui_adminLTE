@@ -8,7 +8,8 @@ use App\Http\Requests\ValidarFormularioRequest;
 
 use Illuminate\Support\Facades\Auth;
 
-use Redirect,Response;
+use Redirect;
+
 
 use Illuminate\Support\Facades\DB;
 
@@ -106,6 +107,29 @@ class ClientesController extends Controller
         return redirect()->route('cliente', $id);
           
     }
+
+
+    public function verificarCliente(Request $request)
+    {
+      if($request->get('cedula'))
+      {
+       $cedula = $request->get('cedula');
+       $data = DB::table("clientes")
+        ->where('cedula', $cedula)
+        ->where('user_id', Auth::user()->id)
+        ->count();
+       if($data > 0)
+       {
+        echo 'unique';
+       }
+       else
+       {
+        echo 'not_unique';
+       }
+      }
+     }
+ 
+
 
 
     /**

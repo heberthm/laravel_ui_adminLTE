@@ -43,12 +43,12 @@ Route::get('search', [Select2SearchController::class,'index']);
 Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectSearch']);
 
 
-//Route::get('fullcalender', [CalendarController::class, 'index']);
+//Route::get('fullcalender', [CalendarController::class, 'index']);verificarcliente
 //Route::post('fullcalenderAjax', [CalendarController::class, 'ajax']);
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
 Route::get('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show']);
-
+Route::post('cliente', [App\Http\Controllers\ClientesController::class,'verificarCliente'])->name('cliente');
  
 Route::get('fullcalendareventmaster',[CalendarController::class,'index']);
 Route::post('fullcalendareventmaster/create',[CalendarController::class,'create']);
