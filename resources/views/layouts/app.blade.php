@@ -46,6 +46,42 @@
           crossorigin="anonymous"/>  
 
 
+
+
+
+<!-- SweetAlert2 -->
+<!-- <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" /> -->
+  <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet"/>
+  
+
+
+    
+  <!-- Fullcalendar 3.10.2 css --> 
+<!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css' rel='stylesheet' /> -->
+<!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.print.css' rel='stylesheet' media='print' /> -->
+
+
+<!-- DataPicker Bootstrap js -->  
+<link href="{{asset('css/bootstrap-datepicker1.9.0.css')}}" rel="stylesheet"/>
+
+
+
+<!-- Toastr css -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
+<link href="{{asset('css/toastr2.1.3.min.css')}}" rel="stylesheet"/>
+
+
+
+<!-- Select2 css -->
+<!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> -->
+<link href="{{asset('css/select2.min.css')}}" rel="stylesheet"/>
+
+
+
+
+
+
+
           
 <!-- =============================
 
@@ -90,7 +126,8 @@ ARCHIVOS JS
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/es.min.js" ></script>  
 
-
+<!-- Tidio js --> 
+<!-- <script src="//code.tidio.co/zffhz4jdjbaro6re8swf82onrcpo6ojy.js" async></script> -->
 
 <!-- Jquery countdowm -->
 <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
@@ -98,9 +135,6 @@ ARCHIVOS JS
 
 <!--  Toastr css -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-
- 
 
     
 

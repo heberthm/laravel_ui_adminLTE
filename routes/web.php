@@ -47,7 +47,7 @@ Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectS
 //Route::post('fullcalenderAjax', [CalendarController::class, 'ajax']);
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
-Route::get('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show']);
+//Route::get('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show']);
 Route::post('cliente', [App\Http\Controllers\ClientesController::class,'verificarCliente'])->name('cliente');
  
 Route::get('fullcalendareventmaster',[CalendarController::class,'index']);
@@ -62,9 +62,9 @@ Route::post('buscarmascota', [MascotasController::class,'buscarMascota'])->name(
 
 Route::post('editarCliente/{id_cliente}',[App\Http\Controllers\ClientesController::class ,'update'])->name('editarCliente');
 
-Route::get('mostrarmascotas/{id_clientes}', [App\Http\Controllers\MascotasController::class, 'mostrarMascotas']);
+//Route::get('mostrarmascotas/{id_clientes}', [App\Http\Controllers\MascotasController::class, 'mostrarMascotas']);
 
-Route::get('/listado_mascotas/{id_cliente}',[App\Http\Controllers\MascotasController::class, 'show']);
+Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
 
 
 Route::post('/mascotas',[App\Http\Controllers\MascotasController::class, 'store'])->name('mascotas');

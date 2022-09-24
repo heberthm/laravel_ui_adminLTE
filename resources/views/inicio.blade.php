@@ -179,7 +179,7 @@ DATATABLE LISTA DE ESPERA
            <div class="col-lg-12">
             <div class="listado_citas">
              <div class="form-group">
-               <table id="Table_listado_espera" class="table dt-responsive" style="width:100%">
+               <table id="Table_listado_espera" class="table dt-responsive table-hover" style="width:100%">
                    <thead>
                       <tr>
                                         
@@ -2669,12 +2669,13 @@ $(document).ready(function() {
 
 <!-- ===================================================
 
-GUARDAR DATOS Y CARGAR DATATABLE JQUERY LISTA DE ESPERA
+CARGAR DATATABLE JQUERY LISTA DE ESPERA Y  GUARDAR DATOS 
 
 ======================================================= --->
 
 <script type = "text/javascript" >
-    $(document).ready(function() {
+  
+  $(document).ready(function() {
 
 
       $.ajaxSetup({

@@ -24,10 +24,45 @@ class MascotasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($id)
     {
       
-        //
+                
+        if(request()->ajax()) {
+
+          //  $id = $request->id_cliente;
+
+          $id = Mascota::select("user_id", "id_cliente", "nombre", "especie", "raza", "edad")
+            
+          ->where('id_cliente', '=', $id)
+
+          ->where('user_id', Auth::user()->id);
+
+           return datatables()->of($id)
+              
+           
+                                                                      
+            ->addColumn('action', 'atencion')
+            ->rawColumns(['action'])
+            ->addColumn('action', function($data) {
+
+
+                $actionBtn = '<a href="#" data-toggle="tooltip"  data-id="'.$data->id.'" title="editar registro" class=" fa fa-stethoscope cita"></a> 
+               
+                <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Eliminar registro" class="fa fa-trash deletePost"></a>';
+                
+                 
+                return $actionBtn;
+               
+            })
+           
+           
+            ->make(true);
+        } 
+
+       
+        return view('cliente');
+       // dd($id_cliente);
       
     }
 
@@ -36,9 +71,6 @@ class MascotasController extends Controller
     public function buscarMascota(Request $request)
     {
      
-
-        
-
         try{
             $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
        
@@ -50,6 +82,7 @@ class MascotasController extends Controller
      
 
     }
+
 
 
 
@@ -77,7 +110,7 @@ class MascotasController extends Controller
               ]);
            
         }
-        return view('cliente');
+        return view('cliente' );
       */  
    }
 
@@ -102,6 +135,7 @@ class MascotasController extends Controller
     {
       
       try{  
+
         $validatedData = $request->validate([
             
             'nombre'           =>    'required|max:20',
@@ -114,7 +148,7 @@ class MascotasController extends Controller
             'esterilizado'     =>    'required|max:20',
             'caracteristicas'  =>    'required|max:90',
 
-          ]);
+         ]);
    
           $save = new Mascota;
    
@@ -153,7 +187,8 @@ class MascotasController extends Controller
     public function show($id_cliente)
     {
          
-                
+     /*
+        
         if(request()->ajax()) {
             return datatables()->of(Mascota::select("user_id", "id_cliente", "nombre", "especie", "raza", "edad")
           //  ->where('id_cliente',  $id_cliente =2)
@@ -183,6 +218,9 @@ class MascotasController extends Controller
        
         return view('cliente');
        // dd($id_cliente);
+
+
+       */
     }
 
     /**

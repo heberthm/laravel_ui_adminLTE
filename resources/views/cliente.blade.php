@@ -10,23 +10,14 @@ a {
   text-decoration: none;
 }
 
-
+/*
 
 thead {
   display:none;
 }
 
-th, td {
-  text-align: left;
-  padding: 16px;
-}
-
-/*
- tr:nth-child(even) {
-  background-color: #f2f2f2;
-
-}
 */
+
 </style>
  
     <!-- Content Header (Page header) -->
@@ -59,7 +50,7 @@ th, td {
   
 
 <div class="row">
-<div class="col-md-8">
+<div class="col-lg-8">
         <div class="card card-light" id="card_mascotas">
               <div class="card-header" >
                 <h3 class="card-title"><span  style="color:#28a745;"
@@ -75,110 +66,64 @@ th, td {
 DATATABLE MASCOTAS
 
 ============================== -->
-      
-    <div class="row">
-      <div class="col-lg-12">
-
-        <div class="table-responsive"> 
-        <table id="Table_mascotas" class="table dt-responsive" style="width: 100%;">
-            
-      
-          @foreach ($id_clientes as $id_cliente)
-
-               
-
-
-              @if(empty($id_cliente->nombreMascota))
+     
+@foreach($id_clientes as $id_cliente)
           
+ @endforeach
+
+
+  
+ <div class="row">
+   <div class="col-lg-12">
+           
+             
+               <table id="Table_mascotas" class="table table-responsive table-hover" style="width:100%">
+                   <thead>
+                      <tr>
+                                        
+                         <th>Mascota</th>
+                         <th>Especie</th>
+                         <th>Raza</th>
+                         <th>Edad</th>
+                         <th></th>
+                      </tr>
+
+                  </thead>
+
+                        <tbody>
                         
-          
-              <tr> 
-                           
-              
-                      
-                    <td>
-                          <th colspan="5" class="text-center"></th>    
-                          
-                          <td>
-                          <td></td> <td></td> <td></td> <td></td> 
-                          </td> 
-                          
-                    </td>  
-                
-                           
-              
-            @else
+                        </tbody>    
 
-
-            <input type="hidden" id="id_cliente1" name="id_cliente1" value="{{$id_cliente->id_cliente}}">   
-                  
-                    <td>
-                      
-                      <a href='route-for-open' class='btn btn-outline-secondary  btn-sm' title="Ver historial clínico"><span class="fa fa-stethoscope fa-fw" ></span> Ver</a>
-                      <a href='route-for-list' class='btn btn-outline-secondary  btn-sm' title="Agregar a lista de espera"><span class="fa fa-list fa-fw" ></span></a>
-                      <input name="_method" type="hidden" value="DELETE">
-                    </td>
-          
-
-                        <td width="auto" id="especie">   
-                      
-                        <td>
-                      
-                              <div class="dropdown ">
-                                      <button button class="btn btn-light btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ☰
-                                      </button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                        
-                                          <button class="dropdown-item" type="button"
-                                                  id="btn_eliminarCliente">Establecer como fallecido
-                                          </button>
-
-                                          <button class="dropdown-item eliminar_mascota"  data-id="{{$id_cliente->id}}">Eliminar mascota</button>
-
-                                        
-                                        
-                                      </div>
-                              </div>
-                      
-                      </td>
-                                              
-              
-                                  
-              </tr> 
-
-         
-                 
-
-
-                    @endif      
-   
-                    @endforeach
-                  
-                  
                    
-                    </tbody>
-                </table>
-               </div>
-              </div>
-            </div>       
+              </table>
+         
+               
+          
+        
+        </div> 
+       </div>
 
 
+        
+
+               <input type="hidden" id="id_cliente" name="id_cliente" value="{{ $id_cliente->id_cliente }}" >  
                  <br>
                  <br>
 
                  <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMascotas">
                    <span class="fa fa-plus-square fa-fw" ></span> Agregar mascota</button>
 
+         
              
-                </div>
-              </div>
+             </div>
+             </div> 
           
               <!-- /.card-body -->
           </div>
           <!-- /.card -->
 
-       
+      
+
           <!-- /.col (left) -->
           <div class="col-md-4">
             <div class="card card-light">
@@ -209,10 +154,11 @@ DATATABLE MASCOTAS
                 <div class="form-group">
                 <table class="table">
                       <tbody  style="font-size:95%;">
-                      
+
+           
                       <tr style="display:none;">
                      
-                        <td>
+                      <td>
                           <div class="control-label">Id_cliente</div>
                           <a href="#" id="id_cliente">{{ $id_cliente->id_cliente }}</a></td>
                       </tr>
@@ -223,10 +169,7 @@ DATATABLE MASCOTAS
                        <div class="control-label">Cédula</div>
                        <a href="#" id="cedula"">{{ $id_cliente->cedula }}</a></td>
                     </tr>
-
-
                     <span id="navbar_estado"></span>
-
                       <tr>
                         <td>
                         <div class="control-label">Nombre</div>
@@ -247,7 +190,6 @@ DATATABLE MASCOTAS
                         <div class="control-label">Email</div>
                           <a href="#" class="xedit" data-type="text" data-pk="{{$id_cliente->id_cliente}}" data-name="email">{{ $id_cliente->email }}</a>
                           <a class=" ml-3 allign-middle" id="email" href=""></a>
-
                         </td>
                       </tr>
                       <tr>
@@ -266,13 +208,10 @@ DATATABLE MASCOTAS
                      
                       <tr>
                         <td>
-
                         
-
                         <button class="btn btn-primary" data-toggle="modal" data-target="#modalEditarCliente" style="text-align:left"><span class="fa fa-edit fa-fw" tabindex="3"></span> Editar cliente</button>
                      <!--   <button class="btn btn-primary" data-toggle="modal" data-target="#modalEditarCliente" onclick="editarCliente();" >
                          <span class="fa fa-edit fa-fw" ></span> Editar datos </button>  -->
-
                         </td>
                       <tr>
                      
@@ -280,8 +219,11 @@ DATATABLE MASCOTAS
                       
                     </table>
 
+                      
                    
 
+                   
+                
 
                 <!-- /.form group -->
               </div>
@@ -671,11 +613,7 @@ DATATABLE MASCOTAS
                         </div>
             
             
-            
-            
-            
-            
-            
+               
                       
             
                         <div class="col-md-4">
@@ -938,23 +876,20 @@ INSERTAR NUEVA MASCOTA
 
 
 <script type = "text/javascript" >
-    $(document).ready(function() {
+  
+  $(document).ready(function() {
 
-
-     
-
-
-      $.ajaxSetup({
+     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
 
-    let id_cliente = $("#id_cliente1").val();
+    let id =$('#id_cliente').val();
+ 
 
     let table =  $('#Table_mascotas').DataTable({
-  
   
            processing: true,
            serverSide: true,
@@ -962,23 +897,18 @@ INSERTAR NUEVA MASCOTA
            info: false,
            filter: false,
            responsive: true,
-  
-               
+           autoWidth: false,
+    
+          
            type: "GET",
-           
-           ajax: '/listado_mascotas/'+id_cliente,
-          
-        //  url: 'buscarmascota',
 
-          // ajax:'/listado_mascotas/'+parseInt(window.location.href.split('/')[6].replace('#!', '')),
-                      
-           data: {
-                "id_cliente": id_cliente
-            },
-          
+           ajax: '/listado_mascotas/'+id,
+   
+   
+                 
            columns: [
                    
-                    { data: 'id_cliente', name: 'id_cliente', visible: false },  
+                  
                     { data: 'nombre', name: 'nombre' },         
                     { data: 'especie', name: 'especie' },     
                     { data: 'raza', name: 'raza' },
@@ -988,12 +918,10 @@ INSERTAR NUEVA MASCOTA
                  ],
         
                    order: [[0, 'desc']],
-          
-         
-
-            "language": {
+    
+             "language": {
                 
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
+                "processing": '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
                            
                 "emptyTable": "El cliente no tiene mascotas registradas."
                     
@@ -1164,7 +1092,7 @@ e.preventDefault();
 
       $.ajax({
           type: 'delete',
-          url: '/eliminar_cita/'+id,
+          url: '/eliminar_mascotas/'+id,
                   
           success: function (data) {
 
@@ -1175,7 +1103,6 @@ e.preventDefault();
       });
 
     
-
   });
 
 
@@ -1197,9 +1124,7 @@ e.preventDefault();
       }
     });
 
- 
-
-    $('#form_crear_mascotas').on('submit', function(event) {
+     $('#form_crear_mascotas').on('submit', function(event) {
 
      event.preventDefault();
 
@@ -1361,10 +1286,6 @@ EDITAR DATOS DEL CLIENTE
     });
 
 </script>
-
-
-
-
 
 
 <!-- =========================================
