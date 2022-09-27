@@ -1009,7 +1009,60 @@ let btn = $('#agregar_mascota')
 
 $('body').on('click', '.deletePost', function (e) {
 
- 
+
+  let id = $(this).data("id");
+
+    e.preventDefault();
+    
+    swal({
+            title: "Esta seguro de eliminar?",
+            text: "La acción es permanente!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Si, Eliminar",
+            cancelButtonText: "No, cancelar",
+            reverseButtons: !0
+     
+          }).then(function (e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                  type: 'delete',
+                  url: '/eliminar_mascota/'+id,
+                   
+                   
+                    success: function (data) {
+
+                      if (data) {
+                            swal("Registro eliminado correctamente!", data.message, "success");
+                            table.ajax.reload();
+                         //  $('#table_mascotas').html(data);
+                        
+                
+                        } else {
+                            swal("Error!", data.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
+
+      });
+
+    });
+
+
+
+
+ /*
 
  let id = $(this).data("id");
 
@@ -1033,6 +1086,9 @@ e.preventDefault();
 
 
 });
+
+*/
+
 
 </script>
 
