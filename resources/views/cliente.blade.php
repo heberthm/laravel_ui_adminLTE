@@ -77,7 +77,7 @@ DATATABLE MASCOTAS
    <div class="col-lg-12">
            
              
-               <table id="Table_mascotas" class="table table-responsive table-hover" style="width:100%">
+               <table id="Table_mascotas" class="table dt-responsive table-hover" style="width:100%">
                    <thead>
                       <tr>
                                         
@@ -999,105 +999,31 @@ let btn = $('#agregar_mascota')
 
 
 
-   
-
-//============================================
-
-// AGREGAR CLIENTE A LISTA DE ESPERA
-
-//============================================
-
-
-  $('#form_lista_espera').off('submit').on('submit', function (event) {
-
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-
-/* Configurar botón submit con spinner */
-
-let btn = $('#agregar_lista_espera') 
-        let existingHTML =btn.html() //store exiting button HTML
-        //Add loading message and spinner
-        $(btn).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Procesando...').prop('disabled', true)
-
-        setTimeout(function() {
-          $(btn).html(existingHTML).prop('disabled', false) //show original HTML and enable
-        },5000) //5 seconds
-
-            $('#agregar').attr('disabled', true);
-
-            event.preventDefault();
-
-            try {
-
-            $.ajax({
-                url: "/listado_citas",
-                method: "POST",
-                data: $(this).serialize(),
-                dataType: "json",
-                success: function(data) {
-
-                  table.ajax.reload();
-
-                    $('#agregar').prop("required", true);
-                   // $('#selectBuscarCliente').html("");
-                    $('#buscarMascotas').empty();
-                    $('.BuscMascota').css("display", "block");
-                    $('.motivoConsulta').css("display", "block");
-                    $('#nombreMascota').html("");
-                    $('#form_lista_espera')[0].reset();
-                    $('#modalAgregarListaEspera').modal('hide');
-                    $("#nombreCliente").html('');
-  
-                    $('.selectBuscarCliente').val('').trigger('change');
-                                       
-
-                    toastr["success"]("Cita registrada correctamente.");
-
-
-                   
-
-
-                }
-
-             });
-
-            } catch(e) {
-              toastr["danger"]("Se ha presentado un error.", "Información");
-              }
-
-        });
-
-
-
-
 
 // ======================================= 
 
-//  ELIMINAR CITA DE LISTA DE ESPERAS
+//  ELIMINAR MASCOTA 
 
 // ========================================= 
 
 
 $('body').on('click', '.deletePost', function (e) {
 
+ 
 
-let id = $(this).data("id");
+ let id = $(this).data("id");
 
 e.preventDefault();
 
       $.ajax({
           type: 'delete',
-          url: '/eliminar_mascotas/'+id,
+          url: '/eliminar_mascota/'+id,
+                
                   
           success: function (data) {
 
             table.ajax.reload();
-            toastr["success"]("Cita eliminada correctamente.");
+            toastr["success"]("Mascota eliminada correctamente.");
             
           }
       });

@@ -48,7 +48,7 @@ Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectS
 
 Route::post('clientes',[App\Http\Controllers\ClientesController::class, 'store'])->name('clientes');
 //Route::get('cliente/{id}',[App\Http\Controllers\ClientesController::class, 'show']);
-Route::post('cliente', [App\Http\Controllers\ClientesController::class,'verificarCliente'])->name('cliente');
+Route::post('verificar_cliente', [App\Http\Controllers\ClientesController::class,'verificarCliente'])->name('verificar_cliente');
  
 Route::get('fullcalendareventmaster',[CalendarController::class,'index']);
 Route::post('fullcalendareventmaster/create',[CalendarController::class,'create']);
@@ -69,7 +69,7 @@ Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::cl
 
 Route::post('/mascotas',[App\Http\Controllers\MascotasController::class, 'store'])->name('mascotas');
 
-Route::post('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::class, 'destroy']);
+Route::delete('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController::class, 'destroy'])->name('eliminar_mascota');
 
 Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::class, 'store'])->name('listado_citas');
 

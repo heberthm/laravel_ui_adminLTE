@@ -2512,7 +2512,7 @@ $(document).ready(function(){
   else
   {
    $.ajax({
-    url:'cliente',
+    url:'verificar_cliente',
     method:"POST",
     data:{cedula:cedula},
     success:function(result)

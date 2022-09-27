@@ -12,7 +12,7 @@
    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet"> 
 
 
-    <link href="    https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
    
 
 <!-- SweetAlert2 -->
@@ -107,9 +107,15 @@ ARCHIVOS JS
 
 
 <!-- DataTable js -->
-<script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script></script>
+<script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script>
+
+<script src='https://cdn.datatables.net/fixedheader/3.2.4/js/dataTables.fixedHeader.min.js'  defer ></script>
+
+<script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js'  defer ></script>
+
 <script src='https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap.min.js' defer></script>
 
+<script src='https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap.min.js' defer></script>
 
 
 <!-- Fullcalendar 3.10 js -->

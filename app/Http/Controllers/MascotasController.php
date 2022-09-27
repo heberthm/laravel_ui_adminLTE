@@ -32,7 +32,7 @@ class MascotasController extends Controller
 
           //  $id = $request->id_cliente;
 
-          $id = Mascota::select("user_id", "id_cliente", "nombre", "especie", "raza", "edad")
+          $id = Mascota::select("id", "user_id", "id_cliente", "nombre", "especie", "raza", "edad")
             
           ->where('id_cliente', '=', $id)
 
@@ -252,16 +252,11 @@ class MascotasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-     try{  
-         $id = Mascota::where('id',$request->id)->delete();
-   
-        } catch (\Exception  $exception) {
-            return back()->withError($exception->getMessage())->withInput();
-        }
-
-        return response()->json(['success' => true]);
+        Mascota::find($id)->delete();
+     
+        return response()->json(['success'=>'Mascota eliminado correctamente.']);
     }
   
 
