@@ -2822,10 +2822,11 @@ let btn = $('#agregar_lista_espera')
 
 // ======================================= 
 
-//  ELIMINAR CITA DE LISTA DE ESPERAS
+//  ELIMINAR CITA DE LISTA DE ESPERAS  
 
 // ========================================= 
 
+//event
 
 $('body').on('click', '.deletePost', function (e) {
 

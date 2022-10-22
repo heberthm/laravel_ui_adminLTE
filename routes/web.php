@@ -37,7 +37,7 @@ Auth::routes();
 
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
-
+//event 
 
 Route::get('search', [Select2SearchController::class,'index']);
 Route::get('ajax-autocomplete-search', [Select2SearchController::class, 'selectSearch']);

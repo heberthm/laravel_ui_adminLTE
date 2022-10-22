@@ -180,7 +180,7 @@ ARCHIVOS JS
         </li>
 
          <li style="width:auto">
-             <!-- <label>Buscar:</label>  -->
+             <!-- SELECT DE BUSQUEDAD EN BARRA DE MENU  -->
              <select class="livesearch form-control" id="livesearch_1" name="livesearch_1" style="width: 100%;"></select>
          </li>
 

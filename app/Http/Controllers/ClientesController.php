@@ -28,6 +28,8 @@ class ClientesController extends Controller
         function index(Request $request)
         {
 
+
+         //event  
         /* 
             $id_clientes = cliente::orderBy('id_cliente', 'desc')->get();
              return view('inicio',compact('id_clientes'));
