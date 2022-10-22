@@ -374,7 +374,7 @@ DATATABLE MASCOTAS
                                 </button>
                             </div>    
                                 <div>
-                                    <a style="font-size:85%;"> Último registro:&nbsp</a>
+                                    <a style="font-size:85%;"> Último registro:&nbsp {{$id_mascota->peso}}</a>
                                     <p id="resena_peso" class="h5" name="resena_peso" class="text-primary">
                                         Sin peso registrado
                                     </p>
