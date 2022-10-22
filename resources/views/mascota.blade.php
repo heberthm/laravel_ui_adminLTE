@@ -18,6 +18,10 @@ a.editable-empty {
   font-style: italic;
 }
 
+ul.datos_mascota li {
+   display: inline;
+  }
+
 /*
 
 thead {
@@ -34,28 +38,68 @@ thead {
 
 <div class="container-fluid">
 
-<div class="row">
 
-        <!--
-          <div class="col-sm-6">
-            <h1 class="m-0">Clientes</h1>
-          </div><!-- /.col -->
-        
-          <!--
+  <!-- ============================= 
 
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Clientes</li>
-            </ol>
-          </div><!-- /.col -->
-       
-        
+  NAVBAR BOTONES  SUPERIORES
 
+===================================== -->
 
-   
-    </div>
  
+    <nav class="navbar navbar-expand-lg navbar-white bg-white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            ☰
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex flex-wrap">
+                <li id="li_esperaAtencion1" class="nav-item py-2 mr-2">
+                    <a href="javascript:nu_Cola('117713');" class="btn btn-outline-info btn-sm">
+                        <span class="fas fa-paw mr-1" aria-hidden="true"></span> Estado de atención
+                    </a>
+                </li>
+                <li class="nav-item py-2 mr-2">
+                    <a href="#" id="estado_hospital" tabindex="0" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-hospital mr-2"></i> <span>Hospitalizar</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 mr-2">
+                    <a href="#" id="estado_seguimiento" tabindex="0" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-clipboard-check mr-2"></i> <span>Seguimiento</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 mr-2">
+                    <a class="btn btn-outline-info btn-sm" href="#" id="btn_herramientas" role="button">
+                        <i class="fas fa-calculator mr-2"></i>Herramientas
+                    </a>
+                </li>
+                <li class="nav-item dropdown py-2 mr-2">
+                    <a class="btn btn-outline-info btn-sm dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-print mr-2"></i> Imprimir documentos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="javascript:print_resumen();">Historial del paciente</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:getlist_documentosClinica();">Documentos
+                            clínica</a>
+                    </div>
+                </li>
+
+                <li class="nav-item py-2 mr-2">
+                    <a class="btn btn-outline-info btn-sm" tabindex="0"
+                       href="javascript:modal_cobrar();">
+                        <i class="fas fa-pager mr-2"></i> Venta
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </nav>
+
+
+
 
   
 
@@ -63,8 +107,27 @@ thead {
 <div class="col-lg-8">
         <div class="card card-light" id="card_mascotas">
               <div class="card-header" >
-                <h3 class="card-title"><span  style="color:#28a745;"
-                    class="fas fa-paw mr-3"></span>Mascotas registradas</h3>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMascotas">
+                   <span class="fa fa-plus-square fa-fw" ></span> Consulta médica</button>
+               
+                   <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalAgregarMascotas">
+                   <span class="fa fa-dashboard fa-fw" ></span>Peso</button>
+
+                   <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalAgregarMascotas">
+                   <span class="fa fa-calendar fa-fw" ></span>Recordatorio</button>
+
+                  
+                      <button class="btn btn-outline-info dropdown-toggle" type="button"
+                              id="dropdownMenuButton"
+                              data-toggle="dropdown">Otros
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="javascript:registroCirugia();">Registro de cirugía</a>
+                          <a class="dropdown-item" href="javascript:registroPeluqueria()">Registro de peluquería</a>
+                          <a class="dropdown-item" href="javascript:btn_registroRapido();">Registro rápido</a>
+                      </div>
+                  
+
               </div>
               
 
@@ -77,7 +140,7 @@ DATATABLE MASCOTAS
 
 ============================== -->
      
-@foreach($id_clientes as $id_cliente)
+@foreach($id as $id_mascota)
           
  @endforeach
 
@@ -115,12 +178,11 @@ DATATABLE MASCOTAS
 
         
 
-               <input type="hidden" id="id_cliente" name="id_cliente" value="{{ $id_cliente->id_cliente }}" >  
+               <input type="hidden" id="id_cliente" name="id_cliente" value="{{ $id_mascota->id }}" >  
                  <br>
                  <br>
 
-                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMascotas">
-                   <span class="fa fa-plus-square fa-fw" ></span> Agregar mascota</button>
+                
 
          
              
@@ -139,7 +201,7 @@ DATATABLE MASCOTAS
                 <h3 class="card-title">
                 <span                    
                     style="color:#28a745;"
-                    class="fas fa-user mr-3"></span>Datos del cliente</h3>
+                    class="fas fa-user mr-3"></span>Datos de la mascota</h3>
                     <h4  style="text-align: center;">
                           <div class="dropdown ml-auto">
                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
@@ -167,50 +229,50 @@ DATATABLE MASCOTAS
                       <tr style="display:none;">
                      
                       <td>
-                          <div class="control-label">Id_cliente</div>
-                          <a href="#" id="id_cliente">{{ $id_cliente->id_cliente }}</a></td>
+                          <div class="control-label">Id_mascota</div>
+                          <a href="#" id="id_cliente">{{ $id_mascota->id }}</a></td>
                       </tr>
 
                       <tr style="display:none;">
                      
                      <td>
                        <div class="control-label">Cédula</div>
-                       <a href="#" id="cedula"">{{ $id_cliente->cedula }}</a></td>
+                       <a href="#" id="cedula">{{ $id_mascota->nombre }}</a></td>
                     </tr>
                     <span id="navbar_estado"></span>
                       <tr>
                         <td>
                         <div class="control-label">Nombre</div>
-                          <a href="#" class="xedit" data-type="text"  data-pk="{{$id_cliente->id_cliente}}"  data-name="nombre">
-		                    	   {{$id_cliente->nombre}}</a>
-                          <a class=" ml-3 allign-middle" id="nombre" href=""></a>
+                          <a href="#" class="xedit" data-type="text"  data-pk="{{$id_mascota->id}}"  data-name="nombre">
+		                    	   {{$id_mascota->nombre}}</a>
+                          <a class=" ml-3 allign-middle" id="nombreMascota" href=""></a>
                         </td>
                       </tr>
                      
                       <tr>
                         <td>
-                          <div class="control-label">Celular</div>
-                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_cliente->id_cliente}}"  data-name="celular">{{ $id_cliente->celular }}</a>
-                          <a class=" ml-3 allign-middle" id="celular" href=""></a>
+                          <div class="control-label">Especie</div>
+                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_mascota->especie}}"  data-name="especie">{{ $id_mascota->especie }}</a>
+                          <a class=" ml-3 allign-middle" id="especie" href=""></a>
                       </tr>
                       <tr>
                         <td>
-                        <div class="control-label">Email</div>
-                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_cliente->id_cliente}}" data-name="email">{{ $id_cliente->email }}</a>
-                          <a class=" ml-3 allign-middle" id="email" href=""></a>
+                        <div class="control-label">Raza</div>
+                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_mascota->raza}}" data-name="raza">{{ $id_mascota->raza }}</a>
+                          <a class=" ml-3 allign-middle" id="raza" href=""></a>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                        <div class="control-label">Dirección</div>
-                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_cliente->id_cliente}}" data-name="direccion">{{ $id_cliente->direccion }}</a>
-                          <a class=" ml-3 allign-middle" id="direccion" href=""></a>
+                        <div class="control-label">Sexo</div>
+                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_mascota->genero}}" data-name="sexo">{{ $id_mascota->sexo }}</a>
+                          <a class=" ml-3 allign-middle" id="sexo" href=""></a>
                       </tr>
                       <tr>
                         <td>
-                        <div class="control-label">barrio</div>
-                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_cliente->id_cliente}}" data-name="barrio" id="barrio">{{ $id_cliente->barrio }}</a>
-                          <a class=" ml-3 allign-middle" id="barrio" href=""></a>
+                        <div class="control-label">edad</div>
+                          <a href="#" class="xedit" data-type="text" data-pk="{{$id_mascota->edad}}" data-name="barrio" id="barrio">{{ $id_mascota->edad }}</a>
+                          <a class=" ml-3 allign-middle" id="edad" href=""></a>
                       </tr>
                       <tr>
                      
@@ -250,20 +312,33 @@ DATATABLE MASCOTAS
 
 ======================================-->
 
-<div class="modal fade" id="modalAgregarMascotas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAgregarMascotas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
                     
 
-              <div class="modal-dialog modal-lg">
+              <div class="modal-dialog modal-xl">
                 
                 <div class="modal-content">
                 
                     <div class="modal-header">
                   
-                    <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-paw mr-3"></span>Agregar mascota</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">  <span aria-hidden="true">&times;</span>
-                    
-                      </button>
+                    <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-paw mr-3"></span>Agregar consulta médica</h5>
+               
+                      <ul style="list-style: none;">
+                          <li style="color:coral; font:bold;">{{$id_mascota->nombre}}</li>
+                      </ul>
                   
+                      <ul class="datos_mascota">
+                          <li>{{$id_mascota->especie}} -</li>
+                          <li>{{$id_mascota->sexo}} -</li>
+                          <li>{{$id_mascota->edad}}</li>
+                                          
+                      </ul>
+                
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">  <span aria-hidden="true">&times;</span>
+                      </button>
+                                 
+
                   </div>
               
                     <div class="modal-body">
@@ -276,62 +351,116 @@ DATATABLE MASCOTAS
           
               
               
-                        <div class="row">
+                      <div class="row">
               
-                          <div class="col-md-5">
+                        <div class="col-lg-6">
               
-                            <div class="form-group">
-              
-                              <label for="mascota" class="control-label">mascota</label>
-              
-              
-                              <input type="text" name="nombre" class="form-control text-capitalize" id="nombreMascota" autofocus required autocomplete="off">
-              
-                            
-                              <div class="alert-message" id="mascotaError"></div>
-                                
-                            </div>
-              
+                          <div class="form-group">
+
+                              <label for="Descripcion" class="font-weight-normal">Anamnesis</label>
+
+                              <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
+
                           </div>
-              
-              
-              
-                          <div class="col-md-3">
-              
-                            <div class="form-group">
-              
-                              <label for="Especie" class="control-label">Especie</label>
-              
-                              <select class="form-control text-capitalize" name="especie" id="especie" onkeypress="return handleEnter(this, event)" required>
+                     </div>
+
+
+                  
+                     <div class="row">
+                    
+                           <div class="px-3">
+                                <button type="button" id="btn_actualizarPeso"
+                                        class="btn btn-outline-secondary ">Actualizar peso
+                                </button>
+                            </div>    
+                                <div>
+                                    <a style="font-size:85%;"> Último registro:&nbsp</a>
+                                    <p id="resena_peso" class="h5" name="resena_peso" class="text-primary">
+                                        Sin peso registrado
+                                    </p>
+                                </div>
+                            </div>
+
                         
-                                  <option value="Canino" selected="selected">Canino</option>
+                    </div>
+
+
+                      <div class="row">
+
+                          <div class="col-lg-6">
               
-                                  <option value="Felino">Felino</option>
-                                  <option value="Hamster">Hamster</option>
-                                  <option value="Ave">Ave</option>
-                                  <option value="Otro">Otro</option>
-              
-                              </select> 
-              
-                                <div class="alert-message" id="especieError"></div>
-                              
-                            </div>
-                          </div>
-              
-              
-              
-              
-                          <div class="col-md-4">
                             <div class="form-group">
+
+                                <label for="Descripcion" class="font-weight-normal">Hallazgos examen clínico</label>
+
+                                <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
+
+                            </div>
+                        </div>
+                       
+             
+                 
               
-                              <label for="raza" class="control-label">Raza</label>
-              
-                              <input type="text" name="raza" class="form-control text-capitalize" id="raza" required autocomplete="off">
-                              
-                                <div class="alert-message" id="razaError"></div>
-                                          
+                   
+                        <div class="col-lg-6">
+            
+                          <div class="form-group">
+            
+                          <label for="Descripcion" class="font-weight-normal">Médico tratante</label>
+
+                          <select id="select_medico" name="select_medico" class="custom-select form-control">
+                                <option value=""> </option>
+                          </select>
+                            
+                          </div>
+                        </div>
+                   
+                   
+
+                 <div class="col-lg-6">
+
+                    <div class="accordion" id="accordionProfilaxis">
+                      <div class="card mb-3" style="box-shadow: none!important;border:none;">
+                          <button type="button" class="btn btn-outline-secondary text-left mt-2"
+                                  data-toggle="collapse"
+                                  data-target="#acc_profilaxis"><i class="fas fa-syringe mr-3"></i>Profilaxis
+                          </button>
+                          <div id="acc_profilaxis" class="collapse" data-parent="#accordionProfilaxis">
+                              <div class="card-body">
+                                  <div class="form-group">
+                                      <div id="profilaxis_checkbox">
+
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Otros</label>
+                                      <input name="sanitario_otros" type="text" class="form-control">
+                                  </div>
                               </div>
                           </div>
+                      </div>
+                  </div>
+              </div>
+            
+            </div>   
+              
+                    <div class="row">
+
+                      <div class="col-lg-6">
+
+                        <div class="form-group">
+
+                            <label for="Descripcion" class="font-weight-normal">Pre-diágnostico</label>
+
+                            <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
+
+                        </div>
+                      </div>
+   
+                   </div>  
+
+
+
               
                           
                           <div class="col-md-3">
@@ -481,7 +610,7 @@ DATATABLE MASCOTAS
               
                   <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
               
-                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" value="{{ $id_cliente->id_cliente }}" readonly>  
+                  <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" value="{{ $id_mascota->id }}" readonly>  
                     
               
                     <!--     
@@ -546,7 +675,7 @@ DATATABLE MASCOTAS
             
                   <!--  <input type="hidden" name="_token" value="{{csrf_token()}}">   -->
                    
-                    <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" value="{{$id_cliente->id_cliente}}" autofocus required autocomplete="off">
+                    <input type="hidden" name="id_cliente" class="form-control" id="id_cliente" value="{{$id_mascota->id}}" autofocus required autocomplete="off">
 
             
                       <div class="row">
@@ -555,27 +684,15 @@ DATATABLE MASCOTAS
             
                           <div class="form-group"  >
             
-                            <label for="Cedula" class="control-label">Cédula</label>
-            
-            
-                            <input type="number" name="cedula" class="form-control" id="cedula" value="{{$id_cliente->cedula}}" autofocus required autocomplete="off">
-            
-                          
-                            <div class="alert-message" id="cedulaError"></div>
-                              
-                          </div>
-            
-                        </div>
-            
-            
+                                     
             
                         <div class="col-md-5">
             
                           <div class="form-group">
             
-                            <label for="Nombre" class="control-label">Nombre</label>
+                            <label for="Mascota" class="control-label">Mascota</label>
             
-                            <input type="text" name="nombre" class="typeahead form-control text-capitalize" id="nombre" value="{{$id_cliente->nombre}}" 
+                            <input type="text" name="mascota" class="typeahead form-control text-capitalize" id="mascota" value="{{$id_mascota->mascota}}" 
                              required autocomplete="off">
             
                               <div class="alert-message" id="nombreError"></div>
@@ -589,9 +706,9 @@ DATATABLE MASCOTAS
                         <div class="col-md-4">
                           <div class="form-group">
             
-                            <label for="telefono" class="control-label">Tel/Cel.</label>
+                            <label for="Especie" class="control-label">Especie.</label>
             
-                            <input type="text" name="celular" class="form-control" id="celular"  value="{{$id_cliente->celular}}"  required autocomplete="off">
+                            <input type="text" name="especie" class="form-control" id="especie"  value="{{$id_mascota->especie}}"  required autocomplete="off">
                             
                               <div class="alert-message" id="celularError"></div>
                                         
@@ -603,12 +720,12 @@ DATATABLE MASCOTAS
             
                             <div class="form-group">
             
-                              <label for="direccion" class="control-label">Dirección</label>
+                              <label for="Raza" class="control-label">Raza</label>
             
-                              <input type="text" name="direccion" class="form-control text-capitalize" id="direccion"  value="{{$id_cliente->direccion}}" 
+                              <input type="text" name="raza" class="form-control text-capitalize" id="raza"  value="{{$id_mascota->raza}}" 
                               required onkeypress="return isNumber(event)">
             
-                                <div class="alert-message" id="direccionError"></div>
+                                <div class="alert-message" id="razaError"></div>
             
                             </div>
             
@@ -622,12 +739,12 @@ DATATABLE MASCOTAS
             
                           <div class="form-group">
             
-                            <label for="barrio" class="control-label">Barrio</label>
+                            <label for="Sexo" class="control-label">Sexo</label>
             
-                            <input type="text"  id="barrio" name="barrio"  class="form-control text-capitalize"  value="{{$id_cliente->barrio}}" 
+                            <input type="text"  id="sexo" name="sexo"  class="form-control text-capitalize"  value="{{$id_mascota->sexo}}" 
                              required autocomplete="off">
             
-                            <div class="alert-message" id="barrioError"></div>
+                            <div class="alert-message" id="generoError"></div>
             
                           </div>
                         </div>
@@ -638,11 +755,11 @@ DATATABLE MASCOTAS
             
                           <div class="form-group">
             
-                            <label for="email" class="control-label">Email</label>
+                            <label for="Edad" class="control-label">Edad</label>
             
-                            <input type="email" name="email" class="form-control" id="email"  value="{{$id_cliente->email}}"  autocomplete="off">
+                            <input type="text" name="edad" class="form-control" id="edad"  value="{{$id_mascota->edad}}"  autocomplete="off">
               
-                              <div class="alert-message" id="emailError"></div>
+                              <div class="alert-message" id="edadError"></div>
             
                           </div>
                         </div>
@@ -1542,6 +1659,106 @@ $('#edit').on('click', function () {
 */
 
 </script>
+
+
+
+
+<!-- =========================================
+
+MOSTRAR DATOS DE CLIENTES
+
+==============================================  -->
+
+<script>
+
+$(document).ready(function () {
+
+  $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+let id = $('#id_cliente').val();
+
+ 
+ $.ajax({
+           url: 'cliente/'+id, 
+           type: 'GET',
+          
+                   
+           success: function (data) {
+                       
+                      let tr;
+                        
+                      for (var i = 0; i < data.length; i++) {
+                          tr = $('<tr>'); // remove slash from here
+                          tr.append("<td>" + data[i].nombre + "</td>");
+                          tr.append("<td>" + data[i].especie + "</td>");
+                          tr.append("<tr/>"); 
+                          $('listaClientes').append(tr);
+                         
+                      }
+                       
+                                    
+               
+                 
+                }
+                                
+       });   
+
+
+
+/*
+ 
+ var myArray = []
+	
+ let id =2;
+
+	$.ajax({
+		method:'GET',
+		url:'/clientes/'+id,
+		success:function(response){
+			myArray = response.data
+			buildTable(myArray)
+			console.log(myArray)
+		}
+	});
+
+
+
+	function buildTable(data){
+		var table = document.getElementById('myTable')
+
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+                  <div>Cédula
+						       	<td>${data[i].cedula}</td>
+                  </div>  
+                 </tr>
+                 <tr>
+							     <td>${data[i].nombre}</td>
+                 </tr>
+						      	<td>${data[i].celular}</td>
+                <tr>
+              <td>${data[i].email}</td>
+              <td>${data[i].direccion}</td>
+              <td>${data[i].barrio}</td>
+              <td>${data[i].barrio}</td>
+					  </tr>`
+			table.innerHTML += row
+
+
+		}
+	}
+
+  */
+
+
+});
+          
+</script>
+
 
 
 

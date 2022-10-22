@@ -21,7 +21,7 @@
                <li class="nav-item has-treeview">
             <a href="{{ route('inicio') }}" class="nav-link {{ request()->is('inicio') ? 'nav-link' : 'nav-link' }}">
 
-                <i class="nav-icon fas fa-tachometer-alt green"></i>
+                <i class="nav-icon fas fa-asterisk green"></i>
                 <p>
                  Inicio
                 </p>

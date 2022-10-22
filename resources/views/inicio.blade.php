@@ -146,7 +146,7 @@ FORMULARIO RECEPCION DE PACIENTES
 
                   <span class="btn-group float-right" id="btn_historialIngresos">
                     <a href="#" class="mr-3" data-toggle="modal" data-target="#modalAgregarListaEspera"><i class="fas fa-plus" style="color: #1566EB;" 
-                    title="Agregar nuevo cliente" ></i></a>
+                    title="Agregrar cliente a lista de espera" ></i></a>
                   </span>   
 
                                 <a href="#" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown"
@@ -1519,6 +1519,27 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
 
 
 
+<!-- ========================================
+
+MOSTRAR SPINNER AL CARGAR PAGINA
+
+========================================== -->
+
+
+<script type="text/javascript">
+
+$(window).on('load', function () {
+      setTimeout(function () {
+    $(".loader-page").css({visibility:"hidden",opacity:"0"})
+  }, 1000);
+     
+});
+</script>
+
+
+
+
+
 <!-- =======================================
 
 DESHABILITAR CLICK DERECHO
@@ -2714,8 +2735,7 @@ CARGAR DATATABLE JQUERY LISTA DE ESPERA Y  GUARDAR DATOS
           
             "language": {
                 
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',
-                           
+             /*  processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading..n.</span> ',   */                       
                     "emptyTable": "No hay pacientes en lista de espera."
                     
                 },

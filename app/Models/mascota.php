@@ -17,6 +17,11 @@ class mascota extends Model
      public function cliente()
     {
         return $this->belongsTo(cliente::class);
+        
+    }
+
+    public function consultas_medicas(){
+        return $this->hasMany(consultas_medicas::class);
     }
 
 }

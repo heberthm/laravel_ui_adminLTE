@@ -47,9 +47,12 @@ class MascotasController extends Controller
             ->addColumn('action', function($data) {
 
 
-                $actionBtn = '<a href="#" data-toggle="tooltip"  data-id="'.$data->id.'" title="editar registro" class=" fa fa-stethoscope cita"></a> 
+                $actionBtn = '<a href="/mascota/'.$data->id.'" data-toggle="tooltip"  data-id="'.$data->id.'" title="Ir a consulta médica" class=" fa fa-stethoscope cita"></a> 
                
-                <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Eliminar mascota" class="fa fa-trash deletePost"></a>';
+                <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Eliminar mascota" class="fa fa-trash deletePost"></a>
+
+                <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Establecer como fallecido" class="fa fa-adjust defuncion"></a>
+                <a href="javascript:void(0)" data-toggle="modal"  data-id="'.$data->id.'" data-target="#modalTraspasarMascota"  title="Traspasar a otro propietario" class="fa fa-exchange traspasar"></a>';
                 
                  
                 return $actionBtn;
@@ -84,22 +87,23 @@ class MascotasController extends Controller
     }
 
 
+  
 
 
-    public function mostrarMascotas($id_clientes )
+    public function mostrarMascotas($id)
     {
 
        
       try{ 
         // $id_clientes = Mascota::where('id_cliente',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
  
-        $id_clientes = Mascota::select('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo')->where('id_cliente', $id_clientes)->get(); 
+        $id = Mascota::select('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo')->where('id', $id)->get(); 
 
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();
         }
 
-        return view('cliente', compact('id_clientes'));
+        return view('mascota', compact('id'));
 
      /*
         if($request->ajax()){

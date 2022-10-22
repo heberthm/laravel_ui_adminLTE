@@ -7,19 +7,33 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
+
+   
+<!-- Spinner loader -->  
+<link href="{{asset('css/loader.css')}}" rel="stylesheet"/>
+
+
    
 <!-- DataTable css -->
-   <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet"> 
+   <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet"> 
 
 
-    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" rel="stylesheet" />
+   
+<!-- Font-awesome css -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous"/>  
+
+
+         
+
+    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" rel="stylesheet" />
    
 
 <!-- SweetAlert2 -->
     <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" />
     
-
-
+ 
 <!-- Select2 css -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   
@@ -33,28 +47,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
 
+          
 <!-- x-editable-bs4 css -->
-<!--
- <link rel="stylesheet"
-        href="  https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.4/dist/bootstrap4-editable/css/bootstrap-editable.css">
--->
 
 
-<!-- Font-awesome css -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous"/>  
+<link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.5/dist/bootstrap4-editable/css/bootstrap-editable.css"> 
 
-
-
+      <!--  <link href="{{asset('css/bootstrap-editable.css')}}" rel="stylesheet"/> -->
 
 
 <!-- SweetAlert2 -->
-<!-- <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" /> -->
-  <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet"/>
+ <link href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css"  rel="stylesheet" /> 
+ <!-- <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet"/> -->
   
-
-
     
   <!-- Fullcalendar 3.10.2 css --> 
 <!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.css' rel='stylesheet' /> -->
@@ -65,19 +71,16 @@
 <link href="{{asset('css/bootstrap-datepicker1.9.0.css')}}" rel="stylesheet"/>
 
 
-
 <!-- Toastr css -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
-<link href="{{asset('css/toastr2.1.3.min.css')}}" rel="stylesheet"/>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> 
+<!-- <link href="{{asset('css/toastr2.1.3.min.css')}}" rel="stylesheet"/> -->
 
 
+ 
 
 <!-- Select2 css -->
 <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> -->
 <link href="{{asset('css/select2.min.css')}}" rel="stylesheet"/>
-
-
-
 
 
 
@@ -91,7 +94,7 @@ ARCHIVOS JS
 
 
 <!-- Jquery 3.5 js -->
-<script src='https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js'></script>
+<script src='https://code.jquery.com/jquery-3.6.1.min.js'></script>
 
 
 
@@ -106,20 +109,22 @@ ARCHIVOS JS
 <script src="https://kit.fontawesome.com/d57c775029.js" crossorigin="anonymous"></script>
 
 
+ 
 <!-- DataTable js -->
-<script src='https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js'  defer ></script>
+<script src='https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js'  defer ></script>
 
 <script src='https://cdn.datatables.net/fixedheader/3.2.4/js/dataTables.fixedHeader.min.js'  defer ></script>
 
 <script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js'  defer ></script>
 
-<script src='https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap.min.js' defer></script>
+<script src='https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js' defer></script>
 
-<script src='https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap.min.js' defer></script>
+<script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js' defer></script>
 
 
 <!-- Fullcalendar 3.10 js -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js' defer></script>
+
 
 
 <!-- Moment 2.24 js -->
@@ -139,13 +144,19 @@ ARCHIVOS JS
 <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
  
 
-<!--  Toastr css -->
+<!--  Toastr js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    
+   
 
 
- 
+<!-- x-editable-bs4 js -->
+
+<script scr="https://cdn.jsdelivr.net/npm/x-editable-bs4@1.5.5/dist/bootstrap4-editable/js/bootstrap-editable.js"></script>
+
+<!-- <script src="{{asset('js/bootstrap-editable.min.js')}}" ></script> -->
+
+
 
 <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -155,6 +166,10 @@ ARCHIVOS JS
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+<div class="loader-page"></div>
+
+
 <div class="wrapper">
 <!-- Main Header -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -163,6 +178,12 @@ ARCHIVOS JS
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+
+         <li style="width:auto">
+             <!-- <label>Buscar:</label>  -->
+             <select class="livesearch form-control" id="livesearch_1" name="livesearch_1" style="width: 100%;"></select>
+         </li>
+
     </ul>
 
 
@@ -251,6 +272,60 @@ ARCHIVOS JS
 
 
  <script src="{{ mix('js/app.js') }}"></script>
+
+
+ <!-- ================================================
+
+   SELECT2 - BUSCAR - CLIENTE
+   
+  ================================================  -->
+
+
+<script type="text/javascript">
+    
+  $('.livesearch_1').select2({
+    placeholder: 'Buscar cliente por nombre...',
+    language: "es",
+    allowClear: true,
+    minimumInputLength: 3,
+    ajax: {
+      // url: '/ajax-autocomplete-search',
+
+      url: '{{ url("../ajax-autocomplete-search") }}',
+
+      dataType: 'json',
+      delay: 250,
+      processResults: function(data) {
+
+
+        return {
+          results: $.map(data, function(item) {
+            return {
+              text: item.nombre,
+              id: item.id_cliente
+            }
+
+            // location.href = '/clientes/' + id
+            // window.location.href =('clientes/id');      
+
+            //  window.location.href =('/clientes'+ item['id']);  
+          })
+
+        };
+
+      },
+
+
+      cache: true,
+
+    }
+
+  });
+  
+
+</script>
+
+
 
 
 
