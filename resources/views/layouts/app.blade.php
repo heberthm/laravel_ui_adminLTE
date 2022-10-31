@@ -76,6 +76,13 @@
 <!-- <link href="{{asset('css/toastr2.1.3.min.css')}}" rel="stylesheet"/> -->
 
 
+ <!-- tippy.css -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@4.3.1/themes/google.css"
+          integrity="sha256-mTkzfXLTKZmfwr8GdvnpDKWH6pohAu6TBMlyarkUjPE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@4.3.1/themes/light.css"
+          integrity="sha256-Z8l5LwKwMxh3/74PQ3iea+z3IF7nTN9CP5A1S5Es2bE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@4.3.5/themes/light-border.css"
+          integrity="sha256-cpXbUNk+V/EXxqmcyU0BJe8eEFURwIYi+CTmJseXFwU=" crossorigin="anonymous">
  
 
 <!-- Select2 css -->
@@ -109,6 +116,9 @@ ARCHIVOS JS
 <script src="https://kit.fontawesome.com/d57c775029.js" crossorigin="anonymous"></script>
 
 
+<!--  tippy js -->
+<script src="https://cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy.cjs.min.js"></script>
+
  
 <!-- DataTable js -->
 <script src='https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js'  defer ></script>
@@ -120,6 +130,7 @@ ARCHIVOS JS
 <script src='https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js' defer></script>
 
 <script src='https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js' defer></script>
+
 
 
 <!-- Fullcalendar 3.10 js -->
@@ -147,7 +158,6 @@ ARCHIVOS JS
 <!--  Toastr js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-   
 
 
 <!-- x-editable-bs4 js -->

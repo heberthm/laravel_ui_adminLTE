@@ -11,9 +11,8 @@ class consultas_medicas extends Model
 
     
     protected $fillable = ['user_id','id_mascota','descripcion','examen_clinico','pre_diagnostico','examenes_complementarios',
-    'diagnostico','tratamiento','medico_tratante', 'vacuna_cachorros','vacuna_polivalente','vacuna_antirrabica','desparasitacion_interna',
-    'desparasitacion_externa','otros','temperatura','frecuencia_cardiaca','frecuencia_respiratoria','cc','pcm','trc','condicion_dental',
-    'condicion_oido','nl','pam','receta','recordatorio','formulario','cirugia'];
+    'diagnostico','tratamiento','medico_tratante', 'profilaxis','temperatura','frecuencia_cardiaca','frecuencia_respiratoria','cc','pcm','trc','condicion_dental',
+    'condicion_oido','nl','pam','receta','recordatorio', 'imagen','formulario','cirugia'];
  
       public function mascota()
      {

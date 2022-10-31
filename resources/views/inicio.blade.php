@@ -1485,14 +1485,17 @@ VENTANA MODAL EDITAR DATOS DEL CALENDARIO
               
                    
 
-                  <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" autocomplete="off" >  
-                 
+                  <input type="hidden" name="nombreCliente" class="form-control" id="nombreCliente" autocomplete="off" >  
+
+                  <input type="hidden" name="nombre_Mascota" class="form-control" id="nombre_Mascota" autocomplete="off" >  
+
+                          
+                  <input type="hidden" name="idMascota" class="form-control" id="idMascota" autocomplete="off" >          
 
 
-                  <div class="form-group especie" style="display:block;">
+                  <div class="form-group especie" style="display:none;">
                     <select class="form-control  buscarEspecie"  name="buscarEspecie" id="buscarEspecie"  style="width:100%;"  required>
-                                        
-                
+                           
                     </select>
 
                 </div>       
@@ -1736,6 +1739,8 @@ $.ajaxSetup({
           
      $("#buscarMascota").html('');
      $("#buscarEspecie").html('');
+     $("#id_mascota").html('');
+     $("#nombreMascota").html('');
      
          
        $.ajax({
@@ -1759,27 +1764,56 @@ $.ajaxSetup({
                                                                                          
                         
                        $.each(data, function(key, value) {
-                        $('#buscarMascota').append('<option value="'+ value.nombre +'">'+ value.nombre+ ' - ' +value.especie +'</option>');
+                        $('#buscarMascota').append('<option value="'+ value.id +'">'+ value.nombre+ ' - ' +value.especie +' </option>');
                        
                       }); 
+
+
+                    
 
                       $.each(data, function(key, value) {
                         $('#buscarEspecie').append('<option value="'+ value.especie +'">'+ value.especie+ '</option>');
                        
                       }); 
+
+                                     
+
               
+
+
+
+                      $('nombre_Mascota').val('');
+                     
+                     let mascota = '';
+                                                                
+                     mascota = $("#buscarMascota option:selected").text();
+
+                     $('#nombre_Mascota').val(mascota);
+
+
+                     $('#idMascota').val('');
+                       
+                       let id_mascota = '';
+                                                                 
+                       id_mascota = $("#buscarMascota option:selected").val();
+                 
+                       $('#idMascota').val(id_mascota);
+                 
                     
+
 
                       $('#nombreCliente').val('');
                      
                       let cliente = '';
-                     
+                                                                 
+                      cliente = $(".selectBuscarCliente").text();
 
-                                               
-                       cliente = $(".selectBuscarCliente").text();
-
-                       $('#nombreCliente').val(cliente);
+                      $('#nombreCliente').val(cliente);
                           
+
+
+
+                  
                       
                                     
                 }else {
@@ -1792,12 +1826,53 @@ $.ajaxSetup({
                 }
                                 
        });   
-       
 
-
-
+    
 });   
 </script>
+
+
+<script>
+
+
+$("#buscarMascota").change(function(){
+      
+      $('#nombre_mascota').val('');
+
+                        
+      let mascota = '';
+                                                
+      mascota = $("#buscarMascota option:selected").text();
+
+      $('#nombre_Mascota').val(mascota);
+
+ });                   
+
+
+
+</script>
+
+
+
+<script>
+
+
+$("#buscarMascota").change(function(){
+      
+      $('#idMascota').val('');
+                       
+      let mascota = '';
+                                                
+      mascota = $("#buscarMascota option:selected").val();
+
+      $('#idMascota').val(mascota);
+
+ });                   
+
+
+
+</script>
+
 
 
 
@@ -1819,7 +1894,6 @@ $('.selectBuscarCliente').html('');
 
 
 </script>
-
 
 
 

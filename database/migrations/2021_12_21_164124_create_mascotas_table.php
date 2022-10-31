@@ -29,6 +29,7 @@ class CreateMascotasTable extends Migration
             $table->text('peso',3);
             $table->text('esterilizado',3);
             $table->text('foto',50);
+            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();
 
         });

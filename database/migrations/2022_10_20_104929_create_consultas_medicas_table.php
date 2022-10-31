@@ -24,12 +24,7 @@ class CreateConsultasMedicasTable extends Migration
             $table->text('diagnostico',600);
             $table->text('tratamiento',600);
             $table->text('medico_tratante',30);
-            $table->text('vacuna_cachorros',5);
-            $table->text('vacuna_polivalente',5);
-            $table->text('vacuna_antirrabica',5);
-            $table->text('disparasitacion_interna',5);
-            $table->text('disparasitacion_externa',5);
-            $table->text('otros',100);
+            $table->text('profilaxis',60);
             $table->text('temperatura',3);
             $table->text('frecuencia_cardiaca',3);
             $table->text('frecuencia_respiratoria',3);
@@ -40,9 +35,11 @@ class CreateConsultasMedicasTable extends Migration
             $table->text('condicion_oido',5);
             $table->text('nl',3);
             $table->text('pam',3);
-            $table->text('receta',3);
-            $table->text('recordatorio',3);
-            $table->text('formulario',3);
+            $table->text('receta',600);
+            $table->text('recordatorio',600);
+            $table->text('recordatorio_dias',3);
+            $table->text('imagen',100);
+            $table->text('formulario',500);
             $table->text('cirugia',3);
 
             $table->timestamps();

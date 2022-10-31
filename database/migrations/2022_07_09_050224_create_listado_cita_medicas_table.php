@@ -17,6 +17,7 @@ class CreateListadoCitaMedicasTable extends Migration
            
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id')->required();
+            $table->unsignedInteger('id_mascota')->required();
             $table->text('cliente',50)->required();
             $table->text('mascota',20)->required();
             $table->text('especie',20)->required();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\listado_cita_medica;
+use App\Models\mascota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,7 @@ class ListadoCitaMedicaController extends Controller
 
       
           if(request()->ajax()) {
-            return datatables()->of(listado_cita_medica::select("id", "user_id", "cliente", "mascota", "motivo_consulta", "created_at")
+            return datatables()->of(listado_cita_medica::select("id", "user_id", "id_mascota", "cliente", "mascota", "motivo_consulta", "created_at")
             ->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')) 
           
             ->addColumn('created_at', function($row)  {  
@@ -32,7 +33,7 @@ class ListadoCitaMedicaController extends Controller
             ->addColumn('action', function($data) {
 
 
-                $actionBtn = '<a href="#" data-toggle="tooltip"  data-id="'.$data->id.'" title="editar registro" class=" fa fa-stethoscope cita"></a> 
+                $actionBtn = '<a href="/mascota/'.$data->id_mascota.'" data-toggle="tooltip"  data-id="'.$data->id_mascota.'" title="Ir a consulta médica" class=" fa fa-stethoscope cita"></a> 
                
                 <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" title="Eliminar registro" class="fa fa-trash deletePost"></a>';
                 
@@ -50,6 +51,25 @@ class ListadoCitaMedicaController extends Controller
 
 
     }
+
+
+
+    public function seleccionarMascota($id){
+
+    	// Fetch Employees by Departmentid
+        $mascota['data'] = mascota::orderby("id","asc")
+        			->select('id','nombre')
+        			->where('id',$id)
+        			->get();
+  
+        return response()->json($mascota);
+     
+    }
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -72,13 +92,12 @@ class ListadoCitaMedicaController extends Controller
       try {
             $save = new Listado_cita_medica;
     
-            $save->user_id     = $request->userId;
-            //  $save->id_cliente  = $request->id_cliente;
-            $save->cliente      = $request->nombreCliente;
-            $save->mascota      = $request->buscarMascota;
-            $save->especie      = $request->buscarEspecie;
-            $save->motivo_consulta    = $request->motivo_consulta;
-            //  $save->especie       = $request->especie;
+            $save->user_id           = $request->userId;
+            $save->id_mascota        = $request->idMascota;
+            $save->cliente           = $request->nombreCliente;
+            $save->mascota           = $request->nombre_Mascota;
+            $save->motivo_consulta   = $request->motivo_consulta;
+             $save->especie          = $request->buscarEspecie;
          
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();

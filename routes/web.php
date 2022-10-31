@@ -73,7 +73,7 @@ Route::delete('/eliminar_mascota/{id}', [App\Http\Controllers\MascotasController
 
 Route::post('/listado_citas',[App\Http\Controllers\ListadoCitaMedicaController::class, 'store'])->name('listado_citas');
 
-//Route::get('/listado_mascotas/{id}',[App\Http\Controllers\MascotasController::class, 'index']);
+Route::get('/seleccionarmascota/{id}',[App\Http\Controllers\ListadoCitaMedicaController::class, 'seleccionarMascota']);
 
 Route::get('/listado_cliente', [App\Http\Controllers\ListadoCitaMedicaController::class, 'index']);
 

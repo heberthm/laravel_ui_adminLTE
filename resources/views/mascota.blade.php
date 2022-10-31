@@ -22,6 +22,29 @@ ul.datos_mascota li {
    display: inline;
   }
 
+  .tippy-popper .tippy-tooltip {
+            max-width: 350px;
+            width: initial;
+        }
+
+        .tippy-popper[x-placement^='top'] {
+            margin-bottom: 0px;
+        }
+
+        .tippy-popper[x-placement^='bottom'] {
+            margin-top: 0px;
+        }
+
+        .tippy-popper[x-placement^='left'] {
+            margin-bottom: 16px;
+        }
+
+        .tippy-popper[x-placement^='right'] {
+            margin-bottom: 16px;
+        }
+
+      
+
 /*
 
 thead {
@@ -107,7 +130,7 @@ thead {
 <div class="col-lg-8">
         <div class="card card-light" id="card_mascotas">
               <div class="card-header" >
-              <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarMascotas">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarConsultaMedica">
                    <span class="fa fa-plus-square fa-fw" ></span> Consulta médica</button>
                
                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#modalAgregarMascotas">
@@ -312,18 +335,20 @@ DATATABLE MASCOTAS
 
 ======================================-->
 
-<div class="modal fade" id="modalAgregarMascotas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+<div class="modal fade" id="modalAgregarConsultaMedica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
                     
 
               <div class="modal-dialog modal-xl">
                 
                 <div class="modal-content">
                 
-                    <div class="modal-header">
+                    <div class="modal-header d-flex justify-content-between">
                   
                     <h5 class="modal-title"><span style="color:#28a745;" class="fas fa-paw mr-3"></span>Agregar consulta médica</h5>
                
-                      <ul style="list-style: none;">
+                     
+                    <!--
+                    <ul style="list-style: none;">
                           <li style="color:coral; font:bold;">{{$id_mascota->nombre}}</li>
                       </ul>
                   
@@ -333,7 +358,21 @@ DATATABLE MASCOTAS
                           <li>{{$id_mascota->edad}}</li>
                                           
                       </ul>
+                       
+                    -->
                 
+                  
+                    <div class="col-6 align-items-center" style="font-size: small;">
+                            <div  id="titulo_datos_mascota">
+                            <h5> <a class=" mx-1 nombre" style="color:coral">{{$id_mascota->nombre}}</a></h5>
+                                <a class="mx-1 especie" style="color:black">{{$id_mascota->especie}}</a>
+                                <a class="mx-1 raza" style="color:black">{{$id_mascota->sexo}}</a>
+                                <a class="mx-1 edad" style="color:black">{{$id_mascota->edad}}</a>
+                                <a class="mx-1 esterilizado" style="color:black">{{$id_mascota->esterilizado}}</a>
+                            </div>
+                        </div>
+
+
 
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">  <span aria-hidden="true">&times;</span>
                       </button>
@@ -344,260 +383,330 @@ DATATABLE MASCOTAS
                     <div class="modal-body">
               
               
-                    <form method="POST" id="form_crear_mascotas" action="{{ url('/mascotas') }}" >
+                    <form method="POST" id="form_consulta_medica" action="{{ url('/consulta_medica') }}" >
                     
               
               <!--   <input type="hidden" name="_token" value="{{csrf_token()}}">  -->
           
-              
-              
-                      <div class="row">
-              
-                        <div class="col-lg-6">
-              
-                          <div class="form-group">
+              <input type="hidden" name="id_mascota" class="form-control" id="id_mascota" value="{{$id_mascota->id}}" autofocus required autocomplete="off">
 
-                              <label for="Descripcion" class="font-weight-normal">Anamnesis</label>
-
-                              <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
-
-                          </div>
-                     </div>
-
-
-                  
-                     <div class="row">
-                    
-                           <div class="px-3">
-                                <button type="button" id="btn_actualizarPeso"
-                                        class="btn btn-outline-secondary ">Actualizar peso
-                                </button>
-                            </div>    
-                                <div>
-                                    <a style="font-size:85%;"> Último registro:&nbsp {{$id_mascota->peso}}</a>
-                                    <p id="resena_peso" class="h5" name="resena_peso" class="text-primary">
-                                        Sin peso registrado
-                                    </p>
-                                </div>
-                            </div>
-
-                        
-                    </div>
-
-
-                      <div class="row">
-
-                          <div class="col-lg-6">
-              
-                            <div class="form-group">
-
-                                <label for="Descripcion" class="font-weight-normal">Hallazgos examen clínico</label>
-
-                                <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
-
-                            </div>
-                        </div>
-                       
-             
-                 
-              
-                   
-                        <div class="col-lg-6">
-            
-                          <div class="form-group">
-            
-                          <label for="Descripcion" class="font-weight-normal">Médico tratante</label>
-
-                          <select id="select_medico" name="select_medico" class="custom-select form-control">
-                                <option value=""> </option>
-                          </select>
-                            
-                          </div>
-                        </div>
-                   
-                   
-
-                 <div class="col-lg-6">
-
-                    <div class="accordion" id="accordionProfilaxis">
-                      <div class="card mb-3" style="box-shadow: none!important;border:none;">
-                          <button type="button" class="btn btn-outline-secondary text-left mt-2"
-                                  data-toggle="collapse"
-                                  data-target="#acc_profilaxis"><i class="fas fa-syringe mr-3"></i>Profilaxis
-                          </button>
-                          <div id="acc_profilaxis" class="collapse" data-parent="#accordionProfilaxis">
-                              <div class="card-body">
-                                  <div class="form-group">
-                                      <div id="profilaxis_checkbox">
-
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Otros</label>
-                                      <input name="sanitario_otros" type="text" class="form-control">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            
-            </div>   
-              
-                    <div class="row">
-
-                      <div class="col-lg-6">
-
-                        <div class="form-group">
-
-                            <label for="Descripcion" class="font-weight-normal">Pre-diágnostico</label>
-
-                            <textarea class="form-control" id="descripcion" style="width:540px" rows="2"></textarea>
-
-                        </div>
-                      </div>
-   
-                   </div>  
-
-
+              <input type="hidden" name="userId" class="form-control" id="userId" value="{{ Auth::user()->id }}" readonly>  
 
               
-                          
-                          <div class="col-md-3">
-              
-                              <div class="form-group">
-              
-                                <label for="genero" class="control-label">Genero</label>
-              
-              
-                                <select class="form-control text-capitalize" name="sexo" id="sexo"  required>
-                                  <option value="" selected="selected" style='color: #cccccc'>Seleccionar opción</option>
-              
-                                  <option value="Macho">Macho</option>
-                                  <option value="Hembra">Hembra</option>
-              
-              
-              
-                                </select>
-              
-              
-                                <div class="alert-message" id="sexoError"></div>
-              
-                              </div>
-                        </div>
-              
-              
-              
-                          <div class="col-md-2">
-              
-                              <div class="form-group">
-              
-                                <label for="edad" class="control-label">Edad</label>
-              
-                                <input type="text" name="edad" class="form-control text-capitalize" id="edad" value=" Años" required onkeypress="return isNumber(event)">
-              
-                                  <div class="alert-message" id="edadError"></div>
-              
-                              </div>
-              
-                          </div>
-              
-              
-                      
-              
-                          <div class="col-md-2">
-              
-                            <div class="form-group">
-              
-                              <label for="color" class="control-label">Color</label>
-              
-                              <input type="text"  id="color" name="color"  class="form-control text-capitalize" required autocomplete="off">
-              
-                              <div class="alert-message" id="colorError"></div>
-              
-                            </div>
-                          </div>
-              
-              
-                          <div class="col-md-2">
-              
-                              <div class="form-group">
-              
-                                <label for="peso" class="control-label">Peso</label>
-              
-                                <input type="text"  id="peso" name="peso" value=" Kgrs" class="form-control text-capitalize" required autocomplete="off">
-              
-                                <div class="alert-message" id="pesoError"></div>
-              
-                              </div>
-              
-                          </div>
-              
-              
-                        
-                          <div class="col-md-3">
-              
-                            <div class="form-group">
-              
-                              <label for="esterilizado" class="control-label">Esterilizado</label>
-              
-                            
-                              <select class="form-control text-capitalize" name="esterilizado" id="esterilizado" onkeypress="return handleEnter(this, event)" required>
-                                <option value="" selected="selected" style='color: #cccccc'>Seleccionar opción</option>
-              
-                                <option value="Si">SI</option>
-                                <option value="No">No</option>
-              
-              
-              
-                              </select>
-              
-              
-                              <div class="alert-message" id="esterilizadoError"></div>
-              
-                            </div>
-                          
-                          </div>
-              
-              
-              
-              
-              
-              
-                          <div class="col-md-12">
-              
-                            <div class="form-group">
-              
-                              <label for="caracteristicas" class="control-label">Características</label>
-              
-                              <input type="text" name="caracteristicas" class="form-control" id="caracteristicas" autocomplete="off">
-                
-                                <div class="alert-message" id="caracteristicasError"></div>
-              
-                            </div>
-              
-              
-                            <div class="col-md-12">
-              
+              <div class="row">
+
+                            <div class="col-lg-6" style="font-size:90%;">
                                 <div class="form-group">
-              
-                                  <label for="foto" class="control-label">Foto</label>
-              
-                                  <input type="text" name="foto" class="form-control" id="foto" value="images/img_1.jpg" autocomplete="off">
-              
-                                  <div class="alert-message" id="caracteristicasError"></div>
-              
+                                    <label class="font-weight-normal">Descripción / Anamnesis</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="descripcion"
+                                              rows="2"></textarea>
                                 </div>
-              
-                          </div>
-              
-                                          
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Hallazgos examen clínico</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="examen_clinico"
+                                              rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Pre-diagnósticos</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="pre_diagnostico"
+                                              rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Exámenes complementarios</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="examenes_complementarios"
+                                              rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Diagnóstico</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="diagnostico"
+                                              rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Tratamiento</label>
+                                    <textarea style="font-size:90%;" type="text" class="form-control" name="tratamiento"
+                                              rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" style="font-size:90%;">
+                                <div class="row">
+                                    <div class="col-12 d-flex">
+                                        <button type="button" id="btn_herramientas"
+                                                class="btn btn-outline-secondary mb-2 mr-2">Herramientas
+                                        </button>
+                                        <button type="button" id="btn_actualizarPeso"
+                                                class="btn btn-outline-secondary mb-2">Actualizar peso
+                                        </button>
+                                        <div class="px-3">
+                                            <a style="font-size:85%;"> Último registro:&nbsp</a>
+                                            <p id="resena_peso" class="h5" name="resena_peso" class="text-primary" style="color:coral">
+                                                {{$id_mascota->peso}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="my-3" id="select_medico" >
+                                    <div class="form-group">
+                                        <label for="medico_tratante" class="control-label font-weight-normal">Médico tratante</label>
+                                        <select id="medico_tratante" name="medico_tratante" class="custom-select form-control">
+                                            <option value=""></option>
+                                        </select><!-- select medicos -->
+
+                                       
+                                    </div>
+                                </div>
+
+
+                                <div class="my-3" id="select_profilaxis" >
+                                    <div class="form-group">
+                                        <label for="profilaxis" class="control-label font-weight-normal">Profilaxis</label>
+                                        <select id="profilaxis" name="profilaxis" class="custom-select form-control">
+                                            <option value=""></option>
+                                        </select><!-- select medicos -->
+
+                                       
+                                    </div>
+                                </div>
+
+                                <div class="accordion" id="accordionRegistro">
+                                    <div class="card" style="box-shadow: none!important;border:none;">
+                                        <button type="button" class="btn btn-outline-secondary text-left mt-2"
+                                                data-toggle="collapse"
+                                                data-target="#collapse1"><i class="fas fa-stethoscope mr-3"></i>Parámetros
+                                            examen clínico
+                                        </button>
+                                        <div id="collapse1" class="collapse" data-parent="#accordionRegistro">
+                                            <div class="card-body">
+                                                <div class="row" style="font-size:90%;">
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal">T°</label>
+                                                            <input type="number" name="temperatura" min="0" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label  class="font-weight-normal" data-tippy="Frecuencia cardiaca"
+                                                                   tabindex=-1 >FC</label>
+                                                            <input type="number" name="frecuencia_cardiaca" min="0" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal" data-tippy="Frecuencia respiratoria"
+                                                                   tabindex=-1>FR</label>
+                                                            <input type="number" name="frecuencia_respiratoria" min="0" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div  class="form-group">
+                                                            <label class="font-weight-normal"  data-tippy="Puntos de condición corporal"
+                                                                   tabindex=-1>CC</label>
+                                                            <input type="number" name="cc" min="1" max="9" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal"  data-tippy="Pun tos de condición muscular"
+                                                                   tabindex=-1>PCM</label>
+                                                            <input type="number" name="pcm" min="1" max="9"
+                                                                   class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal"  data-tippy="Tiempo de relleno capilar" tabindex=-1>TRC</label>
+                                                            <input type="number" name="trc" min="0"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal" >Condición dental 1-5</label>
+                                                            <input type="number" name="condicion_dental" min="1" max=5 class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal" >Condición oído 1-5</label>
+                                                            <input type="number" name="condicion_oido" min="1" max=5 class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal" >NL</label>
+                                                            <input type="text" name="nl" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="font-weight-normal" >PAM</label>
+                                                            <input type="number" name="pam"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- imagen -->
+                                <div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                                        </div>
+                                        <div class="custom-file" lang="es">
+                                            <input type="file" multiple accept="image/*, application/pdf"
+                                                   class="custom-file-input"
+                                                   id="imagen" aria-describedby="imgupload_caso">
+                                            <label class="custom-file-label" for="imgupload_caso">Subir imagen o
+                                                pdf</label>
+                                        </div>
+                                    </div>
+
+                                    <div id="imgsCaso" class="d-flex flex-wrap rounded container">
+
+                                    </div>
+                                </div>
+
+                                <!-- receta -->
+                                <div class="accordion">
+                                    <div class="card mb-3" style="box-shadow: none!important;border:none;">
+                                        <button type="button" class="btn btn-outline-secondary text-left mt-2"
+                                                data-toggle="collapse"
+                                                data-target="#accordion_receta"><i
+                                                class="fas fa-notes-medical mr-3"></i>Receta
+                                        </button>
+                                        <div id="accordion_receta" class="collapse"
+                                             data-parent="#accordion_recordatorio">
+                                            <div class="card-body">
+
+                                                <div class="form-group">
+                                                    <form id="formtest">
+                                                        <div class="form-group">
+                              <textarea autocomplete="off" style="font-size:90%;" type="text" class="form-control"
+                                        name="receta"
+                                        placeholder="Puede usar @ para autocompletar medicamento."
+                                        rows="8"></textarea>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-outline-success pt-2"
+                                                                    id="btnprint_receta">Imprimir receta
+                                                            </button>
+                                                            <button type="button" style="display:none;"
+                                                                    class="btn btn-sm btn-outline-success pt-2 ml-2"
+                                                                    id="btn_recetaModal">Medicamentos
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="form-group">
+                                                    <table class="table dt-responsive"
+                                                           style="width:100%;font-size:12px;">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                
+                                                <p>
+                                                    <small><a id="btn_crearFarmaco" href="#">Agregar
+                                                        medicamento</a></small>
+                                                </p>
+                                                <p>
+                                                    <small><a id="btnListaMedicamentos" href="#">Lista de
+                                                        medicamentos</a></small>
+                                                </p>
+                                                <p><small>Puede <a href="/configuracion_c#btntab_formularios">editar</a>
+                                                    el formato de la receta
+                                                    desde configuración clinica/formularios. </small>
+                                                </p>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- recordatorio -->
+                                <div class="accordion">
+                                    <div class="card mb-3" style="box-shadow: none!important;border:none;">
+                                        <a href="javascript:control_add();"
+                                           class="btn btn-outline-secondary text-left mt-2"><i
+                                                class="fas fa-envelope mr-3"></i>Recordatorio
+                                        </a>
+
+                                        <div id="accordion_recordatorio" class="collapse"
+                                             data-parent="#accordion_recordatorio">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label>Recordatorio</label>
+                                                        </div>
+                                                        <div class="col-md-9 d-flex justify-content-end">
+
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- formulario -->
+                                <div class="accordion">
+                                    <div class="card mb-3" style="box-shadow: none!important;border:none;">
+                                        <button id="btn_accformulario" type="button"
+                                                class="btn btn-outline-secondary text-left mt-2"
+                                                data-toggle="collapse" data-target="#accordion_formulario"><i
+                                                class="fas fa-file-medical-alt mr-3"></i>Formularios
+                                        </button>
+                                        <div id="accordion_formulario" class="collapse"
+                                             data-parent="#accordion_recordatorio">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <table class="table dt-responsive"
+                                                           style="width:100%;font-size:13.5px;">
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <a href="/configuracion_c#btntab_formularios">Ir a configuración
+                                                        para crear formulario</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-checkbox pr-3">
+                                    <input type="checkbox" class="custom-control-input" id="chb_cirugia">
+                                    <label class="custom-control-label font-weight-normal" for="chb_cirugia">Cirugía</label>
+                                   
+                                </div>
+                            </div>
+
                         </div>
-              
-                  
-              
-              </div>
-              
+                    </form>
+                </div>
+                <div class="modal-footer">
+      <span style="display:none;">
+          <div class="custom-control custom-checkbox pr-3">
+              <input type="checkbox" class="custom-control-input" id="chb_seguimiento">
+              <label class="custom-control-label" for="chb_seguimiento">Seguimiento</label>
+          </div>
+      </span>
+                    <button id="btnsave_scontrol" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- Modal CASO -->              
               
               
               
@@ -897,6 +1006,30 @@ $(window).on('load', function () {
 
 
 
+<!-- ========================================
+
+TIPPY TOOLTIP
+
+============================================== -->
+
+<script>
+
+
+tippy.setDefaults({
+    theme: 'reviews',
+    placement: 'top',
+    animation: 'scale',
+    animateFill: false,
+    maxWidth: 240,
+    duration: 0,
+    arrow: false,
+        
+    });
+
+
+</script>
+
+
 
 
 
@@ -933,6 +1066,36 @@ DESHABILITAR TECLAS CRTL, U, F12
 </script>
 
 
+
+<!-- ==============================
+
+MOSTRAR PESO ACTUAL DE MASCOTA
+
+=================================== -->
+
+<script>
+$(document).ready(function () {
+
+let ultimo_valor = valores[valores.length - 1];
+    if (ultimo_valor) {
+        $('[id="resena_peso"]').html(ultimo_valor + " kgs.");
+        $('#hidden_peso').val(ultimo_valor);
+    } else {
+        $('[id="resena_peso"]').html("Sin peso registrado");
+    }
+  });
+
+</script>
+
+
+
+
+
+<!-- =============================  
+
+CALCULAR TIEMPO PERIODO DE PRUEBA
+
+================================== -->
 
 
 

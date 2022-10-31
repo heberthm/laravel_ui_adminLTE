@@ -410,18 +410,15 @@ DATATABLE MASCOTAS
               
                             <div class="form-group">
               
-                              <label for="esterilizado" class="control-label">Esterilizado</label>
+                              <label for="esterilizado" class="control-label"></label>
               
                             
-                              <select class="form-control text-capitalize" name="esterilizado" id="esterilizado" onkeypress="return handleEnter(this, event)" required>
-                                <option value="" selected="selected" style='color: #cccccc'>Seleccionar opción</option>
-              
-                                <option value="Si">SI</option>
-                                <option value="No">No</option>
-              
-              
-              
-                              </select>
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="esterilizado">
+                                <label class="form-check-label" for="esterilizado">
+                                  Esterilizado/a
+                                </label>
+                              </div>
               
               
                               <div class="alert-message" id="esterilizadoError"></div>
@@ -814,6 +811,37 @@ DESHABILITAR TECLAS CRTL, U, F12
     }
 });
 </script>
+
+
+
+<!-- ========================================== 
+
+DETERMINAR VALOR DE CHECKBOX ESTERILIZADO
+
+=============================================== -->
+
+<script>
+
+$('#esterilizado').on('click', function(event) {
+    event.preventDefault();
+    
+    $.ajax({
+        url: '/tasks/change-status',
+        method: 'POST',
+        data: {
+            task: {
+                id: yourId,
+                status: true
+            }
+        }
+    }).done(function(data) {
+        //If using the controller above you this should spit out the task model in JSON so you can easily use it within your scripts here
+    });
+});
+
+
+</script>
+
 
 
 

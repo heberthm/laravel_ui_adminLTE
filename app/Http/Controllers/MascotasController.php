@@ -32,7 +32,7 @@ class MascotasController extends Controller
 
           //  $id = $request->id_cliente;
 
-          $id = Mascota::select("id", "user_id", "id_cliente", "nombre", "especie", "raza", "edad")
+          $id = Mascota::select("id", "user_id", "id_cliente", "nombre", "especie", "raza", "edad","esterilizado")
             
           ->where('id_cliente', '=', $id)
 
@@ -75,7 +75,7 @@ class MascotasController extends Controller
     {
      
         try{
-            $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id_cliente", "nombre", "especie"]);
+            $data = Mascota::where("id_cliente",$request->id_cliente)->get(["id", "id_cliente", "nombre", "especie"]);
        
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();
@@ -97,7 +97,7 @@ class MascotasController extends Controller
       try{ 
         // $id_clientes = Mascota::where('id_cliente',$id_clientes)->get('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo');
  
-        $id = Mascota::select('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'color', 'sexo')->where('id', $id)->get(); 
+        $id = Mascota::select('id', 'id_cliente','nombre','raza', 'especie', 'edad', 'peso', 'color', 'sexo')->where('id', $id)->get(); 
 
         } catch (\Exception  $exception) {
             return back()->withError($exception->getMessage())->withInput();
